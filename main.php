@@ -92,7 +92,7 @@ foreach ($client->parseEvents() as $event) {
             //     //     write_log($guestdata['displayName'],$event['source']['userId'],'Unsupported message type-'.$message['type'],'5');
             //     //     error_log('Unsupported message type: ' . $message['type']);
             //     //     break;
-            // }
+            }
             break;
         default:
             // write_log($guestdata['displayName'],$event['source']['userId'],'Unsupported event type-'.$event['type'],'5');
