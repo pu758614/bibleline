@@ -21,7 +21,7 @@ include 'bible_list_arr.php';
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 //$even = $client->parseEvents();
 $entityBody = file_get_contents('php://input');
-$log_msg .= "<br>";
+$log_msg .= "aaaa<br>";
 file_put_contents('test.log', $log_msg,FILE_APPEND);
 
 exit;
