@@ -21,13 +21,23 @@ include 'bible_list_arr.php';
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 //$even = $client->parseEvents();
 $data = $client->parseEvents();
-$log_msg .= json_encode($data);
-file_put_contents('test.log', $log_msg,FILE_APPEND);
 
-exit;
 foreach ($client->parseEvents() as $event) {
     $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$event['source']['userId']);
-
+    $log_msg .= json_encode();
+    file_put_contents('test.log', $log_msg,FILE_APPEND);
+    $client->replyMessage([
+                        'replyToken' => $event['replyToken'],
+                        'messages' => [
+                            [
+                                "type"=>"location",
+                                "title"=>"灣告輝底家啦！！",
+                                "address"=>"813左營區重立路61號",
+                                "latitude"=>'22.673217',
+                                "longitude"=>'120.313176'
+                            ]
+                        ]
+                    ]);
     // $client->replyMessage([
     //                     'replyToken' => $event['replyToken'],
     //                     'messages' => [
