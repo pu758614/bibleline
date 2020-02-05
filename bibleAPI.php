@@ -115,6 +115,8 @@ function cheack_arrange($str){
     include 'bible_list_arr.php';
     $arr = array();
     $arr = preg_split("/([a-zA-Z0-9]+)/", $str, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+    pr($arr);
+    echo "aaaaa";
     $code = '100095';
     $bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
     $emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
