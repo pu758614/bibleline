@@ -19,10 +19,7 @@ include "bibleAPI.php";
 include 'bible_list_arr.php';
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
-$entityBody = file_get_contents('php://input');
-file_put_contents('test.log', $entityBody,FILE_APPEND);
 
-exit;
 foreach ($client->parseEvents() as $event) {
     $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$event['source']['userId']);
     pr($event);
