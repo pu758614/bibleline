@@ -283,7 +283,7 @@ function get_html($url){
 }
 function pr($str){
     echo "<pre>";
-    print_r($str)
+    print_r($str);
     echo "</pre>";
 }
 ?>
