@@ -19,23 +19,23 @@ include "bibleAPI.php";
 include 'bible_list_arr.php';
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
-//$even = $client->parseEvents();
-echo "AAAAA";
-exit;
+$even = $client->parseEvents();
+
 foreach ($client->parseEvents() as $event) {
     $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$event['source']['userId']);
-    $client->replyMessage([
-                        'replyToken' => $event['replyToken'],
-                        'messages' => [
-                            [
-                                "type"=>"location",
-                                "title"=>"灣告輝底家啦！！",
-                                "address"=>"813左營區重立路61號",
-                                "latitude"=>'22.673217',
-                                "longitude"=>'120.313176'
-                            ]
-                        ]
-                    ]);
+
+    // $client->replyMessage([
+    //                     'replyToken' => $event['replyToken'],
+    //                     'messages' => [
+    //                         [
+    //                             "type"=>"location",
+    //                             "title"=>"灣告輝底家啦！！",
+    //                             "address"=>"813左營區重立路61號",
+    //                             "latitude"=>'22.673217',
+    //                             "longitude"=>'120.313176'
+    //                         ]
+    //                     ]
+    //                 ]);
     // switch ($event['type']) {
     //     case 'message':
     //         $message = $event['message'];
