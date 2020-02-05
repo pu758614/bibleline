@@ -53,6 +53,7 @@ foreach ($client->parseEvents() as $event) {
                     $status = 0;
                     // $data['sec'] ='';
                     $data = cheack_arrange($message['text']);
+                    pr($message);
                     pr($data);
             //         if($data['error'] == '1'){
             //             $client->reply_text($event['replyToken'],$data['msg']);
