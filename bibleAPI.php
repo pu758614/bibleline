@@ -116,6 +116,7 @@ function cheack_arrange($str){
     $arr = array();
     pr($str);
     $arr = preg_split("/([a-zA-Z0-9]+)/", $str, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+    pr($arr);
     $code = '100095';
     $bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
     $emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
