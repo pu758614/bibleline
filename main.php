@@ -20,7 +20,8 @@ include 'bible_list_arr.php';
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 //$even = $client->parseEvents();
-
+echo "AAAAA";
+exit;
 foreach ($client->parseEvents() as $event) {
     $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$event['source']['userId']);
     $client->replyMessage([
