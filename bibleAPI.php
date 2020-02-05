@@ -121,7 +121,7 @@ function cheack_arrange($str){
     $emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
     $search_fail_msg = '格式不太正確喔！可以輸入「這到底怎麼用啦」或「?」來開啟使用說明喔！'.emoji('100095').emoji('100095').emoji('100095');
 
-    pr($arr);
+    pr($str);
     if(count($arr)==2 && ($arr[0] == 'kw' || $arr[0] == 'kwf')){
         $return = array('error' =>'0',
                         'type'  =>$arr[0],
