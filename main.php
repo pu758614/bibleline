@@ -26,7 +26,7 @@ foreach ($client->parseEvents() as $event) {
     switch ($event['type']) {
         case 'message':
             $message = $event['message'];
-            pr($message);
+            //pr($message);
             switch ($message['type']) {
                 case 'text':
                     // if($message['text']=='三民聖教會'){
@@ -52,8 +52,9 @@ foreach ($client->parseEvents() as $event) {
                     // }
                     $status = 0;
                     // $data['sec'] ='';
-                    $data = cheack_arrange($message['text']);
                     pr($message);
+                    $data = cheack_arrange($message['text']);
+
                     pr($data);
             //         if($data['error'] == '1'){
             //             $client->reply_text($event['replyToken'],$data['msg']);
