@@ -114,14 +114,14 @@ function emoji($code){
 function cheack_arrange($str){
     include 'bible_list_arr.php';
     $arr = array();
-    pr($str);
     $arr = preg_split("/([a-zA-Z0-9]+)/", $str, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-    pr($arr);
     $code = '100095';
     $bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
     $emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
+    pr($arr);
+    echo "ssssss";
     $search_fail_msg = '格式不太正確喔！可以輸入「這到底怎麼用啦」或「?」來開啟使用說明喔！'.emoji('100095').emoji('100095').emoji('100095');
-
+    pr($arr);
 
     if(count($arr)==2 && ($arr[0] == 'kw' || $arr[0] == 'kwf')){
         $return = array('error' =>'0',
