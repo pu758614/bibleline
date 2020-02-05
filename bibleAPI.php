@@ -281,4 +281,9 @@ function get_html($url){
     $html = curl_exec($ch);
     return $html;
 }
+function pr($str){
+    echo "<pre>";
+    print_r($str)
+    echo "</pre>";
+}
 ?>
