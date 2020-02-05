@@ -89,7 +89,7 @@ class LINEBotTiny
             error_log('Invalid request body: missing events property');
             exit();
         }
-        return $data;
+        return $data['events'];
     }
 
 
