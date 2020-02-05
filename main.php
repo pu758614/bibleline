@@ -20,7 +20,7 @@ include 'bible_list_arr.php';
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 $entityBody = file_get_contents('php://input');
-file_put_contents('read_log.log', $entityBody,FILE_APPEND);
+file_put_contents('test.log', $entityBody,FILE_APPEND);
 
 exit;
 foreach ($client->parseEvents() as $event) {
