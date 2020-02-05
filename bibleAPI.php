@@ -114,6 +114,7 @@ function emoji($code){
 function cheack_arrange($str){
     include 'bible_list_arr.php';
     $arr = array();
+    echo "aaaaaaa";
     $arr = preg_split("/([a-zA-Z0-9]+)/", $str, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
     $code = '100095';
     $bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
