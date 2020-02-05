@@ -1,6 +1,6 @@
 <?php
 
-$file_path = "test.log";
+$file_path = "read_log.log";
 if(file_exists($file_path)){
     echo "is_file<br>";
     $fp = fopen($file_path,"r");

@@ -90,7 +90,7 @@ function search_keyword($kw='',$fz='kw'){
 function write_log($username,$user_id,$msg,$status){
     $date = date ("Y-m-d H:i:s");
     $log_msg = "call_time:".$date.", call_user:".$username.", user_id:".$user_id.", msg:".$msg.", status:".$status."\n";
-    file_put_contents('user_call.log', $log_msg,FILE_APPEND);
+    file_put_contents('read_log.log', $log_msg,FILE_APPEND);
 }
 
 

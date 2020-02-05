@@ -71,7 +71,6 @@ class LINEBotTiny
         // }
 
         $entityBody = file_get_contents('php://input');
-        print_r("666666");
 
         // if (strlen($entityBody) === 0) {
         //     http_response_code(400);
@@ -86,7 +85,6 @@ class LINEBotTiny
         // }
         //
         $data = json_decode($entityBody, true);
-        print_r($data);
         // if (!isset($data['events'])) {
         //     http_response_code(400);
         //     error_log('Invalid request body: missing events property');
