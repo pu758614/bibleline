@@ -22,7 +22,7 @@ $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 //$even = $client->parseEvents();
 //$data = $client->parseEvents();
 echo "66666";
-exit
+exit;
 foreach ($client->parseEvents() as $event) {
     $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$event['source']['userId']);
 
