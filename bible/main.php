@@ -1,5 +1,4 @@
 <?php
-
 /**
  *
  * $status :
@@ -15,7 +14,7 @@ header("Content-Type:text/html; charset=utf-8");
 include ('vendor/autoload.php');
 include ('channel_data.php');
 require_once('./LINEBotTiny.php');
-include "bibleAPI.php";
+    include "bibleAPI.php";
 include 'bible_list_arr.php';
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
@@ -95,8 +94,8 @@ foreach ($client->parseEvents() as $event) {
             }
             break;
         default:
-            // write_log($guestdata['displayName'],$event['source']['userId'],'Unsupported event type-'.$event['type'],'5');
-            // error_log('Unsupported event type: ' . $event['type']);
-            // break;
+            write_log($guestdata['displayName'],$event['source']['userId'],'Unsupported event type-'.$event['type'],'5');
+            error_log('Unsupported event type: ' . $event['type']);
+            break;
     }
 };
