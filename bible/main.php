@@ -54,8 +54,6 @@ foreach ($client->parseEvents() as $event) {
                     $status = 0;
 
                     $data = cheack_arrange($message['text']);
-
-                    pr($data);
                     if($data['error'] == '1'){
                         $client->reply_text($event['replyToken'],$data['msg']);
                         write_log($guestdata['displayName'],$event['source']['userId'],$message['text'],'0');
@@ -74,7 +72,6 @@ foreach ($client->parseEvents() as $event) {
                         }
 
                     }else if($data['type'] == 'kw' ||$data['type'] == 'kwf'){
-                        echo "666666";
                         $results = search_keyword($data['kw'],$data['type']);
                         if($results['status']=='ok'){
                             $status ='1';
