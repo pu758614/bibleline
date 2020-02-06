@@ -22,7 +22,7 @@ $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 
 foreach ($client->parseEvents() as $event) {
     $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$event['source']['userId']);
-
+    file_put_contents('read_log.log', json_encode($event),FILE_APPEND);
     switch ($event['type']) {
         case 'message':
             $message = $event['message'];
