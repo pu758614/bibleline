@@ -76,8 +76,6 @@ foreach ($client->parseEvents() as $event) {
                     }else if($data['type'] == 'kw' ||$data['type'] == 'kwf'){
                         echo "666666";
                         $results = search_keyword($data['kw'],$data['type']);
-                        pr($results);
-                        exit;
                         if($results['status']=='ok'){
                             $status ='1';
                         }else if($results['status']=='error'){
