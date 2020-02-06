@@ -29,30 +29,30 @@ foreach ($client->parseEvents() as $event) {
             //pr($message);
             switch ($message['type']) {
                 case 'text':
-                    // if($message['text']=='三民聖教會'){
-                    //     $client->replyMessage([
-                    //         'replyToken' => $event['replyToken'],
-                    //         'messages' => [
-                    //             [
-                    //                 "type"=>"location",
-                    //                 "title"=>"灣告輝底家啦！！",
-                    //                 "address"=>"813左營區重立路61號",
-                    //                 "latitude"=>'22.673217',
-                    //                 "longitude"=>'120.313176'
-                    //             ]
-                    //         ]
-                    //     ]);
-                    //     write_log($guestdata['displayName'],$event['source']['userId'],$message['text'],'4');
-                    //     break;
-                    // }
-                    // $comman_key =array('?','這到底怎麼用啦','目錄','舊約','新約','我要抽');
-                    // if(in_array($message['text'],$comman_key)){
-                    //     write_log($guestdata['displayName'],$event['source']['userId'],'comman-'.$message['text'],'4');
-                    //     exit;
-                    // }
+                    if($message['text']=='三民聖教會'){
+
+                        $client->replyMessage([
+                            'replyToken' => $event['replyToken'],
+                            'messages' => [
+                                [
+                                    "type"=>"location",
+                                    "title"=>"灣告輝底家啦！！",
+                                    "address"=>"813左營區重立路61號",
+                                    "latitude"=>'22.673217',
+                                    "longitude"=>'120.313176'
+                                ]
+                            ]
+                        ]);
+                        write_log($guestdata['displayName'],$event['source']['userId'],$message['text'],'4');
+                        break;
+                    }
+                    $comman_key =array('?','這到底怎麼用啦','目錄','舊約','新約','我要抽');
+                    if(in_array($message['text'],$comman_key)){
+                        write_log($guestdata['displayName'],$event['source']['userId'],'comman-'.$message['text'],'4');
+                        exit;
+                    }
                     $status = 0;
-                    // $data['sec'] ='';
-                    //pr($message);
+
                     $data = cheack_arrange($message['text']);
 
                     pr($data);
@@ -74,7 +74,9 @@ foreach ($client->parseEvents() as $event) {
                         }
 
                     }else if($data['type'] == 'kw' ||$data['type'] == 'kwf'){
+                        echo "666666";
                         $results = search_keyword($data['kw'],$data['type']);
+                        pr($results);
                         if($results['status']=='ok'){
                             $status ='1';
                         }else if($results['status']=='error'){
