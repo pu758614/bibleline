@@ -119,8 +119,9 @@ function cheack_arrange($str){
     echo "aaaaa";
     $code = '100095';
     $bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
-    $emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
     pr($arr);
+    echo "cccc";
+    $emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
     echo "ssssss";
     $search_fail_msg = '格式不太正確喔！可以輸入「這到底怎麼用啦」或「?」來開啟使用說明喔！'.emoji('100095').emoji('100095').emoji('100095');
     pr($arr);
