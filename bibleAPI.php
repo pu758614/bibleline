@@ -2,7 +2,7 @@
 header("Content-Type:text/html; charset=utf-8");
 date_default_timezone_set('Asia/Taipei');
 include('bible_list_arr.php');
-
+include ('vendor/autoload.php');
 
 
 function search_keyword($kw='',$fz='kw'){
