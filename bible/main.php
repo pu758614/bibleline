@@ -55,7 +55,7 @@ foreach ($client->parseEvents() as $event) {
                     //pr($message);
                     $data = cheack_arrange($message['text']);
 
-                    pr("eeeee");
+                    pr($data);
             //         if($data['error'] == '1'){
             //             $client->reply_text($event['replyToken'],$data['msg']);
             //             write_log($guestdata['displayName'],$event['source']['userId'],$message['text'],'0');
