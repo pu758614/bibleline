@@ -18,10 +18,9 @@ require_once('./LINEBotTiny.php');
 include 'bible_list_arr.php';
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
-
+file_put_contents('read_log.log', json_encode($event."<br>"),FILE_APPEND);
 foreach ($client->parseEvents() as $event) {
     $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$event['source']['userId']);
-    file_put_contents('read_log.log', json_encode($event."<br>"),FILE_APPEND);
     switch ($event['type']) {
         case 'message':
             $message = $event['message'];
