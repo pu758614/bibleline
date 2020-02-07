@@ -10,7 +10,7 @@ $database = 'heroku_4d9bdcbc4d69fab';
 //實例化mysqli(資料庫路徑, 登入帳號, 登入密碼, 資料庫)
 $db = ADONewConnection('mysqli');
 //$conn->debug = true;
-$sql = "SELECT * FROM `line_bible_call_log`";
+$sql = "SELECT * FROM `line_bible_call_log` WHERE 1";
 $db->debug = true;
 $result = $db->Execute($sql);
 $db->debug = false;
