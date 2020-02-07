@@ -36,11 +36,12 @@ function insertData($db,$table,$data){
     $column_arr = substr($column_arr,0,-1);
 
     $sql = "INSERT INTO $table ($column_arr) VALUES ($arr)";
-    $db->de_bug=true;
+    echo $sql;
+    $db->debug=true;
     $result = $db->Execute($sql,$arr_prestr);
     echo "-------";
     print_r($result);
-    $db->de_bug=false;
+    $db->debug=false;
     if($result){
         $result_id = $db->_insertid();
         if( $result_id!=0 ){
