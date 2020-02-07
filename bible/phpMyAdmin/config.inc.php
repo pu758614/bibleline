@@ -32,6 +32,7 @@ $i++;
 /* Authentication type */
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 /* Server parameters */
+$cfg['Servers'][$i]['user'] = 'root';
 $cfg['Servers'][$i]['host'] = $dbopts["host"];
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = $dbopts["port"];
