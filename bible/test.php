@@ -11,7 +11,7 @@ $database = 'heroku_4d9bdcbc4d69fab';
 $db = ADONewConnection('mysqli');
 //$conn->debug = true;
 $sql = "SELECT *
-        FROM `line_bible_call_log`
+        FROM line_bible_call_log
         ";
 $db->debug = 1;
 $result = $db->Execute($sql);
