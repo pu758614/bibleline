@@ -15,7 +15,7 @@
   "extra": {
     "merge-plugin": {
         "include": [
-            "web/phpmyadmin/composer.json"
+            "bible/phpmyadmin/composer.json"
         ],
         "recurse": true,
         "replace": false,
