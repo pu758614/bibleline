@@ -7,6 +7,11 @@ $passwd = 'afa6a322';
 //資料庫名稱
 $database = 'heroku_4d9bdcbc4d69fab';
 //實例化mysqli(資料庫路徑, 登入帳號, 登入密碼, 資料庫)
+$dbopts = parse_url(getenv('CLEARDB_DATABASE_URL'));
+echo "<pre>";
+print_r($dbopts);
+echo "</pre>";
+exit;
 $connect = new mysqli($host, $user, $passwd, $database);
 
 if ($connect->connect_error) {
