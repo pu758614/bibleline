@@ -18,6 +18,7 @@ $data =array(
     "status"    => '2',
     "create_time"    => date("Y-m-d H:i:s"),
 );
+print_r($data);
 insertData($db,'line_bible_call_log',$data);
 //INSERT INTO `line_bible_call_log` (`id`, `name_id`, `name`, `inster_msg`, `status`, `create_time`) VALUES (NULL, '1', '2', '3', '4', NOW());
 
@@ -25,7 +26,7 @@ function insertData($db,$table,$data){
     //$table = $db->table($table,);
     $column_arr = $arr = '';
     $arr_prestr = array();
-
+    print_r("66666");
     foreach ($data as $key => $value) {
         $arr.= '?,';
         $column_arr.= $$key.'`,';
@@ -37,6 +38,8 @@ function insertData($db,$table,$data){
     $sql = "INSERT INTO $table ($column_arr) VALUES ($arr)";
     $db->de_bug=true;
     $result = $db->Execute($sql,$arr_prestr);
+    echo "-------";
+    print_r($result);
     $db->de_bug=false;
     if($result){
         $result_id = $db->_insertid();
