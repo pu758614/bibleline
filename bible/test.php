@@ -26,7 +26,6 @@ function insertData($db,$table,$data){
     //$table = $db->table($table,);
     $column_arr = $arr = '';
     $arr_prestr = array();
-    print_r("66666");
     foreach ($data as $key => $value) {
         $arr.= '?,';
         $column_arr.= "`".$key.'`,';
@@ -34,14 +33,8 @@ function insertData($db,$table,$data){
     }
     $arr        = substr($arr,0,-1);
     $column_arr = substr($column_arr,0,-1);
-
     $sql = "INSERT INTO $table ($column_arr) VALUES ($arr)";
-    echo $sql;
-    $db->debug=true;
     $result = $db->Execute($sql,$arr_prestr);
-    echo "-------";
-    print_r($result);
-    $db->debug=false;
     if($result){
         $result_id = $db->_insertid();
         if( $result_id!=0 ){

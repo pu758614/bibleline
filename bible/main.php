@@ -12,13 +12,25 @@
  */
 header("Content-Type:text/html; charset=utf-8");
 include ('vendor/autoload.php');
+include ('../vendor/autoload.php');
 include ('channel_data.php');
 require_once('./LINEBotTiny.php');
-    include "bibleAPI.php";
+include "bibleAPI.php";
 include 'bible_list_arr.php';
+include 'db_set.php';
+$data =array(
+    "name_id" => 4,
+    "name"    => 'aaa',
+    "inster_msg"    => '6666',
+    "status"    => '2',
+    "create_time"    => date("Y-m-d H:i:s"),
+);
+print_r($data);
+insertData($db,'line_bible_call_log',$data);
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 file_put_contents('read_log.log', json_encode($event."<br>"),FILE_APPEND);
+exit;
 foreach ($client->parseEvents() as $event) {
     $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$event['source']['userId']);
     switch ($event['type']) {

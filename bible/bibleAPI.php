@@ -4,6 +4,28 @@ date_default_timezone_set('Asia/Taipei');
 include('bible_list_arr.php');
 include ('vendor/autoload.php');
 
+function insertData($db,$table,$data){
+    //$table = $db->table($table,);
+    $column_arr = $arr = '';
+    $arr_prestr = array();
+    foreach ($data as $key => $value) {
+        $arr.= '?,';
+        $column_arr.= "`".$key.'`,';
+        array_push($arr_prestr,$value);
+    }
+    $arr        = substr($arr,0,-1);
+    $column_arr = substr($column_arr,0,-1);
+    $sql = "INSERT INTO $table ($column_arr) VALUES ($arr)";
+    $result = $db->Execute($sql,$arr_prestr);
+    if($result){
+        $result_id = $db->_insertid();
+        if( $result_id!=0 ){
+            return $result_id;
+        }else{
+            return 1;
+        }
+    }return 0;
+}
 
 function search_keyword($kw='',$fz='kw'){
     include('bible_list_arr.php');
