@@ -28,7 +28,7 @@ function insertData($db,$table,$data){
 
     foreach ($data as $key => $value) {
         $arr.= '?,';
-        $column_arr.= .$$key.'`,';
+        $column_arr.= $$key.'`,';
         array_push($arr_prestr,$value);
     }
     $arr        = substr($arr,0,-1);
