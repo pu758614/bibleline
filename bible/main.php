@@ -18,19 +18,10 @@ require_once('./LINEBotTiny.php');
 include "bibleAPI.php";
 include 'bible_list_arr.php';
 include 'db_set.php';
-$data =array(
-    "name_id" => 4,
-    "name"    => 'aaa',
-    "inster_msg"    => '6666',
-    "status"    => '2',
-    "create_time"    => date("Y-m-d H:i:s"),
-);
-print_r($data);
-insertData($db,'line_bible_call_log',$data);
+
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
-file_put_contents('read_log.log', json_encode($event."<br>"),FILE_APPEND);
-exit;
+
 foreach ($client->parseEvents() as $event) {
     $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$event['source']['userId']);
     switch ($event['type']) {
@@ -53,12 +44,12 @@ foreach ($client->parseEvents() as $event) {
                                 ]
                             ]
                         ]);
-                        write_log($guestdata['displayName'],$event['source']['userId'],$message['text'],'4');
+                        write_log($db,$guestdata['displayName'],$event['source']['userId'],$message['text'],'4');
                         break;
                     }
                     $comman_key =array('?','這到底怎麼用啦','目錄','舊約','新約','我要抽');
                     if(in_array($message['text'],$comman_key)){
-                        write_log($guestdata['displayName'],$event['source']['userId'],'comman-'.$message['text'],'4');
+                        write_log($db,$guestdata['displayName'],$event['source']['userId'],'comman-'.$message['text'],'4');
                         exit;
                     }
                     $status = 0;
@@ -66,7 +57,7 @@ foreach ($client->parseEvents() as $event) {
                     $data = cheack_arrange($message['text']);
                     if($data['error'] == '1'){
                         $client->reply_text($event['replyToken'],$data['msg']);
-                        write_log($guestdata['displayName'],$event['source']['userId'],$message['text'],'0');
+                        write_log($db,$guestdata['displayName'],$event['source']['userId'],$message['text'],'0');
                         exit;
                     }
                     if($data['type'] == 'search' ){
@@ -96,16 +87,16 @@ foreach ($client->parseEvents() as $event) {
                         $client->reply_text($event['replyToken'],$text);
                         $status = '6';
                     }
-                    write_log($guestdata['displayName'],$event['source']['userId'],$message['text'],$status);
+                    write_log($db,$guestdata['displayName'],$event['source']['userId'],$message['text'],$status);
                     break;
                 default:
-                    write_log($guestdata['displayName'],$event['source']['userId'],'Unsupported message type-'.$message['type'],'5');
+                    write_log($db,$guestdata['displayName'],$event['source']['userId'],'Unsupported message type-'.$message['type'],'5');
                     error_log('Unsupported message type: ' . $message['type']);
                     break;
             }
             break;
         default:
-            write_log($guestdata['displayName'],$event['source']['userId'],'Unsupported event type-'.$event['type'],'5');
+            write_log($db,$guestdata['displayName'],$event['source']['userId'],'Unsupported event type-'.$event['type'],'5');
             error_log('Unsupported event type: ' . $event['type']);
             break;
     }

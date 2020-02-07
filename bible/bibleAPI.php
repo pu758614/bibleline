@@ -109,10 +109,15 @@ function search_keyword($kw='',$fz='kw'){
 }
 
 
-function write_log($username,$user_id,$msg,$status){
-    $date = date ("Y-m-d H:i:s");
-    $log_msg = "call_time:".$date.", call_user:".$username.", user_id:".$user_id.", msg:".$msg.", status:".$status."\n";
-    file_put_contents('read_log.log', $log_msg,FILE_APPEND);
+function write_log($db,$username,$user_id,$msg,$status){
+    $data =array(
+        "name_id" => $user_id,
+        "name"    => $username,
+        "inster_msg"    => $msg,
+        "status"    => $status,
+        "create_time"    => date("Y-m-d H:i:s"),
+    );
+    insertData($db,'line_bible_call_log',$data);
 }
 
 
