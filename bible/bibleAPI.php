@@ -117,6 +117,7 @@ function write_log($db,$username,$user_id,$msg,$status){
         "status"    => $status,
         "create_time"    => date("Y-m-d H:i:s"),
     );
+    pr($data);
     insertData($db,'line_bible_call_log',$data);
 }
 
