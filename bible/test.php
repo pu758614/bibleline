@@ -11,10 +11,39 @@ $database = 'heroku_4d9bdcbc4d69fab';
 $db = ADONewConnection('mysqli');
 //$conn->debug = true;
 $db -> Connect($host,$user,$passwd,$database);
+$data =array(
+    "name_id" => 4,
+    "name"    => 'aaa',
+    "inster_msg"    => '6666',
+    "status"    => '2',
+    "create_time"    => date("Y-m-d H:i:s"),
+);
+insertData($db,'line_bible_call_log',$data);
+//INSERT INTO `line_bible_call_log` (`id`, `name_id`, `name`, `inster_msg`, `status`, `create_time`) VALUES (NULL, '1', '2', '3', '4', NOW());
 
-//$connect = new mysqli($host, $user, $passwd, $database);
+function insertData($db,$table,$data){
+    //$table = $db->table($table,);
+    $column_arr = $arr = '';
+    $arr_prestr = array();
 
-// if ($connect->connect_error) {
-//     die("連線失敗: " . $connect->connect_error);
-// }
-// echo "連線成功";
+    foreach ($data as $key => $value) {
+        $arr.= '?,';
+        $column_arr.= .$$key.'`,';
+        array_push($arr_prestr,$value);
+    }
+    $arr        = substr($arr,0,-1);
+    $column_arr = substr($column_arr,0,-1);
+
+    $sql = "INSERT INTO $table ($column_arr) VALUES ($arr)";
+    $db->de_bug=true;
+    $result = $db->Execute($sql,$arr_prestr);
+    $db->de_bug=false;
+    if($result){
+        $result_id = $db->_insertid();
+        if( $result_id!=0 ){
+            return $result_id;
+        }else{
+            return 1;
+        }
+    }return 0;
+}
