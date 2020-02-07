@@ -29,7 +29,7 @@ function insertData($db,$table,$data){
     print_r("66666");
     foreach ($data as $key => $value) {
         $arr.= '?,';
-        $column_arr.= $$key.'`,';
+        $column_arr.= $key.'`,';
         array_push($arr_prestr,$value);
     }
     $arr        = substr($arr,0,-1);
