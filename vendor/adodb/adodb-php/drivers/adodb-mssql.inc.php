@@ -617,6 +617,7 @@ order by constraint_name, referenced_table_name, keyno";
 		if (!function_exists('mssql_pconnect')) return null;
 		$this->_connectionID = mssql_connect($argHostname,$argUsername,$argPassword,$newconnect);
 		if ($this->_connectionID === false) return false;
+		@mysql_query("SET NAMES 'utf8'", $this->_connectionID);
 		if ($argDatabasename) return $this->SelectDB($argDatabasename);
 		return true;
 	}
@@ -628,7 +629,7 @@ order by constraint_name, referenced_table_name, keyno";
 		if (!function_exists('mssql_pconnect')) return null;
 		$this->_connectionID = mssql_pconnect($argHostname,$argUsername,$argPassword);
 		if ($this->_connectionID === false) return false;
-
+		@mysql_query("SET NAMES 'utf8'", $this->_connectionID);
 		// persistent connections can forget to rollback on crash, so we do it here.
 		if ($this->autoRollback) {
 			$cnt = $this->GetOne('select @@TRANCOUNT');
@@ -814,7 +815,7 @@ order by constraint_name, referenced_table_name, keyno";
 					else
 						$inputVar = $this->qstr($v);
 
-					$params .= "@P$i=N" . $inputVar;	
+					$params .= "@P$i=N" . $inputVar;
 				} else if (is_integer($v)) {
 					$decl .= "@P$i INT";
 					$params .= "@P$i=".$v;
