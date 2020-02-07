@@ -1,5 +1,5 @@
 <?php
-include ('vendor/autoload.php');
+include ('../vendor/autoload.php');
 $host = 'us-cdbr-iron-east-04.cleardb.net';
 //改成你登入phpmyadmin帳號
 $user = 'b65f080869b290';
