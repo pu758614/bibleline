@@ -1,11 +1,15 @@
 <?php
-header("Content-Type:text/html; charset=utf-8");
-include ('vendor/autoload.php');
-include ('channel_data.php');
-require_once('./LINEBotTiny.php');
-include "bibleAPI.php";
-include 'bible_list_arr.php';
-echo "<pre>";
-$text_str = "路加福音2章";
-$data = cheack_arrange($text_str);
-print_r($data);
+$host = 'us-cdbr-iron-east-04.cleardb.net';
+//改成你登入phpmyadmin帳號
+$user = 'b65f080869b290';
+//改成你登入phpmyadmin密碼
+$passwd = 'afa6a322';
+//資料庫名稱
+$database = 'heroku_4d9bdcbc4d69fab';
+//實例化mysqli(資料庫路徑, 登入帳號, 登入密碼, 資料庫)
+$connect = new mysqli($host, $user, $passwd, $database);
+
+if ($connect->connect_error) {
+    die("連線失敗: " . $connect->connect_error);
+}
+echo "連線成功";
