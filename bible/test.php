@@ -13,8 +13,9 @@ $db = ADONewConnection('mysqli');
 $sql = "SELECT *
         FROM `line_bible_call_log`
         ";
+$db->debug = 1;
 $result = $db->Execute($sql);
-
+$db->debug = 0;
 if($result){
     $arr = $result->getAll();
     echo "<pre>";
