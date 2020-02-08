@@ -174,7 +174,7 @@ function cheack_arrange($str,$user_id){
         $return = array(
             'error' => '0',
             'type'  => $arr[0],
-            'count' => (isset($arr[2])&&is_numeric($arr[2]))?trim($arr[2])?'10';
+            'count' => (isset($arr[2])&&is_numeric($arr[2]))?trim($arr[2])?'10',
         );
         return $return;
     }
