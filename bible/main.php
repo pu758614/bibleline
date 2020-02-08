@@ -49,9 +49,10 @@ foreach ($client->parseEvents() as $event) {
                         write_log($db,$guestdata['displayName'],$user_id,$message['text'],'4');
                         break;
                     }
-                    echo $message['text']."<br>";
-                    echo $user_id;
+
                     if($message['text']=='log' && $user_id=='U7024af33ac34455f97b39b7bee8b8436'){
+                        echo $message['text']."<br>";
+                        echo $user_id;
                         $text = get_log($db);
                         $client->reply_text($event['replyToken'],$text);
                         write_log($db,$guestdata['displayName'],$user_id,$message['text'],'0');
