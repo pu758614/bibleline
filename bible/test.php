@@ -12,13 +12,24 @@ $db = ADONewConnection('mysqli');
 $db->connect($host,$user,$passwd,$database);
 //$conn->debug = true;
 $sql = "SELECT * FROM `line_bible_log`";
-$db->debug = true;
 $result = $db->execute($sql);
-$db->debug = false;
 if($result){
     $arr = $result->getAll();
+    $return = array();
+    foreach ($arr as  $arr_data) {
+        //print_r($arr_data);
+        $return[] = array(
+            "id" => isset($arr_data['id'])?$arr_data['id']:'',
+            "name_id" => isset($arr_data['name_id'])?$arr_data['name_id']:'',
+            "name" => isset($arr_data['name'])?$arr_data['name']:'',
+            "inster_msg" => isset($arr_data['inster_msg'])?$arr_data['inster_msg']:'',
+            "status" => isset($arr_data['status'])?$arr_data['status']:'',
+            "repont_json" => isset($arr_data['repont_json'])?$arr_data['repont_json']:'',
+            "create_time" => isset($arr_data['create_time'])?$arr_data['create_time']:'',
+        );
+    }
     echo "<pre>";
-    print_r($arr);
+    print_r($return);
     echo "</pre>";
 }else{
     echo "fail";
