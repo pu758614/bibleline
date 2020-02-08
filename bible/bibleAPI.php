@@ -110,15 +110,12 @@ function search_keyword($kw='',$fz='kw'){
 
 function get_log($db,$count=10){
     $sql = "SELECT * FROM `line_bible_log` ORDER BY `create_time` DESC LIMIT $count";
-    $db->debug=1;
     $result = $db->execute($sql);
-    $db->debug=0;
     $msg = '';
     if($result){
         $arr = $result->getAll();
         $return = array();
         foreach ($arr as  $arr_data) {
-            //print_r($arr_data);
             $return[] = array(
                 "id" => isset($arr_data['id'])?$arr_data['id']:'',
                 "name_id" => isset($arr_data['name_id'])?$arr_data['name_id']:'',
