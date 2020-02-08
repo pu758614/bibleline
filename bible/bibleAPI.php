@@ -129,6 +129,7 @@ function get_log($db,$date_time='',$count=10){
             $msg = "時間：".$arr_data['create_time']."  姓名：".$arr_data['name']." 訊息：".$arr_data['inster_msg']."\n";
         }
     }
+    echo $msg;
     return $msg;
 }
 
