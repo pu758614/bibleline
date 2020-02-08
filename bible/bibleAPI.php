@@ -108,7 +108,7 @@ function search_keyword($kw='',$fz='kw'){
     return $retune_arr;
 }
 
-function get_log($db,$date_time='',$count=10){
+function get_log($db,$count=10){
     $sql = "SELECT * FROM `line_bible_log` ORDER BY `create_time` DESC LIMIT $count";
     $db->debug=1;
     $result = $db->execute($sql);
