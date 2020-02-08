@@ -109,8 +109,10 @@ function search_keyword($kw='',$fz='kw'){
 }
 
 function get_log($db,$date_time='',$count=10){
-    $sql = "SELECT * FROM `line_bible_log` ASC";
+    $sql = "SELECT * FROM `line_bible_log` ORDER BY `create_time`ASC";
+    $db->debug=1;
     $result = $db->execute($sql);
+    $db->debug=0;
     $msg = '';
     pr($sql);
     if($result){
