@@ -108,6 +108,29 @@ function search_keyword($kw='',$fz='kw'){
     return $retune_arr;
 }
 
+function get_log($db,$date_time='',$count=10){
+    $sql = "SELECT * FROM `line_bible_log` ASC";
+    $result = $db->execute($sql);
+    $msg = '';
+    if($result){
+        $arr = $result->getAll();
+        $return = array();
+        foreach ($arr as  $arr_data) {
+            //print_r($arr_data);
+            $return[] = array(
+                "id" => isset($arr_data['id'])?$arr_data['id']:'',
+                "name_id" => isset($arr_data['name_id'])?$arr_data['name_id']:'',
+                "name" => isset($arr_data['name'])?$arr_data['name']:'',
+                "inster_msg" => isset($arr_data['inster_msg'])?$arr_data['inster_msg']:'',
+                "status" => isset($arr_data['status'])?$arr_data['status']:'',
+                "repont_json" => isset($arr_data['repont_json'])?$arr_data['repont_json']:'',
+                "create_time" => isset($arr_data['create_time'])?$arr_data['create_time']:'',
+            );
+            $msg = "時間：$arr_data['create_time']  姓名：$arr_data['name'] 訊息：$arr_data['inster_msg']\n";
+        }
+    }
+    return $msg;
+}
 
 function write_log($db,$username,$user_id,$msg,$status){
     $data =array(
@@ -118,7 +141,6 @@ function write_log($db,$username,$user_id,$msg,$status){
         "repont_json" => '',
         "create_time"    => date("Y-m-d H:i:s"),
     );
-    pr($data);
     insertData($db,'line_bible_log',$data);
 }
 
@@ -149,7 +171,7 @@ function cheack_arrange($str){
     $emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
     $search_fail_msg = '格式不太正確喔！可以輸入「這到底怎麼用啦」或「?」來開啟使用說明喔！'.emoji('100095').emoji('100095').emoji('100095');
 
-    if(count($arr)==2 && ($arr[0] == 'kw' || $arr[0] == 'kwf')){
+    if(count($arr)==2 && ($arr[0] == 'kw' || $arr[0] == 'kwf' || $arr[0] == 'log')){
         $return = array('error' =>'0',
                         'type'  =>$arr[0],
                         'kw'    =>trim($arr[1])

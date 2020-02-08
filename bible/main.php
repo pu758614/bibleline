@@ -23,10 +23,12 @@ include 'db_set.php';
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 
 foreach ($client->parseEvents() as $event) {
-    $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$event['source']['userId']);
+    $user_id = $event['source']['userId'];
+    $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$user_id);
     switch ($event['type']) {
         case 'message':
             $message = $event['message'];
+
             //pr($message);
             switch ($message['type']) {
                 case 'text':
@@ -44,12 +46,18 @@ foreach ($client->parseEvents() as $event) {
                                 ]
                             ]
                         ]);
-                        write_log($db,$guestdata['displayName'],$event['source']['userId'],$message['text'],'4');
+                        write_log($db,$guestdata['displayName'],$user_id,$message['text'],'4');
+                        break;
+                    }
+                    if($message['text']=='log' && $user_id=='U7024af33ac34455f97b39b7bee8b8436'){
+                        $text = get_log($db);
+                        $client->reply_text($event['replyToken'],$text);
+                        write_log($db,$guestdata['displayName'],$user_id,$message['text'],'0');
                         break;
                     }
                     $comman_key =array('?','這到底怎麼用啦','目錄','舊約','新約','我要抽');
                     if(in_array($message['text'],$comman_key)){
-                        write_log($db,$guestdata['displayName'],$event['source']['userId'],'comman-'.$message['text'],'4');
+                        write_log($db,$guestdata['displayName'],$user_id,'comman-'.$message['text'],'4');
                         exit;
                     }
                     $status = 0;
@@ -57,7 +65,7 @@ foreach ($client->parseEvents() as $event) {
                     $data = cheack_arrange($message['text']);
                     if($data['error'] == '1'){
                         $client->reply_text($event['replyToken'],$data['msg']);
-                        write_log($db,$guestdata['displayName'],$event['source']['userId'],$message['text'],'0');
+                        write_log($db,$guestdata['displayName'],$user_id,$message['text'],'0');
                         exit;
                     }
                     if($data['type'] == 'search' ){
@@ -82,15 +90,17 @@ foreach ($client->parseEvents() as $event) {
                             $status = '1';
                         }
                             $client->reply_text($event['replyToken'],$results['msg']);
+                    }else if($data['type']=='log' && $user_id=='U7024af33ac34455f97b39b7bee8b8436'){
+                        //get_log($db,)
                     }else{
                         $text = '意料以外的錯誤，請麻煩通知開發人一下！'.emoji('10007D');
                         $client->reply_text($event['replyToken'],$text);
                         $status = '6';
                     }
-                    write_log($db,$guestdata['displayName'],$event['source']['userId'],$message['text'],$status);
+                    write_log($db,$guestdata['displayName'],$user_id,$message['text'],$status);
                     break;
                 default:
-                    write_log($db,$guestdata['displayName'],$event['source']['userId'],'Unsupported message type-'.$message['type'],'5');
+                    write_log($db,$guestdata['displayName'],$user_id,'Unsupported message type-'.$message['type'],'5');
                     error_log('Unsupported message type: ' . $message['type']);
                     break;
             }
