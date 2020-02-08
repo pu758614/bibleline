@@ -21,7 +21,7 @@ include 'db_set.php';
 
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
-
+pr("6666666");
 foreach ($client->parseEvents() as $event) {
     $user_id = $event['source']['userId'];
     $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$user_id);
