@@ -71,7 +71,7 @@ foreach ($client->parseEvents() as $event) {
                         }else if($results['error']!='1' && $results['status']=='2'){
                             $client->reply_text($event['replyToken'],$results['data']);
                         }
-                        $status = $results['status']
+                        $status = $results['status'];
                     }else if($data['type'] == 'kw' ||$data['type'] == 'kwf'){
                         $results = search_keyword($data['kw'],$data['type']);
                         if($results['status']=='ok'){
