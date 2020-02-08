@@ -114,10 +114,8 @@ function get_log($db,$date_time='',$count=10){
     $result = $db->execute($sql);
     $db->debug=0;
     $msg = '';
-    pr($sql);
     if($result){
         $arr = $result->getAll();
-        pr($arr);
         $return = array();
         foreach ($arr as  $arr_data) {
             //print_r($arr_data);
@@ -130,10 +128,9 @@ function get_log($db,$date_time='',$count=10){
                 "repont_json" => isset($arr_data['repont_json'])?$arr_data['repont_json']:'',
                 "create_time" => isset($arr_data['create_time'])?$arr_data['create_time']:'',
             );
-            $msg = "時間：".$arr_data['create_time']."  姓名：".$arr_data['name']." 訊息：".$arr_data['inster_msg']."\n";
+            $msg .= "時間：".$arr_data['create_time']."  姓名：".$arr_data['name']." 訊息：".$arr_data['inster_msg']."\n";
         }
     }
-    echo $msg;
     return $msg;
 }
 
