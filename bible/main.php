@@ -54,6 +54,7 @@ foreach ($client->parseEvents() as $event) {
                         echo $message['text']."<br>";
                         echo $user_id;
                         $text = get_log($db);
+                        echo $text;
                         $client->reply_text($event['replyToken'],$text);
                         write_log($db,$guestdata['displayName'],$user_id,$message['text'],'0');
                         break;
