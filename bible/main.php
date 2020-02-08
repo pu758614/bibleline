@@ -21,15 +21,12 @@ include 'db_set.php';
 
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
-pr("6666666");
 foreach ($client->parseEvents() as $event) {
     $user_id = $event['source']['userId'];
     $guestdata = getGuestInfo($channelAccessToken,$channelSecret,$user_id);
     switch ($event['type']) {
         case 'message':
             $message = $event['message'];
-
-            //pr($message);
             switch ($message['type']) {
                 case 'text':
                     if($message['text']=='三民聖教會'){
@@ -50,12 +47,6 @@ foreach ($client->parseEvents() as $event) {
                         break;
                     }
 
-                    if($message['text']=='log' && $user_id=='U7024af33ac34455f97b39b7bee8b8436'){
-                        $text = get_log($db);
-                        $client->reply_text($event['replyToken'],$text);
-                        write_log($db,$guestdata['displayName'],$user_id,$message['text'],'0');
-                        break;
-                    }
                     $comman_key =array('?','這到底怎麼用啦','目錄','舊約','新約','我要抽');
                     if(in_array($message['text'],$comman_key)){
                         write_log($db,$guestdata['displayName'],$user_id,'comman-'.$message['text'],'4');
@@ -63,7 +54,7 @@ foreach ($client->parseEvents() as $event) {
                     }
                     $status = 0;
 
-                    $data = cheack_arrange($message['text']);
+                    $data = cheack_arrange($message['text'],$user_id);
                     if($data['error'] == '1'){
                         $client->reply_text($event['replyToken'],$data['msg']);
                         write_log($db,$guestdata['displayName'],$user_id,$message['text'],'0');
@@ -80,7 +71,7 @@ foreach ($client->parseEvents() as $event) {
                         }else if($results['error']!='1' && $results['status']=='2'){
                             $client->reply_text($event['replyToken'],$results['data']);
                         }
-
+                        $status = $results['status']
                     }else if($data['type'] == 'kw' ||$data['type'] == 'kwf'){
                         $results = search_keyword($data['kw'],$data['type']);
                         if($results['status']=='ok'){
@@ -92,7 +83,9 @@ foreach ($client->parseEvents() as $event) {
                         }
                             $client->reply_text($event['replyToken'],$results['msg']);
                     }else if($data['type']=='log' && $user_id=='U7024af33ac34455f97b39b7bee8b8436'){
-                        //get_log($db,)
+                        $text = get_log($db,$data['count']);
+                        $client->reply_text($event['replyToken'],$text);
+                        write_log($db,$guestdata['displayName'],$user_id,$message['text'],'1');
                     }else{
                         $text = '意料以外的錯誤，請麻煩通知開發人一下！'.emoji('10007D');
                         $client->reply_text($event['replyToken'],$text);

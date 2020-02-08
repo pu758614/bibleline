@@ -109,10 +109,8 @@ function search_keyword($kw='',$fz='kw'){
 }
 
 function get_log($db,$date_time='',$count=10){
-    $sql = "SELECT * FROM `line_bible_log` ORDER BY `create_time`ASC";
-    $db->debug=1;
+    $sql = "SELECT * FROM `line_bible_log` ORDER BY `create_time` DESC LIMIT $count";
     $result = $db->execute($sql);
-    $db->debug=0;
     $msg = '';
     if($result){
         $arr = $result->getAll();
@@ -164,7 +162,7 @@ function emoji($code){
     return $emoticon;
 }
 
-function cheack_arrange($str){
+function cheack_arrange($str,$user_id){
     include 'bible_list_arr.php';
     $arr = array();
     $arr = preg_split("/([a-zA-Z0-9]+)/", $str, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
@@ -172,7 +170,14 @@ function cheack_arrange($str){
     $bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
     $emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
     $search_fail_msg = '格式不太正確喔！可以輸入「這到底怎麼用啦」或「?」來開啟使用說明喔！'.emoji('100095').emoji('100095').emoji('100095');
-
+    if($arr[0] == 'log' && $user_id=='U7024af33ac34455f97b39b7bee8b8436'){
+        $return = array(
+            'error' => '0',
+            'type'  => $arr[0],
+            'count' => (isset($arr[2])&&is_numeric($arr[2]))?trim($arr[2])?'10';
+        );
+        return $return;
+    }
     if(count($arr)==2 && ($arr[0] == 'kw' || $arr[0] == 'kwf' || $arr[0] == 'log')){
         $return = array('error' =>'0',
                         'type'  =>$arr[0],
