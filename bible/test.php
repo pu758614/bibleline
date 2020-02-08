@@ -9,10 +9,11 @@ $passwd = 'afa6a322';
 $database = 'heroku_4d9bdcbc4d69fab';
 //實例化mysqli(資料庫路徑, 登入帳號, 登入密碼, 資料庫)
 $db = ADONewConnection('mysqli');
+$db->connect($host,$user,$passwd,$database);
 //$conn->debug = true;
-$sql = "SELECT * FROM `line_bible_call_log` WHERE `id` = 1";
+$sql = "SELECT * FROM `line_bible_log`";
 $db->debug = true;
-$result = $db->Execute($sql);
+$result = $db->execute($sql);
 $db->debug = false;
 if($result){
     $arr = $result->getAll();

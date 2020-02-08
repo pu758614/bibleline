@@ -782,6 +782,7 @@ order by constraint_name, referenced_table_name, keyno";
 			# see http://www.quest-pipelines.com/newsletter-v3/0402_F.htm
 			# works only with sql server 7 and newer
             $getIdentity = false;
+			
             if (!is_array($sql) && preg_match('/^\\s*insert/i', $sql)) {
                 $getIdentity = true;
                 $sql .= (preg_match('/;\\s*$/i', $sql) ? ' ' : '; ') . $this->identitySQL;

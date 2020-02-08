@@ -115,10 +115,11 @@ function write_log($db,$username,$user_id,$msg,$status){
         "name"    => $username,
         "inster_msg"    => $msg,
         "status"    => $status,
+        "repont_json" => '',
         "create_time"    => date("Y-m-d H:i:s"),
     );
     pr($data);
-    insertData($db,'line_bible_call_log',$data);
+    insertData($db,'line_bible_log',$data);
 }
 
 
