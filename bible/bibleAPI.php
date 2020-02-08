@@ -112,8 +112,10 @@ function get_log($db,$date_time='',$count=10){
     $sql = "SELECT * FROM `line_bible_log` ASC";
     $result = $db->execute($sql);
     $msg = '';
+    pu($sql);
     if($result){
         $arr = $result->getAll();
+        pr($arr);
         $return = array();
         foreach ($arr as  $arr_data) {
             //print_r($arr_data);
