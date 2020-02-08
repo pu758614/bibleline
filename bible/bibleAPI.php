@@ -126,7 +126,7 @@ function get_log($db,$date_time='',$count=10){
                 "repont_json" => isset($arr_data['repont_json'])?$arr_data['repont_json']:'',
                 "create_time" => isset($arr_data['create_time'])?$arr_data['create_time']:'',
             );
-            $msg = "時間：$arr_data['create_time']  姓名：$arr_data['name'] 訊息：$arr_data['inster_msg']\n";
+            $msg = "時間：".$arr_data['create_time']."  姓名：".$arr_data['name']." 訊息：".$arr_data['inster_msg']."\n";
         }
     }
     return $msg;
