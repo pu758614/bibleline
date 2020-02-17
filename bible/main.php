@@ -85,7 +85,6 @@ foreach ($client->parseEvents() as $event) {
                     }else if($data['type']=='log' && $user_id=='U7024af33ac34455f97b39b7bee8b8436'){
                         $text = get_log($db,$data['count']);
                         $client->reply_text($event['replyToken'],$text);
-                        exit;
                         //write_log($db,$guestdata['displayName'],$user_id,$message['text'],'1');
                     }else{
                         $text = '意料以外的錯誤，請麻煩通知開發人一下！'.emoji('10007D');
