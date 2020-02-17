@@ -9,8 +9,10 @@ include ('../LINEBotTiny.php');
 $channelAccessToken = '1613644531';
 $channelSecret = '9f28c513a8553cca44af6e42637b9f58';
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
-pr($client->parseEvents());
+$db = NEW db_lib;
+// $db->record_msg_log($uuid,$msg);
+
 foreach ($client->parseEvents() as $event) {
-    $client->reply_text($event['replyToken'],$event['message']);
+    $client->reply_text($event['replyToken'],"123456");
 }
 ?>
