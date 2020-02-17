@@ -1,6 +1,6 @@
 <?php
-include_once(dirname(__DIR__)."../../vendor/autoload.php");
-include_once(dirname(__DIR__)."../vendor/autoload.php");
+include_once(dirname(__DIR__)."/../../vendor/autoload.php");
+include_once(dirname(__DIR__)."/../vendor/autoload.php");
 include_once(dirname(__DIR__)."/lib/common.php");
 include_once(dirname(__DIR__)."/lib/db_crud.php");
 
