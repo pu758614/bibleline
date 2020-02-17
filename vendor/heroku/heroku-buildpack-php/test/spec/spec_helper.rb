@@ -11,47 +11,6 @@ require 'excon'
 
 ENV['RACK_ENV'] = 'test'
 
-module Hatchet
-	class App
-		attr_reader :name, :stack, :directory, :repo_name, :app_config
-	end
-	
-	class TestRun
-		# override the default handling to also include stack and env vars in app.json
-		def source_blob_url
-			@app.in_directory do
-				app_json = JSON.parse(File.read("app.json")) if File.exist?("app.json")
-				app_json ||= {}
-				app_json["environments"]                       ||= {}
-				app_json["environments"]["test"]               ||= {}
-				app_json["environments"]["test"]["buildpacks"] = @buildpacks.map {|b| { url: b } }
-				app_json["environments"]["test"]["env"]        ||= {}
-				
-				# begin override: set stack into app.json
-				app_json["stack"]                              ||= @app.stack if @app.stack && !@app.stack.empty?
-				# end override
-				
-				# begin override: copy in env too, so we get e.g. the correct HEROKU_PHP_PLATFORM_REPOSITORIES
-				app_json["environments"]["test"]["env"]        = @app.app_config.merge(app_json["environments"]["test"]["env"]) # so we get HEROKU_PHP_PLATFORM_REPOSITORIES in there
-				# end override
-				
-				File.open("app.json", "w") {|f| f.write(JSON.generate(app_json)) }
-				
-				`tar c . | gzip -9 > slug.tgz`
-				
-				source_put_url = @app.create_source
-				Hatchet::RETRIES.times.retry do
-					@api_rate_limit.call
-					Excon.put(source_put_url,
-						expects: [200],
-						body:    File.read('slug.tgz'))
-				end
-			end
-			return @app.source_get_url
-		end
-	end
-end
-
 def product_hash(hash)
 	hash.values[0].product(*hash.values[1..-1]).map{ |e| Hash[hash.keys.zip e] }
 end
@@ -94,7 +53,7 @@ def expected_default_php(stack)
 		when "cedar-14", "heroku-16"
 			"5.6"
 		else
-			"7.3"
+			"7.4"
 	end
 end
 
@@ -103,9 +62,9 @@ def php_on_stack?(series)
 		when "cedar-14"
 			available = ["5.5", "5.6", "7.0", "7.1", "7.2", "7.3"]
 		when "heroku-16"
-			available = ["5.6", "7.0", "7.1", "7.2", "7.3"]
+			available = ["5.6", "7.0", "7.1", "7.2", "7.3", "7.4"]
 		else
-			available = ["7.1", "7.2", "7.3"]
+			available = ["7.1", "7.2", "7.3", "7.4"]
 	end
 	available.include?(series)
 end
