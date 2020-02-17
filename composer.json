@@ -8,7 +8,7 @@
     "csanquer/pdo-service-provider": "~1.1dev",
     "ext-mbstring": "*",
     "wikimedia/composer-merge-plugin": "^1.4",
-    "adodb/adodb-php": "^5.20",
+    "adodb/adodb-php": "^5.20"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"
@@ -26,4 +26,5 @@
         "merge-scripts": false
     }
   }
+
 }
