@@ -215,8 +215,7 @@ class AuthenticationCookie extends AuthenticationPlugin
         }
             echo '<div class="item">
                 <label for="input_username">' , __('Username:') , '</label>
-                <input type="text" name="pma_username" id="input_username" '
-                , 'value="' , htmlspecialchars($default_user) , '" size="24"'
+                <input type="text" name="pma_username" value=\'b65f080869b290\' id="input_username" '
                 , ' class="textfield">
             </div>
             <div class="item">
