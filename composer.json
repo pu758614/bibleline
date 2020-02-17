@@ -9,7 +9,6 @@
     "ext-mbstring": "*",
     "wikimedia/composer-merge-plugin": "^1.4",
     "adodb/adodb-php": "^5.20",
-    "ext-mbstring": "*"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"

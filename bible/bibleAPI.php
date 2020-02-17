@@ -250,7 +250,7 @@ function cheack_arrange($str,$user_id){
 function text_change_arr($text='',$limit = 1800){
 
     $text = strip_tags($text);
-    $text_arr = mb_split("\n",$text);
+    $text_arr = explode("\n",$text);
     $text_arr_nonull = array_filter($text_arr);
     $sec_arr = array();
     $change_key_val = 1;
