@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace DB_CRUD;
 Trait DB_CRUD {
     /**
@@ -92,7 +92,7 @@ Trait DB_CRUD {
         }
     }
 
-    
+
     /**
      * 取得一筆資料(多條件)
      * @param  string  $table       資料表
@@ -125,7 +125,7 @@ Trait DB_CRUD {
 
         $order_by = '';
         if($sort != ''){
-            $sort_field = $db->tableField($sort);
+            $sort_field = $sort;
             $order_by = 'ORDER BY '.$sort_field.' '.$order;
         }
 
@@ -158,7 +158,7 @@ Trait DB_CRUD {
         $sql = "INSERT INTO $table ($column_arr) VALUES ($arr)";
         $result = $this->db->Execute($sql,$arr_prestr);
         if($result){
-            $result_id = $db->db_link->_insertid();
+            $result_id = $this->db->_insertid();
             if( $result_id!=0 ){
                 return $result_id;
             }else{
