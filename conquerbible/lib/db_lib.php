@@ -47,19 +47,18 @@ class db_lib {
         $result = 0;
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channel_access_token);
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secre]);
-        //$response = $bot->getProfile($user_uuid);
-        // exit;
-        // $profile = array();
-        // if ($response->isSucceeded()) {
-        //     $profile = $response->getJSONDecodedBody();
-        // }
+        $response = $bot->getProfile($user_uuid);
+        $profile = array();
+        if ($response->isSucceeded()) {
+            $profile = $response->getJSONDecodedBody();
+        }
 
-        $profile = array(
-            "userId" => 'U7024af33ac34455f97b39b7bee8b8436',
-            "displayName" => '黃世勳',
-            "pictureUrl"  => 'https://profile.line-scdn.net/0hFPoPz-vuGX9SKTPiIsxmKG5sFxIlBx83KhxSHid7RRh8SQ4oaBsDSX4qRht_S1kuPEtfGyUoQkl6',
-            "statusMessage" => '(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji),)'
-        );
+        // $profile = array(
+        //     "userId" => 'U7024af33ac34455f97b39b7bee8b8436',
+        //     "displayName" => '黃世勳',
+        //     "pictureUrl"  => 'https://profile.line-scdn.net/0hFPoPz-vuGX9SKTPiIsxmKG5sFxIlBx83KhxSHid7RRh8SQ4oaBsDSX4qRht_S1kuPEtfGyUoQkl6',
+        //     "statusMessage" => '(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji)(emoji),)'
+        // );
         if(is_array($profile)&&count($profile)>0){
             $data = array(
                 "uuid" => isset($profile['userId'])?$profile['userId']:'',
