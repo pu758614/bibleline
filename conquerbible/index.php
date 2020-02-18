@@ -15,7 +15,7 @@ foreach ($client->parseEvents() as $event) {
     pr($event);
     //$guestdata = getGuestInfo($channelAccessToken,$channelSecret,$user_id);
     $db->record_msg_log($uuid,json_encode($msg));
-    //$db->db->debug = 1;
+    $db->db->debug = 1;
     $user_info = $db->getUserInfo($uuid,'uuid');
     if(count($user_info)==0){
         $line_user_result = $db->addLineUser($uuid);
@@ -23,7 +23,7 @@ foreach ($client->parseEvents() as $event) {
             $user_info = $db->getUserInfo($line_user_result,'uuid');
         }
     }
-    //$db->db->debug = 0;
+    $db->db->debug = 0;
     $client->reply_text($event['replyToken'],$msg['text']);
 }
 ?>
