@@ -27,6 +27,6 @@ foreach ($client->parseEvents() as $event) {
     //     }
     // }
 
-    $client->reply_text($event['replyToken'],$msg);
+    $client->reply_text($event['replyToken'],"123213");
 }
 ?>
