@@ -9,7 +9,7 @@ include ('../LINEBotTiny.php');
 $channelAccessToken = '1613644531';
 $channelSecret = '9f28c513a8553cca44af6e42637b9f58';
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
-$db = new db_lib;
+$db_lib = new db_lib;
 $msg = $client->parseEvents();
 pr($msg);
 $data = array(
