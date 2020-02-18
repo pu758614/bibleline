@@ -2,7 +2,7 @@
 include_once(dirname(__DIR__)."/../vendor/autoload.php");
 include_once(dirname(__DIR__)."/lib/common.php");
 include_once(dirname(__DIR__)."/lib/db_crud.php");
-
+include_once(dirname(__DIR__)."/conf/conf.php");
 class db_lib {
     use DB_CRUD\DB_CRUD;
     function __construct(){
