@@ -11,7 +11,7 @@ $channelSecret = '9f28c513a8553cca44af6e42637b9f58';
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 $db = new db_lib;
 $msg = $client->parseEvents();
-
+pr($msg);
 $data = array(
     "repont_json" => json_encode($msg),
     "create_time" => date("Y-m-d H:i:s"),
