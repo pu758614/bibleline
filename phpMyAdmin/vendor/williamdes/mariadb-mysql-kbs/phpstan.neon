@@ -1,0 +1,9 @@
+parameters:
+        excludes_analyse:
+        - src/merge.php
+        - dist/*
+        - tmp/*
+        - docs/*
+        - build/*
+        - nodes_modules/*
+        - vendor/*
