@@ -19,6 +19,7 @@ $data = array(
     "repont_json" => json_encode($msg),
     "create_time" => date("Y-m-d H:i:s"),
 );
+
 $db_lib->db->debug = 1;
 $db_lib->insertData('line_bible_log',$data);
 $db_lib->db->debug = 0;
