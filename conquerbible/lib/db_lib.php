@@ -43,12 +43,12 @@ class db_lib {
     }
     //新增LINE使用者資訊
     function addLineUser($user_uuid){
-        global $channel_secre,$channel_access_token;
+        global $channelSecret,$channelAccessToken;
         $result = 0;
-        pr($channel_secre);
-        pr($channel_access_token);
-        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channel_access_token);
-        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secre]);
+        pr($channelSecret);
+        pr($channelAccessToken);
+        $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channelAccessToken);
+        $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
         pr($user_uuid);
         $response = $bot->getProfile($user_uuid);
         pr($response);
