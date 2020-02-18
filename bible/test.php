@@ -11,7 +11,7 @@ $database = 'heroku_4d9bdcbc4d69fab';
 $db = ADONewConnection('mysqli');
 $db->connect($host,$user,$passwd,$database);
 //$conn->debug = true;
-$sql = "SELECT * FROM `line_bible_log`";
+$sql = "SELECT * FROM `line_user`";
 $result = $db->execute($sql);
 if($result){
     $arr = $result->getAll();
