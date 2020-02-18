@@ -17,8 +17,6 @@ foreach ($client->parseEvents() as $event) {
     $db->record_msg_log($uuid,json_encode($msg));
     $db->db->debug = 1;
     $user_info = $db->getUserInfo($uuid,'uuid');
-    pr($user_info);
-    pr(count($user_info));
     if(count($user_info)==0){
         $line_user_result = $db->addLineUser($uuid);
         if($line_user_result){

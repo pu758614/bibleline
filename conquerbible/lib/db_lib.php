@@ -45,12 +45,17 @@ class db_lib {
     function addLineUser($user_uuid){
         global $channel_secre,$channel_access_token;
         $result = 0;
+        pr($channel_secre);
+        pr($channel_access_token);
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channel_access_token);
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channel_secre]);
+        pr($user_uuid);
         $response = $bot->getProfile($user_uuid);
+        pr($response);
         $profile = array();
         if ($response->isSucceeded()) {
             $profile = $response->getJSONDecodedBody();
+            pr($profile);
         }
 
         // $profile = array(
