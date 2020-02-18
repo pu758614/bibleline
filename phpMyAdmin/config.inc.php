@@ -36,7 +36,7 @@ $cfg['Servers'][$i]['auth_type'] = 'cookie';
 $cfg['Servers'][$i]['host'] = $dbopts["host"];
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = $dbopts["port"];
-
+$cfg['LoginCookieValidity'] = 86400;
 /**
  * phpMyAdmin configuration storage settings.
  */
