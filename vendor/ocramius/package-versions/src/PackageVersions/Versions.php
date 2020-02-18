@@ -18,6 +18,10 @@ final class Versions
   'alrik11es/cowsayphp' => '1.2.0@080dc10c8f5420fef35163569293601f17124eeb',
   'csanquer/pdo-service-provider' => 'dev-master@2b07fd86e145916a47723ca08452ada4dc675d58',
   'google/recaptcha' => '1.2.3@98c4a6573b27e8b0990ea8789c74ea378795134c',
+  'guzzlehttp/guzzle' => '6.5.2@43ece0e75098b7ecd8d13918293029e555a50f82',
+  'guzzlehttp/promises' => 'v1.3.1@a59da6cf61d80060647ff4d3eb2c03a2bc694646',
+  'guzzlehttp/psr7' => '1.6.1@239400de7a173fe9901b9ac7c06497751f00727a',
+  'linecorp/line-bot-sdk' => '4.2.0@8f8031e19963568d1c4792d4dd428f26fba28295',
   'monolog/monolog' => '1.25.3@fa82921994db851a8becaf3787a9e73c5976b6f1',
   'phpmyadmin/motranslator' => '4.0@fcb370254998fda7eeccfd7c787b4deb71b0d77c',
   'phpmyadmin/shapefile' => '2.1@e23b767f2a81f61fee3fc09fc062879985f3e224',
@@ -26,7 +30,9 @@ final class Versions
   'pimple/pimple' => 'v3.2.3@9e403941ef9d65d20cba7d54e29fe906db42cf32',
   'psr/cache' => '1.0.1@d11b50ad223250cf17b86e38383413f5a6764bf8',
   'psr/container' => '1.0.0@b7ce3b176482dbbc1245ebf52b181af44c2cf55f',
+  'psr/http-message' => '1.0.1@f6561bf28d520154e4b0ec72be95418abe6d9363',
   'psr/log' => '1.1.2@446d54b4cb6bf489fc9d75f55843658e6f25d801',
+  'ralouphie/getallheaders' => '3.0.3@120b605dfeb996808c31b6477290a714d356e822',
   'silex/silex' => 'v2.3.0@6bc31c1b8c4ef614a7115320fd2d3b958032f131',
   'symfony/cache' => 'v4.4.4@0198a01c8d918d6d717f96dfdcba9582bc5f6468',
   'symfony/cache-contracts' => 'v1.1.7@af50d14ada9e4e82cfabfabdc502d144f89be0a1',
@@ -117,7 +123,7 @@ final class Versions
   'tecnickcom/tcpdf' => '6.3.5@19a535eaa7fb1c1cac499109deeb1a7a201b4549',
   'theseer/tokenizer' => '1.1.3@11336f6f84e16a720dae9d8e6ed5019efa85a0f9',
   'webmozart/assert' => '1.7.0@aed98a490f9a8f78468232db345ab9cf606cf598',
-  '__root__' => 'dev-master@26fa4d334832c4c72ff57cf3b3a04f663b6da5b7',
+  '__root__' => 'dev-master@acfbedcf2723c7e5fedaf4404b144038c2d1160f',
 );
 
     private function __construct()

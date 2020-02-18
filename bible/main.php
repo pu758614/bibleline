@@ -11,7 +11,7 @@
 *    6=> bug錯誤
  */
 header("Content-Type:text/html; charset=utf-8");
-include ('vendor/autoload.php');
+//include ('vendor/autoload.php');
 include ('../vendor/autoload.php');
 include ('channel_data.php');
 require_once('./LINEBotTiny.php');
