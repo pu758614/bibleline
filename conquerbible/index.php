@@ -5,7 +5,8 @@ include_once('../vendor/autoload.php');
 include_once("lib/common.php");
 include_once("lib/db_lib.php");
 include_once('../lib/LINEBotTiny.php');
-
+pr($channelAccessToken);
+pr($channelSecret);
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 $db = new db_lib;
 
