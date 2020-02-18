@@ -15,7 +15,7 @@ pr($msg);
 $data = array(
     "name_id" => "123456",
     "name" => "黃世X",
-    "inster_msg" => "123123"
+    "inster_msg" => "123123",
     "repont_json" => json_encode($msg),
     "create_time" => date("Y-m-d H:i:s"),
 );
