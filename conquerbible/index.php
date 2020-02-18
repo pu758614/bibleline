@@ -11,6 +11,7 @@ $db = new db_lib;
 foreach ($client->parseEvents() as $event) {
     $uuid = $event['source']['userId'];
     $msg = $event['message'];
+    pr($event);
     //$guestdata = getGuestInfo($channelAccessToken,$channelSecret,$user_id);
     $db->record_msg_log($uuid,json_encode($msg));
     $db->db->debug = 1;
