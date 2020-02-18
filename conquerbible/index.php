@@ -8,7 +8,6 @@ include_once('../lib/LINEBotTiny.php');
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 $db = new db_lib;
 
-$db->record_msg_log("123123",json_encode($client->parseEvents()));
 foreach ($client->parseEvents() as $event) {
     $uuid = $event['source']['userId'];
     $msg = $event['message'];
