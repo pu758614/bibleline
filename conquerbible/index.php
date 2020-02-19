@@ -76,8 +76,8 @@ foreach ($client->parseEvents() as $event) {
             // code...
             break;
     }
+    goto end;
 
-    $client->reply_text($event['replyToken'],json_encode($result));
 }
 
 end:

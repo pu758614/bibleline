@@ -144,7 +144,7 @@ class db_lib {
         }
 
         foreach ($chapter_arr as  $chapter) {
-            $record_data =array(
+            $record_data = array(
                 "player_id" => $player_id,
                 "book_id"   => $book_id,
                 "chapter_no" => $chapter,
@@ -152,6 +152,7 @@ class db_lib {
                 "modify_time" =>date("Y:m:d H:i:s"),
                 "create_time" =>date("Y:m:d H:i:s"),
             );
+            pr($record_data);
             $record_result = $this->insertData("conquer_bible_read_record",$record_data);
             if($record_result){
                 if($type=='add'){
