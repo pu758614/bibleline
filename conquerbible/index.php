@@ -32,10 +32,11 @@ foreach ($client->parseEvents() as $event) {
             $player_info = $db->getPlayerInfo($add_plyer_result);
         }
     }
-    pr($event);
+    pr($msg);
     $BibleBook= $db->getBibleBook();
     $action = substr($msg, 0,1);
     $new_msg = substr($msg, 1);
+    pr($new_msg);
     $player_id = isset($player_info['id'])?$player_info['id']:'';
     $analy_result = analysis_str($new_msg);
     $client->reply_text($event['replyToken'],json_encode($analy_result));
