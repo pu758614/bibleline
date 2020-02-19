@@ -30,7 +30,7 @@ class db_lib {
             "create_time" =>date("Y:m:d H:i:s"),
         );
         $result = $this->insertData("line_msg_log",$data);
-        return $result
+        return $result;
     }
 
     function result_msg_log($id,$status,$memo){
