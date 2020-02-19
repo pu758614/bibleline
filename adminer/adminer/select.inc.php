@@ -6,7 +6,7 @@ $fields = fields($TABLE);
 $foreign_keys = column_foreign_keys($TABLE);
 $oid = $table_status["Oid"];
 parse_str($_COOKIE["adminer_import"], $adminer_import);
-
+header("Content-Type:text/html; charset=utf-8");
 $rights = array(); // privilege => 0
 $columns = array(); // selectable columns
 $text_length = null;
@@ -320,9 +320,7 @@ if (!$columns && support("table")) {
 			$functions = array();
 			reset($select);
 			$rank = 1;
-			echo "<pre>";
-			print_r($rows);
-			echo "</pre>";
+
 			foreach ($rows[0] as $key => $val) {
 				if (!isset($unselected[$key])) {
 					$val = $_GET["columns"][key($select)];
