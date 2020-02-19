@@ -3,12 +3,13 @@
 
 function analysis_str($msg){
     global $book_arr,$abbre_chang,$BibleBook;
+    echo $msg;
     $retuen = array(
         "error" => 1,
         "error_msg" => '',
         "data" => array(),
     );
-
+    
     $msg_arr = preg_split("/([a-zA-Z0-9]+)/", $msg, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
     if(count($msg_arr)>0){
         $sort = array();
