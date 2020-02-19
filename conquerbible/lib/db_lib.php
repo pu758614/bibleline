@@ -120,9 +120,7 @@ class db_lib {
             }
         }else{
             $cond = array();
-            $this->db->debug =1;
             $result_arr = $this->getArrayByArray('conquer_bible_book',$cond);
-            $this->db->debug =1;
         }
         foreach ($result_arr as $data) {
             $result[$data['name']]['count'] = $data['chapter_count'];

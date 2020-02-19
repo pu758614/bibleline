@@ -1,6 +1,6 @@
 <?php
 
-
+header("Content-Type:text/html; charset=utf-8");
 function analysis_str($msg){
     global $book_arr,$abbre_chang,$BibleBook;
     echo $msg;
@@ -9,7 +9,7 @@ function analysis_str($msg){
         "error_msg" => '',
         "data" => array(),
     );
-    
+
     $msg_arr = preg_split("/([a-zA-Z0-9]+)/", $msg, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
     if(count($msg_arr)>0){
         $sort = array();

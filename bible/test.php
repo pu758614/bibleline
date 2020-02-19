@@ -29,7 +29,7 @@ if($result){
         );
     }
     echo "<pre>";
-    print_r($return);
+    print_r($arr);
     echo "</pre>";
 }else{
     echo "fail";
