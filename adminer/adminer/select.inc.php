@@ -323,7 +323,7 @@ if (!$columns && support("table")) {
 			echo "<pre>";
 			print_r($rows);
 			echo "</pre>";
-			foreach ($rows[0] as $key =>  ) {
+			foreach ($rows[0] as $key => $val) {
 				if (!isset($unselected[$key])) {
 					$val = $_GET["columns"][key($select)];
 					$field = $fields[$select ? ($val ? $val["col"] : current($select)) : $key];
