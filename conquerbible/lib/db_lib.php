@@ -39,8 +39,8 @@ class db_lib {
             "memo" => $memo,
             "modify_time" =>date("Y:m:d H:i:s"),
         );
-        $comd = array("id"=>$id)
-        $this->updateData("line_msg_log",$data,$comd)
+        $cond= array("id"=>$id);
+        $this->updateData("line_msg_log",$data,$cond);
     }
 
     //取得LINE使用者訊息
