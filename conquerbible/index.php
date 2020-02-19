@@ -49,8 +49,6 @@ foreach ($client->parseEvents() as $event) {
     $new_msg = mb_substr($msg, 1);
     $player_id = isset($player_info['id'])?$player_info['id']:'';
     $analy_result = analysis_str($new_msg);
-    pr($BibleBook);
-    $client->reply_text($event['replyToken'],json_encode($analy_result));
     if($analy_result['error']==1){
         $result['msg'] = $analy_result['error_msg'];
         $status = 2;

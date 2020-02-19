@@ -142,7 +142,7 @@ class db_lib {
         }else{
             $type = "minus";
         }
-
+        pr($data);
         foreach ($chapter_arr as  $chapter) {
             $record_data = array(
                 "player_id" => $player_id,
