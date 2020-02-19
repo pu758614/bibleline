@@ -32,7 +32,7 @@ foreach ($client->parseEvents() as $event) {
             $player_info = $db->getPlayerInfo($add_plyer_result);
         }
     }
-    pr($event)
+    pr($event);
     $BibleBook= $db->getBibleBook();
     $action = substr($msg, 0,1);
     $new_msg = substr($msg, 1);
