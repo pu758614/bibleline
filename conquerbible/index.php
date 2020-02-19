@@ -34,8 +34,8 @@ foreach ($client->parseEvents() as $event) {
     }
     pr($msg);
     $BibleBook= $db->getBibleBook();
-    $action = substr($msg, 0,1);
-    $new_msg = substr($msg, 1);
+    $action = mb_substr($msg, 0,1);
+    $new_msg = mb_substr($msg, 1);
     pr($new_msg);
     $player_id = isset($player_info['id'])?$player_info['id']:'';
     $analy_result = analysis_str($new_msg);
