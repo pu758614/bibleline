@@ -101,42 +101,48 @@ Trait DB_CRUD {
      * @param  string  $order       排列順序
      * @return array
      */
-    function getArrayByArray($db,$table,$condition,$sort='',$order=''){
-        $where = '';
-        $arr_prestr = array();
-        $tmp_in = isset($condition['in']) && is_array($condition['in'])? $condition['in']: array();
-        $tmp_str = array();
-        unset($condition['in']);
-        foreach ($condition as $key => $value) {
-            $tmp_str[] = $key . ' = ? ';
-            $arr_prestr[] = $value;
-        }
-        if(!empty($tmp_in)){
-            foreach ($tmp_in as $tmp_key => $tmp_cond_arr) {
-                $tmp_in_cond = array();
-                foreach ($tmp_cond_arr as $tmp_cond) {
-                    $tmp_in_cond[] = '?';
-                    $arr_prestr[] = $tmp_cond;
-                }
-                $tmp_str[] = $tmp_key.' IN ('.implode(' ,', $tmp_in_cond).')';
-            }
-        }
-        $where = implode(' AND ', $tmp_str);
+     function getArrayByArray($table,$condition,$sort='',$order=''){
+         $where = '';
+         $arr_prestr = array();
+         $tmp_in = isset($condition['in']) && is_array($condition['in'])? $condition['in']: array();
+         $tmp_str = array();
+         unset($condition['in']);
+         foreach ($condition as $key => $value) {
+             $tmp_str[] = $key . ' = ? ';
+             $arr_prestr[] = $value;
+         }
+         if(!empty($tmp_in)){
+             foreach ($tmp_in as $tmp_key => $tmp_cond_arr) {
+                 $tmp_in_cond = array();
+                 foreach ($tmp_cond_arr as $tmp_cond) {
+                     $tmp_in_cond[] = '?';
+                     $arr_prestr[] = $tmp_cond;
+                 }
+                 $tmp_str[] = $tmp_key.' IN ('.implode(' ,', $tmp_in_cond).')';
+             }
+         }
+         $where = implode(' AND ', $tmp_str);
 
-        $order_by = '';
-        if($sort != ''){
-            $sort_field = $sort;
-            $order_by = 'ORDER BY '.$sort_field.' '.$order;
-        }
+         $order_by = '';
+         if($sort != ''){
+             $sort_field = $sort;
+             $order_by = 'ORDER BY '.$sort_field.' '.$order;
+         }
+         if($condition!= array() || $where!=''){
+             $where = "WHERE $where";
+         }
 
-        $sql = "SELECT * FROM $table WHERE $where $order_by";
-        $result = $this->db->Execute($sql,$arr_prestr);
-        if($result && $result->RecordCount() > 0){
-            return $result->getAll();
-        }else{
-            return array();
-        }
-    }
+         $sql = "SELECT * FROM $table  $where $order_by";
+
+
+         $result = $this->db->Execute($sql);
+
+         if($result && $result->RecordCount() > 0){
+             return $result->getAll();
+         }else{
+             return array();
+         }
+     }
     /**
      * 新增一筆資料(insert)
      * @param  string  $table 資料表
