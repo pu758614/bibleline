@@ -1,4 +1,5 @@
 <?php
+header("Content-Type:text/html; charset=utf-8");
 /** Adminer - Compact database management
 * @link https://www.adminer.org/
 * @author Jakub Vrana, https://www.vrana.cz/
