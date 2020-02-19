@@ -35,6 +35,8 @@ if (!defined("DRIVER")) {
 			}
 
 			function set_charset($charset) {
+				echo "666666666";
+				echo $charset;
 				if (parent::set_charset($charset)) {
 					return true;
 				}
@@ -106,7 +108,6 @@ if (!defined("DRIVER")) {
 					// the client library may not support utf8mb4
 					mysql_set_charset('utf8', $this->_link);
 				}
-				echo "666666666";
 				return $this->query("SET NAMES $charset");
 			}
 
