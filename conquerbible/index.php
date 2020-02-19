@@ -27,7 +27,7 @@ $id = 1;
 foreach ($book_arr as $key => $book) {
     $cond = array("id"=>$id);
     $data = array("name"=>$book);
-    $db->updateData('conquer_bible_book',$data,$cond)
+    $db->updateData('conquer_bible_book',$data,$cond);
     $id++;
 }
 exit;
