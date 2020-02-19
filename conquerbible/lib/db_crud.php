@@ -207,7 +207,7 @@ Trait DB_CRUD {
      * @param  array   $condition 條件
      * @return boolean
      */
-    function updateData($db,$table,$data,$condition) {
+    function updateData($table,$data,$condition) {
         $where = $column = '';
         $arr_prestr = array();
 
