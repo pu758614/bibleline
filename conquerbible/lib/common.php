@@ -56,6 +56,8 @@ function analysis_str($msg){
             }else{
                 $retuen['error_msg'] = '格式輸入錯誤';
             }
+        }else{
+            $retuen['error_msg'] = '取得張卷資料失敗';
         }
     }else{
         $retuen['error_msg'] = '格式輸入錯誤';
