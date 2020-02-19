@@ -57,11 +57,31 @@ foreach ($client->parseEvents() as $event) {
         goto end;
     }
 
+    switch ($action) {
+        case '+':
+            $action_str = '閱讀';
+        case '-':
+            $read_resule = $db->readBible($player_id,$action,$analy_result['data']);
+            $chapter_str = implode(",",$analy_result['data']['chapter']);
+            if($action=='-'){
+                $action_str = '移除';
+            }
+            $result = array(
+                "error" => 0,
+                "msg"   => '已'.$action_str.'了'.$analy_result['data']['book'].$chapter_str."章",
+            );
+            pr($result);
+            break;
+        default:
+            // code...
+            break;
+    }
 
     $client->reply_text($event['replyToken'],json_encode($result));
 }
 
 end:
+    $client->reply_text($event['replyToken'],$result['msg']);
     $db->result_msg_log($msg_log_id,'1',json_encode($result));
     exit;
 ?>
