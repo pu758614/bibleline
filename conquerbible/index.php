@@ -23,14 +23,7 @@ $book_arr = array(
                   '提摩太前書','提摩太後書','提多書','腓利門書','希伯來書','雅各書','彼得前書',
                   '彼得後書','約翰一書','約翰二書','約翰三書','猶大書','啟示錄'
 );
-$id = 1;
-foreach ($book_arr as $key => $book) {
-    $cond = array("id"=>$id);
-    $data = array("name"=>$book);
-    $db->updateData('conquer_bible_book',$data,$cond);
-    $id++;
-}
-exit;
+
 //$db->record_msg_log("123123",file_get_contents('php://input'));
 foreach ($client->parseEvents() as $event) {
     $uuid = $event['source']['userId'];
