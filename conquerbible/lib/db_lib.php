@@ -29,7 +29,18 @@ class db_lib {
             "modify_time" =>date("Y:m:d H:i:s"),
             "create_time" =>date("Y:m:d H:i:s"),
         );
-        $this->insertData("line_msg_log",$data);
+        $result = $this->insertData("line_msg_log",$data);
+        return $result
+    }
+
+    function result_msg_log($id,$status,$memo){
+        $data = array(
+            "status" => $status,
+            "memo" => $memo,
+            "modify_time" =>date("Y:m:d H:i:s"),
+        );
+        $comd = array("id"=>$id)
+        $this->updateData("line_msg_log",$data,$comd)
     }
 
     //取得LINE使用者訊息

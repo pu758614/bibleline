@@ -35,8 +35,6 @@ if (!defined("DRIVER")) {
 			}
 
 			function set_charset($charset) {
-				echo "666666666";
-				echo $charset;
 				if (parent::set_charset($charset)) {
 					return true;
 				}
