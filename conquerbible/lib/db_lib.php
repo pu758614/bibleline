@@ -16,6 +16,7 @@ class db_lib {
         //資料庫名稱
         $database = 'heroku_4d9bdcbc4d69fab';
         $this->db = ADONewConnection('mysqli');
+        $this->db->setCharset('utf8');
         $this->db->Connect($host,$user,$passwd,$database);
         $this->db->SetFetchMode(ADODB_FETCH_ASSOC);
     }
