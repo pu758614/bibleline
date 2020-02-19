@@ -321,7 +321,7 @@ if (!$columns && support("table")) {
 			reset($select);
 			$rank = 1;
 			echo "<pre>";
-			print_r($rows[0]);
+			print_r($rows);
 			echo "</pre>";
 			foreach ($rows[0] as $key =>  ) {
 				if (!isset($unselected[$key])) {
