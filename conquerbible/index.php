@@ -28,7 +28,7 @@ foreach ($client->parseEvents() as $event) {
     $player_info = $db->getPlayerInfo($user_info['id']);
     if(count($player_info)==0){
         $add_plyer_result = $db->addPlyerUser($user_info['id']);
-        if($line_user_result){
+        if($add_plyer_result){
             $player_info = $db->getPlayerInfo($add_plyer_result);
         }
     }
