@@ -2,10 +2,10 @@
 $drivers["simpledb"] = "SimpleDB";
 
 if (isset($_GET["simpledb"])) {
-	$possible_drivers = array("SimpleXML + allow_url_fopen");
+	$possible_drivers = array("SimpleXML");
 	define("DRIVER", "simpledb");
 
-	if (class_exists('SimpleXMLElement') && ini_bool('allow_url_fopen')) {
+	if (class_exists('SimpleXMLElement')) {
 		class Min_DB {
 			var $extension = "SimpleXML", $server_info = '2009-04-15', $error, $timeout, $next, $affected_rows, $_result;
 
@@ -19,7 +19,6 @@ if (isset($_GET["simpledb"])) {
 					$params['NextToken'] = $this->next;
 				}
 				$result = sdb_request_all('Select', 'Item', $params, $this->timeout); //! respect $unbuffered
-				$this->timeout = 0;
 				if ($result === false) {
 					return $result;
 				}
@@ -57,7 +56,7 @@ if (isset($_GET["simpledb"])) {
 		class Min_Result {
 			var $num_rows, $_rows = array(), $_offset = 0;
 
-			function __construct($result) {
+			function Min_Result($result) {
 				foreach ($result as $item) {
 					$row = array();
 					if ($item->Name != '') { // SELECT COUNT(*)
@@ -237,22 +236,12 @@ if (isset($_GET["simpledb"])) {
 		function rollback() {
 			return false;
 		}
-		
-		function slowQuery($query, $timeout) {
-			$this->_conn->timeout = $timeout;
-			return $query;
-		}
 
 	}
 
 
 
 	function connect() {
-		global $adminer;
-		list(, , $password) = $adminer->credentials();
-		if ($password != "") {
-			return lang('Database does not support password.');
-		}
 		return new Min_DB;
 	}
 

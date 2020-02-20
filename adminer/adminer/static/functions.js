@@ -1,67 +1,4 @@
 
-/** Get first element by selector
-* @param string
-* @param [HTMLElement] defaults to document
-* @return HTMLElement
-*/
-function qs(selector, context) {
-	return (context || document).querySelector(selector);
-}
-
-/** Get last element by selector
-* @param string
-* @param [HTMLElement] defaults to document
-* @return HTMLElement
-*/
-function qsl(selector, context) {
-	var els = qsa(selector, context);
-	return els[els.length - 1];
-}
-
-/** Get all elements by selector
-* @param string
-* @param [HTMLElement] defaults to document
-* @return NodeList
-*/
-function qsa(selector, context) {
-	return (context || document).querySelectorAll(selector);
-}
-
-/** Return a function calling fn with the next arguments
-* @param function
-* @param ...
-* @return function with preserved this
-*/
-function partial(fn) {
-	var args = Array.apply(null, arguments).slice(1);
-	return function () {
-		return fn.apply(this, args);
-	};
-}
-
-/** Return a function calling fn with the first parameter and then the next arguments
-* @param function
-* @param ...
-* @return function with preserved this
-*/
-function partialArg(fn) {
-	var args = Array.apply(null, arguments);
-	return function (arg) {
-		args[0] = arg;
-		return fn.apply(this, args);
-	};
-}
-
-/** Assign values from source to target
-* @param Object
-* @param Object
-*/
-function mixin(target, source) {
-	for (var key in source) {
-		target[key] = source[key];
-	}
-}
-
 /** Add or remove CSS class
 * @param HTMLElement
 * @param string
@@ -75,12 +12,12 @@ function alterClass(el, className, enable) {
 
 /** Toggle visibility
 * @param string
-* @return boolean false
+* @return boolean
 */
 function toggle(id) {
-	var el = qs('#' + id);
+	var el = document.getElementById(id);
 	el.className = (el.className == 'hidden' ? '' : 'hidden');
-	return false;
+	return true;
 }
 
 /** Set permanent cookie
@@ -96,13 +33,11 @@ function cookie(assign, days) {
 
 /** Verify current Adminer version
 * @param string
-* @param string own URL base
-* @param string
 */
-function verifyVersion(current, url, token) {
+function verifyVersion(current) {
 	cookie('adminer_version=0', 1);
 	var iframe = document.createElement('iframe');
-	iframe.src = 'https://www.adminer.org/version/?current=' + current;
+	iframe.src = location.protocol + '//www.adminer.org/version/?current=' + current;
 	iframe.frameBorder = 0;
 	iframe.marginHeight = 0;
 	iframe.scrolling = 'no';
@@ -111,17 +46,15 @@ function verifyVersion(current, url, token) {
 	if (window.postMessage && window.addEventListener) {
 		iframe.style.display = 'none';
 		addEventListener('message', function (event) {
-			if (event.origin == 'https://www.adminer.org') {
+			if (event.origin == location.protocol + '//www.adminer.org') {
 				var match = /version=(.+)/.exec(event.data);
 				if (match) {
 					cookie('adminer_version=' + match[1], 1);
-					ajax(url + 'script=version', function () {
-					}, event.data + '&token=' + token);
 				}
 			}
 		}, false);
 	}
-	qs('#version').appendChild(iframe);
+	document.getElementById('version').appendChild(iframe);
 }
 
 /** Get value of select
@@ -137,20 +70,20 @@ function selectValue(select) {
 }
 
 /** Verify if element has a specified tag name
-* @param HTMLElement
-* @param string regular expression
-* @return bool
-*/
+ * @param HTMLElement
+ * @param string regular expression
+ * @return bool
+ */
 function isTag(el, tag) {
 	var re = new RegExp('^(' + tag + ')$', 'i');
-	return el && re.test(el.tagName);
+	return re.test(el.tagName);
 }
 
 /** Get parent node with specified tag name
-* @param HTMLElement
-* @param string regular expression
-* @return HTMLElement
-*/
+ * @param HTMLElement
+ * @param string regular expression
+ * @return HTMLElement
+ */
 function parentTag(el, tag) {
 	while (el && !isTag(el, tag)) {
 		el = el.parentNode;
@@ -172,31 +105,27 @@ function trCheck(el) {
 /** Fill number of selected items
 * @param string
 * @param string
-* @uses thousandsSeparator
 */
 function selectCount(id, count) {
-	setHtml(id, (count === '' ? '' : '(' + (count + '').replace(/\B(?=(\d{3})+$)/g, thousandsSeparator) + ')'));
-	var el = qs('#' + id);
-	if (el) {
-		var inputs = qsa('input', el.parentNode.parentNode);
-		for (var i = 0; i < inputs.length; i++) {
-			var input = inputs[i];
-			if (input.type == 'submit') {
-				input.disabled = (count == '0');
-			}
+	setHtml(id, (count === '' ? '' : '(' + (count + '').replace(/\B(?=(\d{3})+$)/g, ' ') + ')'));
+	var inputs = document.getElementById(id).parentNode.parentNode.getElementsByTagName('input');
+	for (var i = 0; i < inputs.length; i++) {
+		var input = inputs[i];
+		if (input.type == 'submit') {
+			input.disabled = (count == '0');
 		}
 	}
 }
 
 /** Check all elements matching given name
+* @param HTMLInputElement
 * @param RegExp
-* @this HTMLInputElement
 */
-function formCheck(name) {
-	var elems = this.form.elements;
+function formCheck(el, name) {
+	var elems = el.form.elements;
 	for (var i=0; i < elems.length; i++) {
 		if (name.test(elems[i].name)) {
-			elems[i].checked = this.checked;
+			elems[i].checked = el.checked;
 			trCheck(elems[i]);
 		}
 	}
@@ -205,9 +134,14 @@ function formCheck(name) {
 /** Check all rows in <table class="checkable">
 */
 function tableCheck() {
-	var inputs = qsa('table.checkable td:first-child input');
-	for (var i=0; i < inputs.length; i++) {
-		trCheck(inputs[i]);
+	var tables = document.getElementsByTagName('table');
+	for (var i=0; i < tables.length; i++) {
+		if (/(^|\s)checkable(\s|$)/.test(tables[i].className)) {
+			var trs = tables[i].getElementsByTagName('tr');
+			for (var j=0; j < trs.length; j++) {
+				trCheck(trs[j].firstChild.firstChild);
+			}
+		}
 	}
 }
 
@@ -215,7 +149,7 @@ function tableCheck() {
 * @param string
 */
 function formUncheck(id) {
-	var el = qs('#' + id);
+	var el = document.getElementById(id);
 	el.checked = false;
 	trCheck(el);
 }
@@ -241,13 +175,6 @@ function formChecked(el, name) {
 * @param [boolean] force click
 */
 function tableClick(event, click) {
-	var td = parentTag(getTarget(event), 'td');
-	var text;
-	if (td && (text = td.getAttribute('data-text'))) {
-		if (selectClick.call(td, event, +text, td.getAttribute('data-warning'))) {
-			return;
-		}
-	}
 	click = (click || !window.getSelection || getSelection().isCollapsed);
 	var el = getTarget(event);
 	while (!isTag(el, 'tr')) {
@@ -255,7 +182,7 @@ function tableClick(event, click) {
 			if (el.type != 'checkbox') {
 				return;
 			}
-			checkboxClick.call(el, event);
+			checkboxClick(event, el);
 			click = false;
 		}
 		el = el.parentNode;
@@ -268,38 +195,31 @@ function tableClick(event, click) {
 		el.checked = !el.checked;
 		el.onclick && el.onclick();
 	}
-	if (el.name == 'check[]') {
-		el.form['all'].checked = false;
-		formUncheck('all-page');
-	}
-	if (/^(tables|views)\[\]$/.test(el.name)) {
-		formUncheck('check-all');
-	}
 	trCheck(el);
 }
 
 var lastChecked;
 
 /** Shift-click on checkbox for multiple selection.
-* @param MouseEvent
-* @this HTMLInputElement
-*/
-function checkboxClick(event) {
-	if (!this.name) {
+ * @param MouseEvent
+ * @param HTMLInputElement
+ */
+function checkboxClick(event, el) {
+	if (!el.name) {
 		return;
 	}
-	if (event.shiftKey && (!lastChecked || lastChecked.name == this.name)) {
+	if (event.shiftKey && (!lastChecked || lastChecked.name == el.name)) {
 		var checked = (lastChecked ? lastChecked.checked : true);
-		var inputs = qsa('input', parentTag(this, 'table'));
+		var inputs = parentTag(el, 'table').getElementsByTagName('input');
 		var checking = !lastChecked;
 		for (var i=0; i < inputs.length; i++) {
 			var input = inputs[i];
-			if (input.name === this.name) {
+			if (input.name === el.name) {
 				if (checking) {
 					input.checked = checked;
 					trCheck(input);
 				}
-				if (input === this || input === lastChecked) {
+				if (input === el || input === lastChecked) {
 					if (checking) {
 						break;
 					}
@@ -308,19 +228,19 @@ function checkboxClick(event) {
 			}
 		}
 	} else {
-		lastChecked = this;
+		lastChecked = el;
 	}
 }
 
 /** Set HTML code of an element
 * @param string
-* @param string undefined to set parentNode to empty string
+* @param string undefined to set parentNode to &nbsp;
 */
 function setHtml(id, html) {
-	var el = qs('[id="' + id.replace(/[\\"]/g, '\\$&') + '"]'); // database name is used as ID
+	var el = document.getElementById(id);
 	if (el) {
-		if (html == null) {
-			el.parentNode.innerHTML = '';
+		if (html == undefined) {
+			el.parentNode.innerHTML = '&nbsp;';
 		} else {
 			el.innerHTML = html;
 		}
@@ -342,89 +262,88 @@ function nodePosition(el) {
 /** Go to the specified page
 * @param string
 * @param string
+* @param [MouseEvent]
 */
-function pageClick(href, page) {
+function pageClick(href, page, event) {
 	if (!isNaN(page) && page) {
-		location.href = href + (page != 1 ? '&page=' + (page - 1) : '');
+		href += (page != 1 ? '&page=' + (page - 1) : '');
+		location.href = href;
 	}
 }
 
 
 
 /** Display items in menu
+* @param HTMLElement
 * @param MouseEvent
-* @this HTMLElement
 */
-function menuOver(event) {
+function menuOver(el, event) {
 	var a = getTarget(event);
 	if (isTag(a, 'a|span') && a.offsetLeft + a.offsetWidth > a.parentNode.offsetWidth - 15) { // 15 - ellipsis
-		this.style.overflow = 'visible';
+		el.style.overflow = 'visible';
 	}
 }
 
 /** Hide items in menu
-* @this HTMLElement
+* @param HTMLElement
 */
-function menuOut() {
-	this.style.overflow = 'auto';
+function menuOut(el) {
+	el.style.overflow = 'auto';
 }
 
 
 
 /** Add row in select fieldset
-* @this HTMLSelectElement
+* @param HTMLSelectElement
 */
-function selectAddRow() {
-	var field = this;
-	var row = cloneNode(field.parentNode);
-	field.onchange = selectFieldChange;
+function selectAddRow(field) {
+	field.onchange = function () {
+		selectFieldChange(field.form);
+	};
 	field.onchange();
-	var selects = qsa('select', row);
+	var row = cloneNode(field.parentNode);
+	var selects = row.getElementsByTagName('select');
 	for (var i=0; i < selects.length; i++) {
 		selects[i].name = selects[i].name.replace(/[a-z]\[\d+/, '$&1');
 		selects[i].selectedIndex = 0;
 	}
-	var inputs = qsa('input', row);
+	var inputs = row.getElementsByTagName('input');
 	for (var i=0; i < inputs.length; i++) {
 		inputs[i].name = inputs[i].name.replace(/[a-z]\[\d+/, '$&1');
+		inputs[i].value = '';
 		inputs[i].className = '';
-		if (inputs[i].type == 'checkbox') {
-			inputs[i].checked = false;
-		} else {
-			inputs[i].value = '';
-		}
 	}
 	field.parentNode.parentNode.appendChild(row);
 }
 
 /** Prevent onsearch handler on Enter
+* @param HTMLInputElement
 * @param KeyboardEvent
-* @this HTMLInputElement
 */
-function selectSearchKeydown(event) {
+function selectSearchKeydown(el, event) {
 	if (event.keyCode == 13 || event.keyCode == 10) {
-		this.onsearch = function () {
+		el.onsearch = function () {
 		};
 	}
 }
 
 /** Clear column name after resetting search
-* @this HTMLInputElement
+* @param HTMLInputElement
 */
-function selectSearchSearch() {
-	if (!this.value) {
-		this.parentNode.firstChild.selectedIndex = 0;
+function selectSearchSearch(el) {
+	if (!el.value) {
+		el.parentNode.firstChild.selectedIndex = 0;
 	}
 }
 
 
 
 /** Toggles column context menu
-* @param [string] extra class name
-* @this HTMLElement
-*/
-function columnMouse(className) {
-	var spans = qsa('span', this);
+ * @param HTMLElement
+ * @param [string] extra class name
+ */
+function columnMouse(el, className) {
+	var spans = el.getElementsByTagName('span');
 	for (var i=0; i < spans.length; i++) {
 		if (/column/.test(spans[i].className)) {
 			spans[i].className = 'column' + (className || '');
@@ -435,17 +354,15 @@ function columnMouse(className) {
 
 
 /** Fill column in search field
-* @param string
-* @return boolean false
-*/
+ * @param string
+ */
 function selectSearch(name) {
-	var el = qs('#fieldset-search');
+	var el = document.getElementById('fieldset-search');
 	el.className = '';
-	var divs = qsa('div', el);
+	var divs = el.getElementsByTagName('div');
 	for (var i=0; i < divs.length; i++) {
 		var div = divs[i];
-		var el = qs('[name$="[col]"]', div);
-		if (el && selectValue(el) == name) {
+		if (isTag(div.firstChild, 'select') && selectValue(div.firstChild) == name) {
 			break;
 		}
 	}
@@ -453,8 +370,7 @@ function selectSearch(name) {
 		div.firstChild.value = name;
 		div.firstChild.onchange();
 	}
-	qs('[name$="[val]"]', div).focus();
-	return false;
+	div.lastChild.focus();
 }
 
 
@@ -482,7 +398,6 @@ function getTarget(event) {
 * @return boolean
 */
 function bodyKeydown(event, button) {
-	eventStop(event);
 	var target = getTarget(event);
 	if (target.jushTextarea) {
 		target = target.jushTextarea;
@@ -492,9 +407,6 @@ function bodyKeydown(event, button) {
 		if (button) {
 			target.form[button].click();
 		} else {
-			if (target.form.onsubmit) {
-				target.form.onsubmit();
-			}
 			target.form.submit();
 		}
 		target.focus();
@@ -534,58 +446,55 @@ function editingKeydown(event) {
 		return false;
 	}
 	if (event.shiftKey && !bodyKeydown(event, 'insert')) {
+		eventStop(event);
 		return false;
 	}
 	return true;
 }
 
 /** Disable maxlength for functions
-* @this HTMLSelectElement
+* @param HTMLSelectElement
 */
-function functionChange() {
-	var input = this.form[this.name.replace(/^function/, 'fields')];
-	if (input) { // undefined with the set data type
-		if (selectValue(this)) {
-			if (input.origType === undefined) {
-				input.origType = input.type;
-				input.origMaxLength = input.getAttribute('data-maxlength');
-			}
-			input.removeAttribute('data-maxlength');
-			input.type = 'text';
-		} else if (input.origType) {
-			input.type = input.origType;
-			if (input.origMaxLength >= 0) {
-				input.setAttribute('data-maxlength', input.origMaxLength);
-			}
+function functionChange(select) {
+	var input = select.form[select.name.replace(/^function/, 'fields')];
+	if (selectValue(select)) {
+		if (input.origType === undefined) {
+			input.origType = input.type;
+			input.origMaxLength = input.maxLength;
 		}
-		oninput({target: input});
+		input.removeAttribute('maxlength');
+		input.type = 'text';
+	} else if (input.origType) {
+		input.type = input.origType;
+		if (input.origMaxLength >= 0) {
+			input.maxLength = input.origMaxLength;
+		}
 	}
 	helpClose();
 }
 
-/** Skip 'original' when typing
-* @param number
-* @this HTMLTableCellElement
+/** Call this.onchange() if value changes
+* @this HTMLInputElement
 */
-function skipOriginal(first) {
-	var fnSelect = this.previousSibling.firstChild;
-	if (fnSelect.selectedIndex < first) {
-		fnSelect.selectedIndex = first;
+function keyupChange() {
+	if (this.value != this.getAttribute('value')) {
+		this.onchange();
+		this.setAttribute('value', this.value);
 	}
 }
 
 /** Add new field in schema-less edit
-* @this HTMLInputElement
+* @param HTMLInputElement
 */
-function fieldChange() {
-	var row = cloneNode(parentTag(this, 'tr'));
-	var inputs = qsa('input', row);
+function fieldChange(field) {
+	var row = cloneNode(parentTag(field, 'tr'));
+	var inputs = row.getElementsByTagName('input');
 	for (var i = 0; i < inputs.length; i++) {
 		inputs[i].value = '';
 	}
 	// keep value in <select> (function)
-	parentTag(this, 'table').appendChild(row);
-	this.oninput = function () { };
+	parentTag(field, 'table').appendChild(row);
+	field.onchange = function () { };
 }
 
 
@@ -596,12 +505,11 @@ function fieldChange() {
 * @param [string]
 * @param [string]
 * @return XMLHttpRequest or false in case of an error
-* @uses offlineMessage
 */
 function ajax(url, callback, data, message) {
 	var request = (window.XMLHttpRequest ? new XMLHttpRequest() : (window.ActiveXObject ? new ActiveXObject('Microsoft.XMLHTTP') : false));
 	if (request) {
-		var ajaxStatus = qs('#ajaxstatus');
+		var ajaxStatus = document.getElementById('ajaxstatus');
 		if (message) {
 			ajaxStatus.innerHTML = '<div class="message">' + message + '</div>';
 			ajaxStatus.className = ajaxStatus.className.replace(/ hidden/g, '');
@@ -630,11 +538,11 @@ function ajax(url, callback, data, message) {
 
 /** Use setHtml(key, value) for JSON response
 * @param string
-* @return boolean false for success
+* @return XMLHttpRequest or false in case of an error
 */
 function ajaxSetHtml(url) {
-	return !ajax(url, function (request) {
-		var data = window.JSON ? JSON.parse(request.responseText) : eval('(' + request.responseText + ')');
+	return ajax(url, function (request) {
+		var data = eval('(' + request.responseText + ')');
 		for (var key in data) {
 			setHtml(key, data[key]);
 		}
@@ -671,30 +579,26 @@ function ajaxForm(form, message, button) {
 	return ajax(url, function (request) {
 		setHtml('ajaxstatus', request.responseText);
 		if (window.jush) {
-			jush.highlight_tag(qsa('code', qs('#ajaxstatus')), 0);
+			jush.highlight_tag(document.getElementById('ajaxstatus').getElementsByTagName('code'), 0);
 		}
-		messagesPrint(qs('#ajaxstatus'));
 	}, data, message);
 }
 
 
 
 /** Display edit field
+* @param HTMLElement
 * @param MouseEvent
 * @param number display textarea instead of input, 2 - load long text
-* @param [string] warning to display
-* @return boolean
-* @this HTMLElement
+* @param string warning to display
 */
-function selectClick(event, text, warning) {
-	var td = this;
+function selectClick(td, event, text, warning) {
 	var target = getTarget(event);
 	if (!isCtrl(event) || isTag(td.firstChild, 'input|textarea') || isTag(target, 'a')) {
 		return;
 	}
 	if (warning) {
-		alert(warning);
-		return true;
+		return alert(warning);
 	}
 	var original = td.innerHTML;
 	text = text || /\n/.test(original);
@@ -709,7 +613,7 @@ function selectClick(event, text, warning) {
 		}
 	};
 	var pos = event.rangeOffset;
-	var value = (td.firstChild && td.firstChild.alt) || td.textContent || td.innerText;
+	var value = td.firstChild.alt || td.textContent || td.innerText;
 	input.style.width = Math.max(td.clientWidth - 14, 20) + 'px'; // 14 = 2 * (td.border + td.padding + input.border)
 	if (text) {
 		var rows = 1;
@@ -718,7 +622,7 @@ function selectClick(event, text, warning) {
 		});
 		input.rows = rows;
 	}
-	if (qsa('i', td).length) { // <i> - NULL
+	if (value == '\u00A0' || td.getElementsByTagName('i').length) { // &nbsp; or i - NULL
 		value = '';
 	}
 	if (document.selection) {
@@ -750,28 +654,26 @@ function selectClick(event, text, warning) {
 		range.moveEnd('character', -input.value.length + pos);
 		range.select();
 	}
-	return true;
 }
 
 
 
 /** Load and display next page in select
+* @param HTMLLinkElement
 * @param number
 * @param string
-* @return boolean false for success
-* @this HTMLLinkElement
+* @return boolean
 */
-function selectLoadMore(limit, loading) {
-	var a = this;
+function selectLoadMore(a, limit, loading) {
 	var title = a.innerHTML;
 	var href = a.href;
 	a.innerHTML = loading;
 	if (href) {
 		a.removeAttribute('href');
-		return !ajax(href, function (request) {
+		return ajax(href, function (request) {
 			var tbody = document.createElement('tbody');
 			tbody.innerHTML = request.responseText;
-			qs('#table').appendChild(tbody);
+			document.getElementById('table').appendChild(tbody);
 			if (tbody.children.length < limit) {
 				a.parentNode.removeChild(a);
 			} else {
@@ -804,7 +706,7 @@ function eventStop(event) {
 */
 function setupSubmitHighlight(parent) {
 	for (var key in { input: 1, select: 1, textarea: 1 }) {
-		var inputs = qsa(key, parent);
+		var inputs = parent.getElementsByTagName(key);
 		for (var i = 0; i < inputs.length; i++) {
 			setupSubmitHighlightInput(inputs[i])
 		}
@@ -849,10 +751,7 @@ function findDefaultSubmit(el) {
 	if (el.jushTextarea) {
 		el = el.jushTextarea;
 	}
-	if (!el.form) {
-		return null;
-	}
-	var inputs = qsa('input', el.form);
+	var inputs = el.form.getElementsByTagName('input');
 	for (var i = 0; i < inputs.length; i++) {
 		var input = inputs[i];
 		if (input.type == 'submit' && !input.style.zIndex) {
@@ -891,23 +790,6 @@ function focus(el) {
 */
 function cloneNode(el) {
 	var el2 = el.cloneNode(true);
-	var selector = 'input, select';
-	var origEls = qsa(selector, el);
-	var cloneEls = qsa(selector, el2);
-	for (var i=0; i < origEls.length; i++) {
-		var origEl = origEls[i];
-		for (var key in origEl) {
-			if (/^on/.test(key) && origEl[key]) {
-				cloneEls[i][key] = origEl[key];
-			}
-		}
-	}
 	setupSubmitHighlight(el2);
 	return el2;
 }
-
-oninput = function (event) {
-	var target = event.target;
-	var maxLength = target.getAttribute('data-maxlength');
-	alterClass(target, 'maxlength', target.value && maxLength != null && target.value.length > maxLength); // maxLength could be 0
-};

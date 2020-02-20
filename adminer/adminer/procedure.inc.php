@@ -1,18 +1,17 @@
 <?php
-$PROCEDURE = ($_GET["name"] ? $_GET["name"] : $_GET["procedure"]);
+$PROCEDURE = $_GET["procedure"];
 $routine = (isset($_GET["function"]) ? "FUNCTION" : "PROCEDURE");
 $row = $_POST;
 $row["fields"] = (array) $row["fields"];
 
 if ($_POST && !process_fields($row["fields"]) && !$error) {
-	$orig = routine($_GET["procedure"], $routine);
 	$temp_name = "$row[name]_adminer_" . uniqid();
 	drop_create(
-		"DROP $routine " . routine_id($PROCEDURE, $orig),
+		"DROP $routine " . idf_escape($PROCEDURE),
 		create_routine($routine, $row),
-		"DROP $routine " . routine_id($row["name"], $row),
+		"DROP $routine " . idf_escape($row["name"]),
 		create_routine($routine, array("name" => $temp_name) + $row),
-		"DROP $routine " . routine_id($temp_name, $row),
+		"DROP $routine " . idf_escape($temp_name),
 		substr(ME, 0, -1),
 		lang('Routine has been dropped.'),
 		lang('Routine has been altered.'),
@@ -25,7 +24,7 @@ if ($_POST && !process_fields($row["fields"]) && !$error) {
 page_header(($PROCEDURE != "" ? (isset($_GET["function"]) ? lang('Alter function') : lang('Alter procedure')) . ": " . h($PROCEDURE) : (isset($_GET["function"]) ? lang('Create function') : lang('Create procedure'))), $error);
 
 if (!$_POST && $PROCEDURE != "") {
-	$row = routine($_GET["procedure"], $routine);
+	$row = routine($PROCEDURE, $routine);
 	$row["name"] = $PROCEDURE;
 }
 
@@ -35,24 +34,21 @@ $routine_languages = routine_languages();
 ?>
 
 <form action="" method="post" id="form">
-<p><?php echo lang('Name'); ?>: <input name="name" value="<?php echo h($row["name"]); ?>" data-maxlength="64" autocapitalize="off">
-<?php echo ($routine_languages ? lang('Language') . ": " . html_select("language", $routine_languages, $row["language"]) . "\n" : ""); ?>
+<p><?php echo lang('Name'); ?>: <input name="name" value="<?php echo h($row["name"]); ?>" maxlength="64" autocapitalize="off">
+<?php echo ($routine_languages ? lang('Language') . ": " . html_select("language", $routine_languages, $row["language"]) : ""); ?>
 <input type="submit" value="<?php echo lang('Save'); ?>">
-<div class="scrollable">
 <table cellspacing="0" class="nowrap">
 <?php
 edit_fields($row["fields"], $collations, $routine);
 if (isset($_GET["function"])) {
 	echo "<tr><td>" . lang('Return type');
-	edit_type("returns", $row["returns"], $collations, array(), ($jush == "pgsql" ? array("void", "trigger") : array()));
+	edit_type("returns", $row["returns"], $collations);
 }
 ?>
 </table>
-<?php echo script("editFields();"); ?>
-</div>
 <p><?php textarea("definition", $row["definition"]); ?>
 <p>
 <input type="submit" value="<?php echo lang('Save'); ?>">
-<?php if ($PROCEDURE != "") { ?><input type="submit" name="drop" value="<?php echo lang('Drop'); ?>"><?php echo confirm(lang('Drop %s?', $PROCEDURE)); ?><?php } ?>
+<?php if ($PROCEDURE != "") { ?><input type="submit" name="drop" value="<?php echo lang('Drop'); ?>"<?php echo confirm(); ?>><?php } ?>
 <input type="hidden" name="token" value="<?php echo $token; ?>">
 </form>

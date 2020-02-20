@@ -2,29 +2,18 @@
 
 /** Load syntax highlighting
 * @param string first three characters of database system version
-* @param [boolean]
 */
-function bodyLoad(version, maria) {
+function bodyLoad(version) {
 	if (window.jush) {
-		jush.create_links = ' target="_blank" rel="noreferrer noopener"';
+		jush.create_links = ' target="_blank" rel="noreferrer"';
 		if (version) {
 			for (var key in jush.urls) {
 				var obj = jush.urls;
 				if (typeof obj[key] != 'string') {
 					obj = obj[key];
 					key = 0;
-					if (maria) {
-						for (var i = 1; i < obj.length; i++) {
-							obj[i] = obj[i]
-								.replace(/\.html/, '/')
-								.replace(/(numeric)(-type-overview)/, '$1-data$2')
-								.replace(/#statvar_.*/, '#$$1')
-							;
-						}
-					}
 				}
 				obj[key] = obj[key]
-					.replace(/dev\.mysql\.com\/doc\/mysql\/en\//, (maria ? 'mariadb.com/kb/en/library/' : '$&')) // MariaDB
 					.replace(/\/doc\/mysql/, '/doc/refman/' + version) // MySQL
 					.replace(/\/docs\/current/, '/docs/' + version) // PostgreSQL
 				;
@@ -34,7 +23,7 @@ function bodyLoad(version, maria) {
 			jush.custom_links = jushLinks;
 		}
 		jush.highlight_tag('code', 0);
-		var tags = qsa('textarea');
+		var tags = document.getElementsByTagName('textarea');
 		for (var i = 0; i < tags.length; i++) {
 			if (/(^|\s)jush-/.test(tags[i].className)) {
 				var pre = jush.textarea(tags[i]);
@@ -71,26 +60,16 @@ function typePassword(el, disable) {
 	}
 }
 
-/** Install toggle handler
-* @param [HTMLElement]
+/** Hide or show some login rows for selected driver
+* @param HTMLSelectElement
 */
-function messagesPrint(el) {
-	var els = qsa('.toggle', el);
-	for (var i = 0; i < els.length; i++) {
-		els[i].onclick = partial(toggle, els[i].getAttribute('href').substr(1));
+function loginDriver(driver) {
+	var trs = parentTag(driver, 'table').rows;
+	for (var i=1; i < trs.length - 1; i++) {
+		var disabled = /sqlite/.test(driver.value);
+		alterClass(trs[i], 'hidden', disabled);
+		trs[i].getElementsByTagName('input')[0].disabled = disabled;
 	}
-}
-
-
-
-/** Hide or show some login rows for selected driver	
-* @param HTMLSelectElement	
-*/	
-function loginDriver(driver) {	
-	var trs = parentTag(driver, 'table').rows;	
-	var disabled = /sqlite/.test(selectValue(driver));	
-	alterClass(trs[1], 'hidden', disabled);	// 1 - row with server
-	trs[1].getElementsByTagName('input')[0].disabled = disabled;	
 }
 
 
@@ -100,46 +79,51 @@ var dbPrevious = {};
 
 /** Check if database should be opened to a new window
 * @param MouseEvent
-* @this HTMLSelectElement
+* @param HTMLSelectElement
 */
-function dbMouseDown(event) {
+function dbMouseDown(event, el) {
 	dbCtrl = isCtrl(event);
-	if (dbPrevious[this.name] == undefined) {
-		dbPrevious[this.name] = this.value;
+	if (dbPrevious[el.name] == undefined) {
+		dbPrevious[el.name] = el.value;
 	}
 }
 
 /** Load database after selecting it
-* @this HTMLSelectElement
+* @param HTMLSelectElement
 */
-function dbChange() {
+function dbChange(el) {
 	if (dbCtrl) {
-		this.form.target = '_blank';
+		el.form.target = '_blank';
 	}
-	this.form.submit();
-	this.form.target = '';
-	if (dbCtrl && dbPrevious[this.name] != undefined) {
-		this.value = dbPrevious[this.name];
-		dbPrevious[this.name] = undefined;
+	el.form.submit();
+	el.form.target = '';
+	if (dbCtrl && dbPrevious[el.name] != undefined) {
+		el.value = dbPrevious[el.name];
+		dbPrevious[el.name] = undefined;
 	}
 }
-
-
-
+$(document).on('keyup', '#search_table_name', function(event) {
+	var input = $(this).val();
+	if(input){
+		$('.table_name').hide();
+		$( "[id*='"+input+"']" ).show();
+	}else{
+		$('.table_name').show();
+	}
+});
 /** Check whether the query will be executed with index
-* @this HTMLElement
+* @param HTMLFormElement
 */
-function selectFieldChange() {
-	var form = this.form;
+function selectFieldChange(form) {
 	var ok = (function () {
-		var inputs = qsa('input', form);
+		var inputs = form.getElementsByTagName('input');
 		for (var i=0; i < inputs.length; i++) {
 			if (inputs[i].value && /^fulltext/.test(inputs[i].name)) {
 				return true;
 			}
 		}
 		var ok = form.limit.value;
-		var selects = qsa('select', form);
+		var selects = form.getElementsByTagName('select');
 		var group = false;
 		var columns = {};
 		for (var i=0; i < selects.length; i++) {
@@ -205,88 +189,15 @@ function idfEscape(s) {
 	return s.replace(/`/, '``');
 }
 
-
-
-/** Set up event handlers for edit_fields().
-*/
-function editFields() {
-	var els = qsa('[name$="[field]"]');
-	for (var i = 0; i < els.length; i++) {
-		els[i].oninput = function () {
-			editingNameChange.call(this);
-			if (!this.defaultValue) {
-				editingAddRow.call(this);
-			}
-		}
-	}
-	els = qsa('[name$="[length]"]');
-	for (var i = 0; i < els.length; i++) {
-		mixin(els[i], {onfocus: editingLengthFocus, oninput: editingLengthChange});
-	}
-	els = qsa('[name$="[type]"]');
-	for (var i = 0; i < els.length; i++) {
-		mixin(els[i], {
-			onfocus: function () { lastType = selectValue(this); },
-			onchange: editingTypeChange,
-			onmouseover: function (event) { helpMouseover.call(this, event, getTarget(event).value, 1) },
-			onmouseout: helpMouseout
-		});
-	}
-}
-
-/** Handle clicks on fields editing
-* @param MouseEvent
-* @return boolean false to cancel action
-*/
-function editingClick(event) {
-	var el = getTarget(event);
-	if (!isTag(el, 'input')) {
-		el = parentTag(el, 'label');
-		el = el && qs('input', el);
-	}
-	if (el) {
-		var name = el.name;
-		if (/^add\[/.test(name)) {
-			editingAddRow.call(el, 1);
-		} else if (/^up\[/.test(name)) {
-			editingMoveRow.call(el, 1);
-		} else if (/^down\[/.test(name)) {
-			editingMoveRow.call(el);
-		} else if (/^drop_col\[/.test(name)) {
-			editingRemoveRow.call(el, 'fields\$1[field]');
-		} else {
-			if (name == 'auto_increment_col') {
-				var field = el.form['fields[' + el.value + '][field]'];
-				if (!field.value) {
-					field.value = 'id';
-					field.oninput();
-				}
-			}
-			return;
-		}
-		return false;
-	}
-}
-
-/** Handle input on fields editing
-* @param InputEvent
-*/
-function editingInput(event) {
-	var el = getTarget(event);
-	if (/\[default\]$/.test(el.name)) {
-		 el.previousSibling.checked = true;
-	}
-}
-
 /** Detect foreign key
-* @this HTMLInputElement
+* @param HTMLInputElement
 */
-function editingNameChange() {
-	var name = this.name.substr(0, this.name.length - 7);
-	var type = formField(this.form, name + '[type]');
+function editingNameChange(field) {
+	var name = field.name.substr(0, field.name.length - 7);
+	var type = formField(field.form, name + '[type]');
 	var opts = type.options;
 	var candidate; // don't select anything with ambiguous match (like column `id`)
-	var val = this.value;
+	var val = field.value;
 	for (var i = opts.length; i--; ) {
 		var match = /(.+)`(.+)/.exec(opts[i].value);
 		if (!match) { // common type
@@ -316,23 +227,23 @@ function editingNameChange() {
 }
 
 /** Add table row for next field
-* @param [boolean]
-* @return boolean false
-* @this HTMLInputElement
+* @param HTMLInputElement
+* @param boolean
+* @return boolean
 */
-function editingAddRow(focus) {
-	var match = /(\d+)(\.\d+)?/.exec(this.name);
+function editingAddRow(button, focus) {
+	var match = /(\d+)(\.\d+)?/.exec(button.name);
 	var x = match[0] + (match[2] ? added.substr(match[2].length) : added) + '1';
-	var row = parentTag(this, 'tr');
+	var row = parentTag(button, 'tr');
 	var row2 = cloneNode(row);
-	var tags = qsa('select', row);
-	var tags2 = qsa('select', row2);
+	var tags = row.getElementsByTagName('select');
+	var tags2 = row2.getElementsByTagName('select');
 	for (var i=0; i < tags.length; i++) {
 		tags2[i].name = tags[i].name.replace(/[0-9.]+/, x);
 		tags2[i].selectedIndex = tags[i].selectedIndex;
 	}
-	tags = qsa('input', row);
-	tags2 = qsa('input', row2);
+	tags = row.getElementsByTagName('input');
+	tags2 = row2.getElementsByTagName('input');
 	var input = tags2[0]; // IE loose tags2 after insertBefore()
 	for (var i=0; i < tags.length; i++) {
 		if (tags[i].name == 'auto_increment_col') {
@@ -347,52 +258,43 @@ function editingAddRow(focus) {
 			tags2[i].checked = false;
 		}
 	}
-	tags[0].oninput = editingNameChange;
+	tags[0].onchange = function () {
+		editingNameChange(tags[0]);
+	};
+	tags[0].onkeyup = function () {
+	};
 	row.parentNode.insertBefore(row2, row.nextSibling);
 	if (focus) {
-		input.oninput = editingNameChange;
+		input.onchange = function () {
+			editingNameChange(input);
+		};
+		input.onkeyup = function () {
+		};
 		input.focus();
 	}
 	added += '0';
 	rowCount++;
-	return false;
+	return true;
 }
 
 /** Remove table row for field
-* @param string regular expression replacement
-* @return boolean false
-* @this HTMLInputElement
+* @param HTMLInputElement
+* @param string
+* @return boolean
 */
-function editingRemoveRow(name) {
-	var field = formField(this.form, this.name.replace(/[^\[]+(.+)/, name));
+function editingRemoveRow(button, name) {
+	var field = formField(button.form, button.name.replace(/[^\[]+(.+)/, name));
 	field.parentNode.removeChild(field);
-	parentTag(this, 'tr').style.display = 'none';
-	return false;
-}
-
-/** Move table row for field
-* @param [boolean]
-* @return boolean false for success
-* @this HTMLInputElement
-*/
-function editingMoveRow(up){
-	var row = parentTag(this, 'tr');
-	if (!('nextElementSibling' in row)) {
-		return true;
-	}
-	row.parentNode.insertBefore(row, up
-		? row.previousElementSibling
-		: row.nextElementSibling ? row.nextElementSibling.nextElementSibling : row.parentNode.firstChild);
-	return false;
+	parentTag(button, 'tr').style.display = 'none';
+	return true;
 }
 
 var lastType = '';
 
 /** Clear length and hide collation or unsigned
-* @this HTMLSelectElement
+* @param HTMLSelectElement
 */
-function editingTypeChange() {
-	var type = this;
+function editingTypeChange(type) {
 	var name = type.name.substr(0, type.name.length - 6);
 	var text = selectValue(type);
 	for (var i=0; i < type.form.elements.length; i++) {
@@ -404,7 +306,7 @@ function editingTypeChange() {
 			)) {
 				el.value = '';
 			}
-			el.oninput.apply(el);
+			el.onchange.apply(el);
 		}
 		if (lastType == 'timestamp' && el.name == name + '[has_default]' && /timestamp/i.test(formField(type.form, name + '[default]').value)) {
 			el.checked = false;
@@ -413,7 +315,7 @@ function editingTypeChange() {
 			alterClass(el, 'hidden', !/(char|text|enum|set)$/.test(text));
 		}
 		if (el.name == name + '[unsigned]') {
-			alterClass(el, 'hidden', !/(^|[^o])int(?!er)|numeric|real|float|double|decimal|money/.test(text));
+			alterClass(el, 'hidden', !/((^|[^o])int|float|double|decimal)$/.test(text));
 		}
 		if (el.name == name + '[on_update]') {
 			alterClass(el, 'hidden', !/timestamp|datetime/.test(text)); // MySQL supports datetime since 5.6.5
@@ -426,55 +328,37 @@ function editingTypeChange() {
 }
 
 /** Mark length as required
-* @this HTMLInputElement
+* @param HTMLInputElement
 */
-function editingLengthChange() {
-	alterClass(this, 'required', !this.value.length && /var(char|binary)$/.test(selectValue(this.parentNode.previousSibling.firstChild)));
+function editingLengthChange(el) {
+	alterClass(el, 'required', !el.value.length && /var(char|binary)$/.test(selectValue(el.parentNode.previousSibling.firstChild)));
 }
 
 /** Edit enum or set
-* @this HTMLInputElement
+* @param HTMLInputElement
 */
-function editingLengthFocus() {
-	var td = this.parentNode;
+function editingLengthFocus(field) {
+	var td = field.parentNode;
 	if (/(enum|set)$/.test(selectValue(td.previousSibling.firstChild))) {
-		var edit = qs('#enum-edit');
-		edit.value = enumValues(this.value);
+		var edit = document.getElementById('enum-edit');
+		var val = field.value;
+		edit.value = (/^'.+'$/.test(val) ? val.substr(1, val.length - 2).replace(/','/g, "\n").replace(/''/g, "'") : val); //! doesn't handle 'a'',''b' correctly
 		td.appendChild(edit);
-		this.style.display = 'none';
+		field.style.display = 'none';
 		edit.style.display = 'inline';
 		edit.focus();
 	}
 }
 
-/** Get enum values
-* @param string
-* @return string values separated by newlines
-*/
-function enumValues(s) {
-	var re = /(^|,)\s*'(([^\\']|\\.|'')*)'\s*/g;
-	var result = [];
-	var offset = 0;
-	var match;
-	while (match = re.exec(s)) {
-		if (offset != match.index) {
-			break;
-		}
-		result.push(match[2].replace(/'(')|\\(.)/g, '$1$2'));
-		offset += match[0].length;
-	}
-	return (offset == s.length ? result.join('\n') : s);
-}
-
 /** Finish editing of enum or set
-* @this HTMLTextAreaElement
+* @param HTMLTextAreaElement
 */
-function editingLengthBlur() {
-	var field = this.parentNode.firstChild;
-	var val = this.value;
-	field.value = (/^'[^\n]+'$/.test(val) ? val : val && "'" + val.replace(/\n+$/, '').replace(/'/g, "''").replace(/\\/g, '\\\\').replace(/\n/g, "','") + "'");
+function editingLengthBlur(edit) {
+	var field = edit.parentNode.firstChild;
+	var val = edit.value;
+	field.value = (/^'[^\n]+'$/.test(val) ? val : "'" + val.replace(/\n+$/, '').replace(/'/g, "''").replace(/\n/g, "','") + "'");
 	field.style.display = 'inline';
-	this.style.display = 'none';
+	edit.style.display = 'none';
 }
 
 /** Show or hide selected table column
@@ -482,108 +366,86 @@ function editingLengthBlur() {
 * @param number
 */
 function columnShow(checked, column) {
-	var trs = qsa('tr', qs('#edit-fields'));
+	var trs = document.getElementById('edit-fields').getElementsByTagName('tr');
 	for (var i=0; i < trs.length; i++) {
-		alterClass(qsa('td', trs[i])[column], 'hidden', !checked);
+		alterClass(trs[i].getElementsByTagName('td')[column], 'hidden', !checked);
+	}
+}
+
+/** Hide column with default values in narrow window
+*/
+function editingHideDefaults() {
+	if (innerWidth < document.documentElement.scrollWidth) {
+		document.getElementById('form')['defaults'].checked = false;
+		columnShow(false, 5);
 	}
 }
 
 /** Display partition options
-* @this HTMLSelectElement
+* @param HTMLSelectElement
 */
-function partitionByChange() {
-	var partitionTable = /RANGE|LIST/.test(selectValue(this));
-	alterClass(this.form['partitions'], 'hidden', partitionTable || !this.selectedIndex);
-	alterClass(qs('#partition-table'), 'hidden', !partitionTable);
+function partitionByChange(el) {
+	var partitionTable = /RANGE|LIST/.test(selectValue(el));
+	alterClass(el.form['partitions'], 'hidden', partitionTable || !el.selectedIndex);
+	alterClass(document.getElementById('partition-table'), 'hidden', !partitionTable);
 	helpClose();
 }
 
 /** Add next partition row
-* @this HTMLInputElement
-*/
-function partitionNameChange() {
-	var row = cloneNode(parentTag(this, 'tr'));
-	row.firstChild.firstChild.value = '';
-	parentTag(this, 'table').appendChild(row);
-	this.oninput = function () {};
-}
-
-/** Show or hide comment fields
 * @param HTMLInputElement
-* @param [boolean] whether to focus Comment if checked
 */
-function editingCommentsClick(el, focus) {
-	var comment = el.form['Comment'];
-	columnShow(el.checked, 6);
-	alterClass(comment, 'hidden', !el.checked);
-	if (focus && el.checked) {
-		comment.focus();
-	}
-}
-
-
-
-/** Uncheck 'all' checkbox
-* @param MouseEvent
-* @this HTMLTableElement
-*/
-function dumpClick(event) {
-	var el = parentTag(getTarget(event), 'label');
-	if (el) {
-		el = qs('input', el);
-		var match = /(.+)\[\]$/.exec(el.name);
-		if (match) {
-			checkboxClick.call(el, event);
-			formUncheck('check-' + match[1]);
-		}
-	}
+function partitionNameChange(el) {
+	var row = cloneNode(parentTag(el, 'tr'));
+	row.firstChild.firstChild.value = '';
+	parentTag(el, 'table').appendChild(row);
+	el.onchange = function () {};
 }
 
 
 
 /** Add row for foreign key
-* @this HTMLSelectElement
+* @param HTMLSelectElement
 */
-function foreignAddRow() {
-	var row = cloneNode(parentTag(this, 'tr'));
-	this.onchange = function () { };
-	var selects = qsa('select', row);
+function foreignAddRow(field) {
+	field.onchange = function () { };
+	var row = cloneNode(parentTag(field, 'tr'));
+	var selects = row.getElementsByTagName('select');
 	for (var i=0; i < selects.length; i++) {
 		selects[i].name = selects[i].name.replace(/\]/, '1$&');
 		selects[i].selectedIndex = 0;
 	}
-	parentTag(this, 'table').appendChild(row);
+	parentTag(field, 'table').appendChild(row);
 }
 
 
 
 /** Add row for indexes
-* @this HTMLSelectElement
+* @param HTMLSelectElement
 */
-function indexesAddRow() {
-	var row = cloneNode(parentTag(this, 'tr'));
-	this.onchange = function () { };
-	var selects = qsa('select', row);
+function indexesAddRow(field) {
+	field.onchange = function () { };
+	var row = cloneNode(parentTag(field, 'tr'));
+	var selects = row.getElementsByTagName('select');
 	for (var i=0; i < selects.length; i++) {
 		selects[i].name = selects[i].name.replace(/indexes\[\d+/, '$&1');
 		selects[i].selectedIndex = 0;
 	}
-	var inputs = qsa('input', row);
+	var inputs = row.getElementsByTagName('input');
 	for (var i=0; i < inputs.length; i++) {
 		inputs[i].name = inputs[i].name.replace(/indexes\[\d+/, '$&1');
 		inputs[i].value = '';
 	}
-	parentTag(this, 'table').appendChild(row);
+	parentTag(field, 'table').appendChild(row);
 }
 
 /** Change column in index
+* @param HTMLSelectElement
 * @param string name prefix
-* @this HTMLSelectElement
 */
-function indexesChangeColumn(prefix) {
+function indexesChangeColumn(field, prefix) {
 	var names = [];
 	for (var tag in { 'select': 1, 'input': 1 }) {
-		var columns = qsa(tag, parentTag(this, 'td'));
+		var columns = parentTag(field, 'td').getElementsByTagName(tag);
 		for (var i=0; i < columns.length; i++) {
 			if (/\[columns\]/.test(columns[i].name)) {
 				var value = selectValue(columns[i]);
@@ -593,15 +455,17 @@ function indexesChangeColumn(prefix) {
 			}
 		}
 	}
-	this.form[this.name.replace(/\].*/, '][name]')].value = prefix + names.join('_');
+	field.form[field.name.replace(/\].*/, '][name]')].value = prefix + names.join('_');
 }
 
 /** Add column for index
+* @param HTMLSelectElement
 * @param string name prefix
-* @this HTMLSelectElement
 */
-function indexesAddColumn(prefix) {
-	var field = this;
+function indexesAddColumn(field, prefix) {
+	field.onchange = function () {
+		indexesChangeColumn(field, prefix);
+	};
 	var select = field.form[field.name.replace(/\].*/, '][type]')];
 	if (!select.selectedIndex) {
 		while (selectValue(select) != "INDEX" && select.selectedIndex < select.options.length) {
@@ -610,14 +474,13 @@ function indexesAddColumn(prefix) {
 		select.onchange();
 	}
 	var column = cloneNode(field.parentNode);
-	var selects = qsa('select', column);
+	var selects = column.getElementsByTagName('select');
 	for (var i = 0; i < selects.length; i++) {
 		select = selects[i];
 		select.name = select.name.replace(/\]\[\d+/, '$&1');
 		select.selectedIndex = 0;
 	}
-	field.onchange = partial(indexesChangeColumn, prefix);
-	var inputs = qsa('input', column);
+	var inputs = column.getElementsByTagName('input');
 	for (var i = 0; i < inputs.length; i++) {
 		var input = inputs[i];
 		input.name = input.name.replace(/\]\[\d+/, '$&1');
@@ -627,23 +490,6 @@ function indexesAddColumn(prefix) {
 	}
 	parentTag(field, 'td').appendChild(column);
 	field.onchange();
-}
-
-
-
-/** Updates the form action
-* @param HTMLFormElement
-* @param string
-*/
-function sqlSubmit(form, root) {
-	if (encodeURIComponent(form['query'].value).length < 2e3) {
-		form.action = root
-			+ '&sql=' + encodeURIComponent(form['query'].value)
-			+ (form['limit'].value ? '&limit=' + +form['limit'].value : '')
-			+ (form['error_stops'].checked ? '&error_stops=1' : '')
-			+ (form['only_errors'].checked ? '&only_errors=1' : '')
-		;
-	}
 }
 
 
@@ -666,47 +512,48 @@ function triggerChange(tableRe, table, form) {
 var that, x, y; // em and tablePos defined in schema.inc.php
 
 /** Get mouse position
+* @param HTMLElement
 * @param MouseEvent
-* @this HTMLElement
 */
-function schemaMousedown(event) {
+function schemaMousedown(el, event) {
 	if ((event.which ? event.which : event.button) == 1) {
-		that = this;
-		x = event.clientX - this.offsetLeft;
-		y = event.clientY - this.offsetTop;
+		that = el;
+		x = event.clientX - el.offsetLeft;
+		y = event.clientY - el.offsetTop;
 	}
 }
 
 /** Move object
 * @param MouseEvent
 */
-function schemaMousemove(event) {
+function schemaMousemove(ev) {
 	if (that !== undefined) {
-		var left = (event.clientX - x) / em;
-		var top = (event.clientY - y) / em;
-		var divs = qsa('div', that);
+		ev = ev || event;
+		var left = (ev.clientX - x) / em;
+		var top = (ev.clientY - y) / em;
+		var divs = that.getElementsByTagName('div');
 		var lineSet = { };
 		for (var i=0; i < divs.length; i++) {
 			if (divs[i].className == 'references') {
-				var div2 = qs('[id="' + (/^refs/.test(divs[i].id) ? 'refd' : 'refs') + divs[i].id.substr(4) + '"]');
+				var div2 = document.getElementById((/^refs/.test(divs[i].id) ? 'refd' : 'refs') + divs[i].id.substr(4));
 				var ref = (tablePos[divs[i].title] ? tablePos[divs[i].title] : [ div2.parentNode.offsetTop / em, 0 ]);
 				var left1 = -1;
 				var id = divs[i].id.replace(/^ref.(.+)-.+/, '$1');
 				if (divs[i].parentNode != div2.parentNode) {
 					left1 = Math.min(0, ref[1] - left) - 1;
 					divs[i].style.left = left1 + 'em';
-					divs[i].querySelector('div').style.width = -left1 + 'em';
+					divs[i].getElementsByTagName('div')[0].style.width = -left1 + 'em';
 					var left2 = Math.min(0, left - ref[1]) - 1;
 					div2.style.left = left2 + 'em';
-					div2.querySelector('div').style.width = -left2 + 'em';
+					div2.getElementsByTagName('div')[0].style.width = -left2 + 'em';
 				}
 				if (!lineSet[id]) {
-					var line = qs('[id="' + divs[i].id.replace(/^....(.+)-.+$/, 'refl$1') + '"]');
+					var line = document.getElementById(divs[i].id.replace(/^....(.+)-.+$/, 'refl$1'));
 					var top1 = top + divs[i].offsetTop / em;
 					var top2 = top + div2.offsetTop / em;
 					if (divs[i].parentNode != div2.parentNode) {
 						top2 += ref[0] - top;
-						line.querySelector('div').style.height = Math.abs(top1 - top2) + 'em';
+						line.getElementsByTagName('div')[0].style.height = Math.abs(top1 - top2) + 'em';
 					}
 					line.style.left = (left + left1) + 'em';
 					line.style.top = Math.min(top1, top2) + 'em';
@@ -723,16 +570,17 @@ function schemaMousemove(event) {
 * @param MouseEvent
 * @param string
 */
-function schemaMouseup(event, db) {
+function schemaMouseup(ev, db) {
 	if (that !== undefined) {
-		tablePos[that.firstChild.firstChild.firstChild.data] = [ (event.clientY - y) / em, (event.clientX - x) / em ];
+		ev = ev || event;
+		tablePos[that.firstChild.firstChild.firstChild.data] = [ (ev.clientY - y) / em, (ev.clientX - x) / em ];
 		that = undefined;
 		var s = '';
 		for (var key in tablePos) {
 			s += '_' + key + ':' + Math.round(tablePos[key][0] * 10000) / 10000 + 'x' + Math.round(tablePos[key][1] * 10000) / 10000;
 		}
 		s = encodeURIComponent(s.substr(1));
-		var link = qs('#schema-link');
+		var link = document.getElementById('schema-link');
 		link.href = link.href.replace(/[^=]+$/, '') + s;
 		cookie('adminer_schema-' + db + '=' + s, 30); //! special chars in db
 	}
@@ -743,18 +591,18 @@ function schemaMouseup(event, db) {
 var helpOpen, helpIgnore; // when mouse outs <option> then it mouse overs border of <select> - ignore it
 
 /** Display help
+* @param HTMLElement
 * @param MouseEvent
 * @param string
 * @param bool display on left side (otherwise on top)
-* @this HTMLElement
 */
-function helpMouseover(event, text, side) {
+function helpMouseover(el, event, text, side) {
 	var target = getTarget(event);
 	if (!text) {
 		helpClose();
-	} else if (window.jush && (!helpIgnore || this != target)) {
+	} else if (window.jush && (!helpIgnore || el != target)) {
 		helpOpen = 1;
-		var help = qs('#help');
+		var help = document.getElementById('help');
 		help.innerHTML = text;
 		jush.highlight_tag([ help ]);
 		alterClass(help, 'hidden');
@@ -766,12 +614,12 @@ function helpMouseover(event, text, side) {
 }
 
 /** Close help after timeout
+* @param HTMLElement
 * @param MouseEvent
-* @this HTMLElement
 */
-function helpMouseout(event) {
+function helpMouseout(el, event) {
 	helpOpen = 0;
-	helpIgnore = (this != getTarget(event));
+	helpIgnore = (el != getTarget(event));
 	setTimeout(function () {
 		if (!helpOpen) {
 			helpClose();
@@ -782,5 +630,5 @@ function helpMouseout(event) {
 /** Close help
 */
 function helpClose() {
-	alterClass(qs('#help'), 'hidden', true);
+	alterClass(document.getElementById('help'), 'hidden', true);
 }

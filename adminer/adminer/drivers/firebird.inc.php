@@ -81,7 +81,7 @@ if (isset($_GET["firebird"])) {
 		class Min_Result {
 			var $num_rows, $_result, $_offset = 0;
 
-			function __construct($result) {
+			function Min_Result($result) {
 				$this->_result = $result;
 				// $this->num_rows = ibase_num_rows($result);
 			}
@@ -147,8 +147,8 @@ if (isset($_GET["firebird"])) {
 		return $return;
 	}
 
-	function limit1($table, $query, $where, $separator = "\n") {
-		return limit($query, $where, 1, 0, $separator);
+	function limit1($query, $where) {
+		return limit($query, $where, 1);
 	}
 
 	function db_collation($db, $collations) {

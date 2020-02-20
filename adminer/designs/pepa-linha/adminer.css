@@ -264,7 +264,7 @@ p code + a:visited:hover {
 	color: #34567c;
 }
 
-#menu p, #tables {
+#menu p {
 	border: 0;
 	padding: 0;
 }
@@ -336,12 +336,12 @@ p code + a:visited:hover {
 
 #tables {
 	max-height: 100%;
-	margin: 32px -15px !important;
+	margin: 0 -15px !important;
 	position: absolute;
 	left: 15px;
 	right: 15px;
 	bottom: 0;
-	top: 220px;
+	top: 220px;o
 	overflow: hidden !important;
 	overflow-y: auto !important;
 }
@@ -575,7 +575,7 @@ label {
 	top: 55px;
 	right: 100%;
 	z-index: 10;
-	margin-right: -340px;
+	margin-right: -331px;
 	line-height: normal;
 	padding: 0;
 	left: auto;

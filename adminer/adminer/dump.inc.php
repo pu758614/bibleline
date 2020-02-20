@@ -18,8 +18,8 @@ if ($_POST && !$error) {
 		if ($jush == "sql") {
 			echo "SET NAMES utf8;
 SET time_zone = '+00:00';
-SET foreign_key_checks = 0;
-" . ($_POST["data_style"] ? "SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+" . ($_POST["data_style"] ? "SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 " : "") . "
 ";
 			$connection->query("SET time_zone = '+00:00';");
@@ -92,7 +92,7 @@ SET foreign_key_checks = 0;
 							$fields = fields($name);
 							$adminer->dumpData($name, $_POST["data_style"], "SELECT *" . convert_fields($fields, $fields) . " FROM " . table($name));
 						}
-						if ($is_sql && $_POST["triggers"] && $table && ($triggers = trigger_sql($name))) {
+						if ($is_sql && $_POST["triggers"] && $table && ($triggers = trigger_sql($name, $_POST["table_style"]))) {
 							echo "\nDELIMITER ;;\n$triggers\nDELIMITER ;\n";
 						}
 
@@ -126,7 +126,7 @@ page_header(lang('Export'), $error, ($_GET["export"] != "" ? array("table" => $_
 ?>
 
 <form action="" method="post">
-<table cellspacing="0" class="layout">
+<table cellspacing="0">
 <?php
 $db_style = array('', 'USE', 'DROP+CREATE', 'CREATE');
 $table_style = array('', 'DROP+CREATE', 'CREATE');
@@ -165,13 +165,12 @@ echo "<tr><th>" . lang('Data') . "<td>" . html_select('data_style', $data_style,
 
 <table cellspacing="0">
 <?php
-echo script("qsl('table').onclick = dumpClick;");
 $prefixes = array();
 if (DB != "") {
 	$checked = ($TABLE != "" ? "" : " checked");
 	echo "<thead><tr>";
-	echo "<th style='text-align: left;'><label class='block'><input type='checkbox' id='check-tables'$checked>" . lang('Tables') . "</label>" . script("qs('#check-tables').onclick = partial(formCheck, /^tables\\[/);", "");
-	echo "<th style='text-align: right;'><label class='block'>" . lang('Data') . "<input type='checkbox' id='check-data'$checked></label>" . script("qs('#check-data').onclick = partial(formCheck, /^data\\[/);", "");
+	echo "<th style='text-align: left;'><label class='block'><input type='checkbox' id='check-tables'$checked onclick='formCheck(this, /^tables\\[/);'>" . lang('Tables') . "</label>";
+	echo "<th style='text-align: right;'><label class='block'>" . lang('Data') . "<input type='checkbox' id='check-data'$checked onclick='formCheck(this, /^data\\[/);'></label>";
 	echo "</thead>\n";
 
 	$views = "";
@@ -179,31 +178,28 @@ if (DB != "") {
 	foreach ($tables_list as $name => $type) {
 		$prefix = preg_replace('~_.*~', '', $name);
 		$checked = ($TABLE == "" || $TABLE == (substr($TABLE, -1) == "%" ? "$prefix%" : $name)); //! % may be part of table name
-		$print = "<tr><td>" . checkbox("tables[]", $name, $checked, $name, "", "block");
+		$print = "<tr><td>" . checkbox("tables[]", $name, $checked, $name, "checkboxClick(event, this); formUncheck('check-tables');", "block");
 		if ($type !== null && !preg_match('~table~i', $type)) {
 			$views .= "$print\n";
 		} else {
-			echo "$print<td align='right'><label class='block'><span id='Rows-" . h($name) . "'></span>" . checkbox("data[]", $name, $checked) . "</label>\n";
+			echo "$print<td align='right'><label class='block'><span id='Rows-" . h($name) . "'></span>" . checkbox("data[]", $name, $checked, "", "checkboxClick(event, this); formUncheck('check-data');") . "</label>\n";
 		}
 		$prefixes[$prefix]++;
 	}
 	echo $views;
 
 	if ($tables_list) {
-		echo script("ajaxSetHtml('" . js_escape(ME) . "script=db');");
+		echo "<script type='text/javascript'>ajaxSetHtml('" . js_escape(ME) . "script=db');</script>\n";
 	}
 
 } else {
-	echo "<thead><tr><th style='text-align: left;'>";
-	echo "<label class='block'><input type='checkbox' id='check-databases'" . ($TABLE == "" ? " checked" : "") . ">" . lang('Database') . "</label>";
-	echo script("qs('#check-databases').onclick = partial(formCheck, /^databases\\[/);", "");
-	echo "</thead>\n";
+	echo "<thead><tr><th style='text-align: left;'><label class='block'><input type='checkbox' id='check-databases'" . ($TABLE == "" ? " checked" : "") . " onclick='formCheck(this, /^databases\\[/);'>" . lang('Database') . "</label></thead>\n";
 	$databases = $adminer->databases();
 	if ($databases) {
 		foreach ($databases as $db) {
 			if (!information_schema($db)) {
 				$prefix = preg_replace('~_.*~', '', $db);
-				echo "<tr><td>" . checkbox("databases[]", $db, $TABLE == "" || $TABLE == "$prefix%", $db, "", "block") . "\n";
+				echo "<tr><td>" . checkbox("databases[]", $db, $TABLE == "" || $TABLE == "$prefix%", $db, "formUncheck('check-databases');", "block") . "\n";
 				$prefixes[$prefix]++;
 			}
 		}

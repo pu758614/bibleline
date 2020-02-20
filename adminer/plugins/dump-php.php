@@ -2,8 +2,8 @@
 
 /** Dump to PHP format
 * @author Martin Zeman (Zemistr), http://www.zemistr.eu/
-* @license https://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
-* @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License, version 2 (one or other)
+* @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
+* @license http://www.gnu.org/licenses/gpl-2.0.html GNU General Public License, version 2 (one or other)
 */
 class AdminerDumpPhp {
 	var $output = array();
@@ -20,7 +20,7 @@ class AdminerDumpPhp {
 		}
 	}
 
-	function dumpTable($table, $style, $is_view = 0) {
+	function dumpTable($table) {
 		if ($_POST['format'] == 'php') {
 			$this->output[$table] = array();
 			if (!$this->shutdown_callback) {

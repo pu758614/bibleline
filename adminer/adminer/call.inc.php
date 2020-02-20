@@ -1,8 +1,8 @@
 <?php
-$PROCEDURE = ($_GET["name"] ? $_GET["name"] : $_GET["call"]);
+$PROCEDURE = $_GET["call"];
 page_header(lang('Call') . ": " . h($PROCEDURE), $error);
 
-$routine = routine($_GET["call"], (isset($_GET["callf"]) ? "FUNCTION" : "PROCEDURE"));
+$routine = routine($PROCEDURE, (isset($_GET["callf"]) ? "FUNCTION" : "PROCEDURE"));
 $in = array();
 $out = array();
 foreach ($routine["fields"] as $i => $field) {
@@ -29,13 +29,10 @@ if (!$error && $_POST) {
 		$call[] = (isset($out[$key]) ? "@" . idf_escape($field["field"]) : $val);
 	}
 	
-	$query = (isset($_GET["callf"]) ? "SELECT" : "CALL") . " " . table($PROCEDURE) . "(" . implode(", ", $call) . ")";
-	$start = microtime(true);
-	$result = $connection->multi_query($query);
-	$affected = $connection->affected_rows; // getting warnigns overwrites this
-	echo $adminer->selectQuery($query, $start, !$result);
+	$query = (isset($_GET["callf"]) ? "SELECT" : "CALL") . " " . idf_escape($PROCEDURE) . "(" . implode(", ", $call) . ")";
+	echo "<p><code class='jush-$jush'>" . h($query) . "</code> <a href='" . h(ME) . "sql=" . urlencode($query) . "'>" . lang('Edit') . "</a>\n";
 	
-	if (!$result) {
+	if (!$connection->multi_query($query)) {
 		echo "<p class='error'>" . error() . "\n";
 	} else {
 		$connection2 = connect();
@@ -48,9 +45,7 @@ if (!$error && $_POST) {
 			if (is_object($result)) {
 				select($result, $connection2);
 			} else {
-				echo "<p class='message'>" . lang('Routine has been called, %d row(s) affected.', $affected)
-					. " <span class='time'>" . @date("H:i:s") . "</span>\n" // @ - time zone may be not set
-				;
+				echo "<p class='message'>" . lang('Routine has been called, %d row(s) affected.', $connection->affected_rows) . "\n";
 			}
 		} while ($connection->next_result());
 		
@@ -64,7 +59,7 @@ if (!$error && $_POST) {
 <form action="" method="post">
 <?php
 if ($in) {
-	echo "<table cellspacing='0' class='layout'>\n";
+	echo "<table cellspacing='0'>\n";
 	foreach ($in as $key) {
 		$field = $routine["fields"][$key];
 		$name = $field["field"];

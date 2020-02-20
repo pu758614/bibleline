@@ -77,6 +77,7 @@ $translations = array(
 	'Use' => 'Обрати',
 	'Select database' => 'Обрати базу даних',
 	'Invalid database.' => 'Погана база даних.',
+	'Create new database' => 'Створити нову базу даних',
 	'Database has been dropped.' => 'Базу даних було видалено.',
 	'Databases have been dropped.' => 'Бази даних були видалені.',
 	'Database has been created.' => 'Базу даних було створено.',
@@ -230,7 +231,7 @@ $translations = array(
 	'%d row(s)' => array('%d рядок', '%d рядки', '%d рядків'),
 	'Page' => 'Сторінка',
 	'last' => 'остання',
-	'Whole result' => 'Весь результат',
+	'whole result' => 'весь результат',
 	'%d byte(s)' => array('%d байт', '%d байта', '%d байтів'),
 	
 	'Import' => 'Імпортувати',
@@ -268,7 +269,7 @@ $translations = array(
 	// data type descriptions
 	'Numbers' => 'Числа',
 	'Date and time' => 'Дата і час',
-	'Strings' => 'Рядки',
+	'Strings' => 'Радки',
 	'Binary' => 'Двійкові',
 	'Lists' => 'Списки',
 	'Network' => 'Мережа',
