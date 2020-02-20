@@ -62,7 +62,7 @@ foreach ($client->parseEvents() as $event) {
             $new_percent =isset($new_player_info['new_percent'])?$new_player_info['new_percent']:0;
             $old_percent =isset($new_player_info['old_percent'])?$new_player_info['old_percent']:0;
             $all_percen =isset($new_player_info['all_percen'])?$new_player_info['all_percen']:0;
-            $msg .= "\n\n當前進度\n舊約:".$old_percent."%\n新約:".$new_percent."%\n全部:".$all_percen;
+            $msg .= "\n\n攻略進度\n舊約:".$old_percent."%\n新約:".$new_percent."%\n全部:".$all_percen."%";
             //pr($new_player_info);
             $result = array(
                 "error" => 0,
