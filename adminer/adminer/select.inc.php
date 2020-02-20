@@ -298,7 +298,9 @@ if (!$columns && support("table")) {
 			}
 			$rows[] = $row;
 		}
-
+		echo "<pre>";
+		print_r($rows);
+		echo "</pre>";
 		// use count($rows) without LIMIT, COUNT(*) without grouping, FOUND_ROWS otherwise (slowest)
 		if ($_GET["page"] != "last" && $limit != "" && $group && $is_group && $jush == "sql") {
 			$found_rows = $connection->result(" SELECT FOUND_ROWS()"); // space to allow mysql.trace_mode
