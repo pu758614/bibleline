@@ -369,11 +369,10 @@ if (!defined("DRIVER")) {
 	function connect() {
 		global $adminer, $types, $structured_types;
 		$connection = new Min_DB;
-		echo "66666666666";
 		$credentials = $adminer->credentials();
 		if ($connection->connect($credentials[0], $credentials[1], $credentials[2])) {
-			mysqli_set_charset($connection, "utf8mb4");
-			//$connection->set_charset(charset($connection)); // available in MySQLi since PHP 5.0.5
+			//mysqli_set_charset($connection, "utf8mb4");
+			$connection->set_charset(charset($connection)); // available in MySQLi since PHP 5.0.5
 			$connection->query("SET sql_quote_show_create = 1, autocommit = 1");
 			if (min_version('5.7.8', 10.2, $connection)) {
 				$structured_types[lang('Strings')][] = "json";

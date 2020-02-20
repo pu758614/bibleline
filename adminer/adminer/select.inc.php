@@ -281,6 +281,7 @@ if (!$columns && support("table")) {
 			}
 		}
 	}
+	$driverconnection->set_charset('utf8'); 
 	$result = $driver->select($TABLE, $select2, $where, $group2, $order, $limit, $page, true);
 
 	if (!$result) {
