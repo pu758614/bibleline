@@ -37,13 +37,14 @@ foreach ($client->parseEvents() as $event) {
             $user_info = $db->getUserInfo($line_user_result,'uuid');
         }
     }
-    $player_info = $db->getPlayerInfo($user_info['id']);
+    $player_info = $db->getPlayerInfo($user_info['id'],'user_id');
     if(count($player_info)==0){
         $add_plyer_result = $db->addPlyerUser($user_info['id']);
         if($add_plyer_result){
             $player_info = $db->getPlayerInfo($add_plyer_result);
         }
     }
+    pr($player_info);
     $BibleBook= $db->getBibleBook();
     $action = mb_substr($msg, 0,1);
     $new_msg = mb_substr($msg, 1);
@@ -60,18 +61,20 @@ foreach ($client->parseEvents() as $event) {
 
     switch ($action) {
         case '+':
-            $action_str = '攻略了';
+            $action_str = '攻略';
         case '-':
             $read_resule = $db->readBible($player_id,$action,$analy_result['data'],$msg_log_id);
             $chapter_str = implode(",",$analy_result['data']['chapter']);
             if($action=='-'){
-                $action_str = '撤退了';
+                $action_str = '撤退';
             }
             $result = array(
                 "error" => 0,
-                "msg"   => '已'.$action_str.'了'.$analy_result['data']['book'].$chapter_str."章",
+                "msg"   => '你已'.$action_str.'了'.$analy_result['data']['book'].$chapter_str."章",
             );
             $db->sortPlayerChapter($player_id);
+            $new_player_info = $db->getPlayerInfo($player_id);
+            pr($new_player_info);
             break;
         default:
             $result['msg'] = "不正確的動作";

@@ -83,8 +83,8 @@ class db_lib {
         return $result;
     }
     //取得讀經使用者資訊
-    function getPlayerInfo($id){
-        $PlayerInfo = $this->getSingleById("conquer_bible_player","user_id",$id);
+    function getPlayerInfo($id,$key = 'id'){
+        $PlayerInfo = $this->getSingleById("conquer_bible_player",$key,$id);
         return $PlayerInfo;
     }
     //新增讀經使用者資訊
