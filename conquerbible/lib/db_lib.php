@@ -208,6 +208,7 @@ class db_lib {
             "old_percent"=> $old_p,
             "all_percen" => $total_p,
         );
+        pr($data);
         $this->updateData('conquer_bible_player',$data,array("id"=>$player_id));
     }
 
