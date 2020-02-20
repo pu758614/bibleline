@@ -202,14 +202,14 @@ class db_lib {
         $new_p = round($new_p, 1);
         $old_p = $old_count/929*100;
         $old_p = round($old_p, 1);
-        $total_p = ($new_count+$old_count)/1189;
+        $total_p = ($new_count+$old_count)/1189*100;
         $total_p = round($total_p, 1);
         $data = array(
             "new_percent"=> $new_p,
             "old_percent"=> $old_p,
             "all_percen" => $total_p,
         );
-        pr($data);
+
         $this->updateData('conquer_bible_player',$data,array("id"=>$player_id));
     }
 

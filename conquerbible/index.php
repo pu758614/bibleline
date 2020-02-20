@@ -76,7 +76,13 @@ foreach ($client->parseEvents() as $event) {
                 $old_percent =isset($new_player_info['old_percent'])?$new_player_info['old_percent']:0;
                 $all_percen = isset($new_player_info['all_percen'])?$new_player_info['all_percen']:0;
                 $done_count = isset($new_player_info['done_count'])?$new_player_info['done_count']:0;
-                $msg = "開始日期：$start_date\n\n攻略進度\n  舊約→".$old_percent."%\n  新約：".$new_perent."%\n  整本：".$all_percen."%\n\n完整攻略次數：$done_count";
+
+                $startdate=strtotime($start_date);
+                $enddate=strtotime(date("Y:m:d"));
+                $days=round(($enddate-$startdate)/3600/24) ;
+                $days_p = $days/365*100;
+                $msg = "開始日期：$start_date\n\n攻略進度\n  舊約：".$old_percent."%\n  新約：".$new_percent."%\n  整本：".$all_percen."%\n\n現在至少要讀整本的$days_p％\n\n完整攻略次數：$done_count";
+                
             }else if($new_msg=='mypage'){
                 $msg = '開發中';
             }
