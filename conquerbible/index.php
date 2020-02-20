@@ -48,7 +48,7 @@ foreach ($client->parseEvents() as $event) {
     $action = mb_substr($msg, 0,1);
     $new_msg = mb_substr($msg, 1);
     $player_id = isset($player_info['id'])?$player_info['id']:'';
-    if($action!="+" && $action!="-"){
+    if($action=="+" || $action=="-"){
         $analy_result = analysis_str($new_msg);
         if($analy_result['error']==1){
             $result['msg'] = $analy_result['error_msg'];
