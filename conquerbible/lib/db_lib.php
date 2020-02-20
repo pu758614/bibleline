@@ -130,7 +130,7 @@ class db_lib {
     }
 
     //新增/減少讀經進度
-    function readBible($player_id,$action,$data){
+    function readBible($player_id,$action,$data,$msg_log_id){
         global $BibleBook;
         $book = isset($data['book'])?$data['book']:'';
         $book_id = isset($BibleBook[$book])?$BibleBook[$book]['id']:'';
@@ -149,10 +149,10 @@ class db_lib {
                 "book_id"   => $book_id,
                 "chapter_no" => $chapter,
                 "type"      => $type,
+                "msg_log_id" => $msg_log_id,
                 "modify_time" =>date("Y:m:d H:i:s"),
                 "create_time" =>date("Y:m:d H:i:s"),
             );
-            pr($record_data);
             $record_result = $this->insertData("conquer_bible_read_record",$record_data);
             if($record_result){
                 if($type=='add'){
