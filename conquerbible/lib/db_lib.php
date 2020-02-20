@@ -175,7 +175,7 @@ class db_lib {
     //整理個人進度率
     function sortPlayerChapter($player_id){
         $old_count = $new_count = 0;
-        $sql ="SELECT COUNT(id)
+        $sql ="SELECT COUNT(*)
                FROM conquer_bible_enter_msg_log
                JOIN conquer_bible_book
                ON   conquer_bible_enter_msg_log.book_id=conquer_bible_book.id
@@ -184,9 +184,10 @@ class db_lib {
         $result = $this->db->Execute($sql,array($player_id));
         if($result && $result->RecordCount() > 0){
             $data =  $result->FetchRow();
+            pr($data);
             $new_count = $data['COUNT(*)'];
         }
-        $sql ="SELECT COUNT(id)
+        $sql ="SELECT COUNT(*)
               FROM conquer_bible_enter_msg_log
               JOIN conquer_bible_book
               ON   conquer_bible_enter_msg_log.book_id=conquer_bible_book.id
