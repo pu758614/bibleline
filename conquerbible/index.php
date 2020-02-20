@@ -69,7 +69,8 @@ foreach ($client->parseEvents() as $event) {
                 "error" => 0,
                 "msg"   => '已'.$action_str.'了'.$analy_result['data']['book'].$chapter_str."章",
             );
-            pr($result);
+            $db->sortPlayerChapter($player_id);
+            
             break;
         default:
             // code...
