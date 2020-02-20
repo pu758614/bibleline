@@ -57,17 +57,12 @@ class db_lib {
     function addLineUser($user_uuid){
         global $channelSecret,$channelAccessToken;
         $result = 0;
-        pr($channelSecret);
-        pr($channelAccessToken);
         $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channelAccessToken);
         $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
-        pr($user_uuid);
         $response = $bot->getProfile($user_uuid);
-        pr($response);
         $profile = array();
         if ($response->isSucceeded()) {
             $profile = $response->getJSONDecodedBody();
-            pr($profile);
         }
 
         // $profile = array(
@@ -142,7 +137,6 @@ class db_lib {
         }else{
             $type = "minus";
         }
-        pr($data);
         foreach ($chapter_arr as  $chapter) {
             $record_data = array(
                 "player_id" => $player_id,
@@ -176,6 +170,45 @@ class db_lib {
             }
         }
         return $result;
+    }
+
+    //整理個人進度率
+    function sortPlayerChapter($player_id){
+        $old_count = $new_count = 0;
+        $sql ="SELECT COUNT(id)
+               FROM conquer_bible_enter_msg_log
+               JOIN conquer_bible_book
+               ON   conquer_bible_enter_msg_log.book_id=conquer_bible_book.id
+               WHERE player_id=? AND conquer_bible_book.testament = 1;
+               ";
+        $result = $this->db->Execute($sql,array($player_id));
+        if($result && $result->RecordCount() > 0){
+            $data =  $result->FetchRow();
+            $new_count = $data['COUNT(*)'];
+        }
+        $sql ="SELECT COUNT(id)
+              FROM conquer_bible_enter_msg_log
+              JOIN conquer_bible_book
+              ON   conquer_bible_enter_msg_log.book_id=conquer_bible_book.id
+              WHERE player_id=? AND conquer_bible_book.testament = 0;
+              ";
+        $result = $this->db->Execute($sql,array($player_id));
+        if($result && $result->RecordCount() > 0){
+            $data =  $result->FetchRow();
+            $old_count = $data['COUNT(*)'];
+        }
+        $new_p = $new_count/260;
+        $new_p = round($new_p, 1);
+        $old_p = $old_count/929;
+        $old_p = round($old_p, 1);
+        $total_p = ($new_count+$old_count)/1189;
+        $total_p = round($total_p, 1);
+        $data = array(
+            "new_percent"=> $new_p,
+            "old_percent"=> $old_p,
+            "all_percen" => $total_p,
+        );
+        $this->updateData('conquer_bible_player',$data,array("id"=>$player_id));
     }
 
 }
