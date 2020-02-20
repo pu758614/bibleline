@@ -12,17 +12,6 @@ $result = array(
     "msg"   => '',
 );
 $status = 0;
-$book_arr = array(
-    '創世記','出埃及記','利未記','民數記','申命記','約書亞記','士師記','路得記',
-                  '撒母耳記上','撒母耳記下','列王紀上','列王紀下','歷代志上','歷代志下','以斯拉記',
-                  '尼希米記','以斯帖記','約伯記','詩篇','箴言','傳道書','雅歌','以賽亞書','耶利米書',
-                  '耶利米哀歌','以西結書','但以理書','何西阿書','約珥書','阿摩司書','俄巴底亞書','約拿書',
-                  '彌迦書','那鴻書','哈巴谷書','西番雅書','哈該書','撒迦利亞書','瑪拉基書','馬太福音',
-                  '馬可福音','路加福音','約翰福音','使徒行傳','羅馬書','哥林多前書','哥林多後書',
-                  '加拉太書','以弗所書','腓立比書','歌羅西書','帖撒羅尼迦前書','帖撒羅尼迦後書',
-                  '提摩太前書','提摩太後書','提多書','腓利門書','希伯來書','雅各書','彼得前書',
-                  '彼得後書','約翰一書','約翰二書','約翰三書','猶大書','啟示錄'
-);
 
 //$db->record_msg_log("123123",file_get_contents('php://input'));
 foreach ($client->parseEvents() as $event) {
@@ -44,7 +33,6 @@ foreach ($client->parseEvents() as $event) {
             $player_info = $db->getPlayerInfo($add_plyer_result);
         }
     }
-    pr($player_info);
     $BibleBook= $db->getBibleBook();
     $action = mb_substr($msg, 0,1);
     $new_msg = mb_substr($msg, 1);
@@ -68,13 +56,18 @@ foreach ($client->parseEvents() as $event) {
             if($action=='-'){
                 $action_str = '撤退';
             }
-            $result = array(
-                "error" => 0,
-                "msg"   => '你已'.$action_str.'了'.$analy_result['data']['book'].$chapter_str."章",
-            );
+            $msg = '你已'.$action_str.'了'.$analy_result['data']['book'].$chapter_str."章";
             $db->sortPlayerChapter($player_id);
             $new_player_info = $db->getPlayerInfo($player_id);
-            pr($new_player_info);
+            $new_percent =isset($new_player_info['new_percent'])?$new_player_info['new_percent']:0;
+            $old_percent =isset($new_player_info['old_percent'])?$new_player_info['old_percent']:0;
+            $all_percen =isset($new_player_info['all_percen'])?$new_player_info['all_percen']:0;
+            $msg .= "\n\n當前進度\n舊約:".$old_percent."%\n新約:".$new_percent."%\n全部:".$all_percen
+            //pr($new_player_info);
+            $result = array(
+                "error" => 0,
+                "msg"   => $msg,
+            );
             break;
         default:
             $result['msg'] = "不正確的動作";
