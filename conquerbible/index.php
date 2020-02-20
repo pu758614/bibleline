@@ -37,20 +37,19 @@ foreach ($client->parseEvents() as $event) {
     $action = mb_substr($msg, 0,1);
     $new_msg = mb_substr($msg, 1);
     $player_id = isset($player_info['id'])?$player_info['id']:'';
-    if($action=="+" || $action=="-"){
-        $analy_result = analysis_str($new_msg);
-        if($analy_result['error']==1){
-            $result['msg'] = $analy_result['error_msg'];
-            $status = 2;
-            goto end;
-        }
-    }
+
 
 
     switch ($action) {
         case '+':
             $action_str = '攻略';
         case '-':
+            $analy_result = analysis_read__str($new_msg);
+            if($analy_result['error']==1){
+                $result['msg'] = $analy_result['error_msg'];
+                $status = 2;
+                goto end;
+            }
             $read_resule = $db->readBible($player_id,$action,$analy_result['data'],$msg_log_id);
             $chapter_str = implode(",",$analy_result['data']['chapter']);
             if($action=='-'){
@@ -68,6 +67,24 @@ foreach ($client->parseEvents() as $event) {
                 "error" => 0,
                 "msg"   => $msg,
             );
+            break;
+        case '/':
+            if($new_msg=='myinfo'){
+                $new_player_info = $db->getPlayerInfo($player_id);
+                $start_date =isset($new_player_info['start_date'])?$new_player_info['start_date']:'';
+                $new_percent =isset($new_player_info['new_percent'])?$new_player_info['new_percent']:0;
+                $old_percent =isset($new_player_info['old_percent'])?$new_player_info['old_percent']:0;
+                $all_percen = isset($new_player_info['all_percen'])?$new_player_info['all_percen']:0;
+                $done_count = isset($new_player_info['done_count'])?$new_player_info['done_count']:0;
+                $msg = "開始日期:$start_date\n\n---攻略進度---\n舊約:".$old_percent."%\n新約:".$new_percent."%\n全部:".$all_percen."%\n\n攻略次數:$done_count";
+            }else if($new_msg=='mypage'){
+                $msg = '開發中';
+            }
+            $result = array(
+                "error" => 0,
+                "msg"   => $msg,
+            );
+
             break;
         default:
             $result['msg'] = "不正確的動作";

@@ -1,7 +1,7 @@
 <?php
 
 header("Content-Type:text/html; charset=utf-8");
-function analysis_str($msg){
+function analysis_read__str($msg){
     global $book_arr,$abbre_chang,$BibleBook;
     $retuen = array(
         "error" => 1,
