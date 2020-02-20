@@ -60,12 +60,12 @@ foreach ($client->parseEvents() as $event) {
 
     switch ($action) {
         case '+':
-            $action_str = '你已攻略了';
+            $action_str = '攻略了';
         case '-':
             $read_resule = $db->readBible($player_id,$action,$analy_result['data'],$msg_log_id);
             $chapter_str = implode(",",$analy_result['data']['chapter']);
             if($action=='-'){
-                $action_str = '你已撤退了';
+                $action_str = '撤退了';
             }
             $result = array(
                 "error" => 0,
