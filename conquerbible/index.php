@@ -81,6 +81,7 @@ foreach ($client->parseEvents() as $event) {
                 $enddate=strtotime(date("Y-m-d"));
                 $days=ceil(abs($startdate - $enddate)/86400);
                 $days_p = $days/365*100;
+                $days_p = round($days_p, 1);
 
                 $msg = "開始日期：$start_date\n\n攻略進度\n  舊約：".$old_percent."%\n  新約：".$new_percent."%\n  整本：".$all_percen."%\n\n現在至少要讀整本的".$days_p."%\n\n完整攻略次數：$done_count";
             }else if($new_msg=='mypage'){
