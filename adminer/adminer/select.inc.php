@@ -281,7 +281,6 @@ if (!$columns && support("table")) {
 			}
 		}
 	}
-	$driver->connection->set_charset('utf8'); 
 	$result = $driver->select($TABLE, $select2, $where, $group2, $order, $limit, $page, true);
 
 	if (!$result) {
@@ -299,9 +298,7 @@ if (!$columns && support("table")) {
 			}
 			$rows[] = $row;
 		}
-		echo "<pre>";
-		print_r($rows);
-		echo "</pre>";
+
 		// use count($rows) without LIMIT, COUNT(*) without grouping, FOUND_ROWS otherwise (slowest)
 		if ($_GET["page"] != "last" && $limit != "" && $group && $is_group && $jush == "sql") {
 			$found_rows = $connection->result(" SELECT FOUND_ROWS()"); // space to allow mysql.trace_mode

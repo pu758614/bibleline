@@ -369,6 +369,10 @@ if (!defined("DRIVER")) {
 	function connect() {
 		global $adminer, $types, $structured_types;
 		$connection = new Min_DB;
+		mysql_query("set character set utf8",$connection);
+		mysql_query("SET CHARACTER_SET_database= utf8",$connection);
+		mysql_query("SET CHARACTER_SET_CLIENT= utf8",$connection);
+		mysql_query("SET CHARACTER_SET_RESULTS= utf8",$connection);
 		$credentials = $adminer->credentials();
 		if ($connection->connect($credentials[0], $credentials[1], $credentials[2])) {
 			//mysqli_set_charset($connection, "utf8mb4");
