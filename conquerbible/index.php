@@ -48,32 +48,35 @@ foreach ($client->parseEvents() as $event) {
     $action = mb_substr($msg, 0,1);
     $new_msg = mb_substr($msg, 1);
     $player_id = isset($player_info['id'])?$player_info['id']:'';
-    $analy_result = analysis_str($new_msg);
-    pr($analy_result);
-    if($analy_result['error']==1){
-        $result['msg'] = $analy_result['error_msg'];
-        $status = 2;
-        goto end;
+    if($action!="+" && $action!="-"){
+        $analy_result = analysis_str($new_msg);
+        if($analy_result['error']==1){
+            $result['msg'] = $analy_result['error_msg'];
+            $status = 2;
+            goto end;
+        }
     }
+
 
     switch ($action) {
         case '+':
-            $action_str = '閱讀';
+            $action_str = '你已攻略了';
         case '-':
             $read_resule = $db->readBible($player_id,$action,$analy_result['data'],$msg_log_id);
             $chapter_str = implode(",",$analy_result['data']['chapter']);
             if($action=='-'){
-                $action_str = '移除';
+                $action_str = '你已撤退了';
             }
             $result = array(
                 "error" => 0,
                 "msg"   => '已'.$action_str.'了'.$analy_result['data']['book'].$chapter_str."章",
             );
             $db->sortPlayerChapter($player_id);
-            
             break;
         default:
-            // code...
+            $result['msg'] = "不正確的動作";
+            $status = 2;
+            goto end;
             break;
     }
     goto end;

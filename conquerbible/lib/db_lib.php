@@ -198,9 +198,9 @@ class db_lib {
             $data =  $result->FetchRow();
             $old_count = $data['COUNT(*)'];
         }
-        $new_p = $new_count/260;
+        $new_p = 260/$new_count*100;
         $new_p = round($new_p, 1);
-        $old_p = $old_count/929;
+        $old_p = 929/$old_count*100;
         $old_p = round($old_p, 1);
         $total_p = ($new_count+$old_count)/1189;
         $total_p = round($total_p, 1);
