@@ -120,6 +120,7 @@ class db_lib {
         foreach ($result_arr as $data) {
             $result[$data['name']]['count'] = $data['chapter_count'];
             $result[$data['name']]['id']    = $data['id'];
+            $result[$data['name']]['testament']    = $data['testament'];
         }
         return $result;
     }
