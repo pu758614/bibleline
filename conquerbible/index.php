@@ -17,6 +17,7 @@ $status = 0;
 foreach ($client->parseEvents() as $event) {
     $uuid = $event['source']['userId'];
     $msg = $event['message']['text'];
+    $action = convertStrType($msg);
     $msg_log_id = $db->record_msg_log($uuid,file_get_contents('php://input'));
     $user_info = $db->getUserInfo($uuid,'uuid');
     if(count($user_info)==0){
@@ -36,8 +37,8 @@ foreach ($client->parseEvents() as $event) {
     $action = mb_substr($msg, 0,1);
     $new_msg = mb_substr($msg, 1);
     $player_id = isset($player_info['id'])?$player_info['id']:'';
-    $action = convertStrType($action);
-    echo $action;
+
+
 
     switch ($action) {
         case '+':
