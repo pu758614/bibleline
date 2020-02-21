@@ -69,9 +69,9 @@ function analysis_read__str($msg){
 * @param int  $type TODBC:轉換為半形；TOSBC，轉換為全形
 * @return string 返回轉換後的字串
 */
-function convertStrType($str, $type='TODBC') {
+function convertStrType($str, $type='TOSBC') {
     $dbc = array(
-        '０' , '１' , '２' , '３' , '４' , 
+        '０' , '１' , '２' , '３' , '４' ,
         '５' , '６' , '７' , '８' , '９' ,
         'Ａ' , 'Ｂ' , 'Ｃ' , 'Ｄ' , 'Ｅ' ,
         'Ｆ' , 'Ｇ' , 'Ｈ' , 'Ｉ' , 'Ｊ' ,
