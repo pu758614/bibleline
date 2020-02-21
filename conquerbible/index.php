@@ -19,6 +19,9 @@ foreach ($client->parseEvents() as $event) {
     $msg = $event['message']['text'];
     $msg = trim($msg);
     $msg = convertStrType($msg);
+    if(in_array($msg,$default_arr)){
+        exit;
+    }
     $msg_log_id = $db->record_msg_log($uuid,file_get_contents('php://input'));
     $user_info = $db->getUserInfo($uuid,'uuid');
     if(count($user_info)==0){
