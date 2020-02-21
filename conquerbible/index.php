@@ -37,7 +37,7 @@ foreach ($client->parseEvents() as $event) {
     $new_msg = mb_substr($msg, 1);
     $player_id = isset($player_info['id'])?$player_info['id']:'';
     $action = convertStrType($action);
-
+    echo $action;
 
     switch ($action) {
         case '+':
