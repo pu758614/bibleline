@@ -1,4 +1,4 @@
-<?php 
+<?php
 include_once("../../lib/TemplatePower/class.TemplatePower.inc.php");
 include_once('../../vendor/autoload.php');
 include_once('../lib/db_lib.php');
@@ -6,6 +6,7 @@ include_once('../lib/common.php');
 $db = new db_lib;
 $tpl_path = "tpl/index.tpl";
 $tpl = new TemplatePower ($tpl_path);
+session_start();
 $action = isset($_GET['action'])?$_GET['action']:'basic_info';
 $tpl->assignGlobal(array(
     "action" => $action,
