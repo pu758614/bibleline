@@ -16,8 +16,8 @@
 		<!-- Nav -->
 			<nav id="nav">
 				<ul class="container">
-					<li><a href="?action=basic_info">基本資料</a></li>
-					<li><a href="?action=basic_info&type=schedule">讀經進度</a></li>
+					<li><a onclick="basic_change('basic')">基本資料</a></li>
+					<li><a onclick="basic_change('schedule')">讀經進度</a></li>
 					<li><a href="?read_log">讀經日誌</a></li>
 					<li><a href="?user_set">設定</a></li>
 				</ul>
@@ -29,8 +29,8 @@
 			<article id="contact" class="wrapper style4" style="display:none">
 				<div class="container medium">
 					<header>
-						<h2>Have me make stuff for you.</h2>
-						<p>Ornare nulla proin odio consequat sapien vestibulum ipsum.</p>
+						<!-- <h2>Have me make stuff for you.</h2>
+						<p>Ornare nulla proin odio consequat sapien vestibulum ipsum.</p> -->
 					</header>
 					<div class="row">
 						<div class="col-12">
@@ -89,5 +89,22 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 			<script src="assets/js/web.js"></script>
+			<script>
+				function basic_change(type){
+					var action = '{action}'
+					console.log(action);
+					if(action=='basic_info' && type=='schedule'){
+						var top = $('#work').offset().top
+						$('html,body').animate(
+							{ scrollTop:top },800
+						);
+					}else if(action=='basic_info' && type=='basic'){
+						var top = $('#top').offset().top
+						$('html,body').animate(
+							{ scrollTop:top },800
+						);
+					}
+				}
+			</script>
 	</body>
 </html>

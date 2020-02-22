@@ -7,6 +7,9 @@ $db = new db_lib;
 $tpl_path = "tpl/index.tpl";
 $tpl = new TemplatePower ($tpl_path);
 $action = isset($_GET['action'])?$_GET['action']:'basic_info';
+$tpl->assignGlobal(array(
+    "action" => $action,
+));
 $tpl -> prepare ();
 $tpl_path = "tpl/".$action.".tpl";
 $tpl->assignInclude( "content", $tpl_path );

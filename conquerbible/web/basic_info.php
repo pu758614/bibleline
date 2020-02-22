@@ -1,6 +1,7 @@
 <?php
 $player_id = isset($_GET['player_id'])?$_GET['player_id']:'';
 
+
 $player_info = $db->getPlayerInfo($player_id);
 if(empty($player_info)){
     exit("錯誤的id參數");
@@ -13,7 +14,7 @@ $new_percent = isset($player_info['new_percent'])?$player_info['new_percent']:''
 $old_percent = isset($player_info['old_percent'])?$player_info['old_percent']:'';
 $all_percen = isset($player_info['all_percen'])?$player_info['all_percen']:'';
 $tpl->gotoBlock( "content" );
-$tpl->assignGlobal(array(
+$tpl->assign(array(
     "user_name" => $user_name,
     "start_date" => $start_date,
     "old_percent" => $old_percent,

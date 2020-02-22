@@ -1,9 +1,8 @@
-
 <article id="top" class="wrapper style1">
     <div class="container">
         <div class="row">
             <div class="col-4 col-5-large col-12-medium">
-                <span class="image fit"><img src="images/pic00.jpg" alt="" /></span>
+                <span class="image fit"><img src="images/1582214401170.jpg" alt="" /></span>
             </div>
             <div class="col-8 col-7-large col-12-medium">
                 <header>
@@ -29,19 +28,19 @@
         <div class="row aln-cent">
             <div class="col-4 col-6-medium col-4-small" onclick="show_book('1')">
                 <section class="box style1">
-                    <span class="icon solid featured fa-bible" style='color:#EA8A95;'></span>
+                    <span  class="icon solid featured fa-bible" id='nwe_book' style='color:#EA8A95;'></span>
                     <h3>新約</h3>
                 </section>
             </div>
             <div class="col-4 col-6-medium col-4-small" onclick="show_book('all')">
                 <section class="box style1">
-                    <span class="icon solid featured fa-bible" style='color:#60b5d5;'></span>
+                    <span class="icon solid featured fa-book-open" id='all_book' style='color:#60b5d5;'></span>
                     <h3 >全部</h3>
                 </section>
             </div>
             <div class="col-4 col-6-medium col-4-small" onclick="show_book('0')">
                 <section class="box style1">
-                    <span class="icon solid featured fa-bible" style='color:#8ee9ae;'></span>
+                    <span class="icon solid featured fa-bible" id='old_book' style='color:#8ee9ae;'></span>
                     <h3>舊約</h3>
                 </section>
             </div>
@@ -67,20 +66,41 @@
                     </table>
                 </div>
                 <!-- END BLOCK : book_block -->
-            </div>
+            </div>    
         </footer>
     </div>
 </article>
 <script>
     function show_book(type){
+        $(".icon").removeClass("fa-bible");
+        $(".icon").removeClass("fa-book-open");
         if(type=='0'){
-            $(".bible_book").hide();
-            $(".testament_0").show();
+            $(".bible_book").hide({
+                duration: 1000,
+            });
+            $("#nwe_book").addClass("fa-bible");
+            $("#old_book").addClass("fa-book-open");
+            $("#all_book").addClass("fa-bible");
+            $(".testament_0").show({
+                duration: 1000,
+            });
         }else if(type=='1'){
-            $(".bible_book").hide();
-            $(".testament_1").show();
+            $(".bible_book").hide({
+                duration: 500,
+            });
+            $("#nwe_book").addClass("fa-book-open");
+            $("#old_book").addClass("fa-bible");
+            $("#all_book").addClass("fa-bible");
+            $(".testament_1").show({
+                duration: 500,
+            });
         }else {
-            $(".bible_book").show();
+            $("#nwe_book").addClass("fa-bible");
+            $("#old_book").addClass("fa-bible");
+            $("#all_book").addClass("fa-book-open");
+            $(".bible_book").show({
+                duration: 500,
+            });
         }
     }
 </script>
