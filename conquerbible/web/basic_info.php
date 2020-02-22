@@ -56,6 +56,7 @@ foreach ($book_arr as $book_name => $book_data) {
         $tpl->assign(array(
             "chapter_no" => $i,
             "check" => $check,
+            "data" => $book_id.'_'.$i,
         ) );
         if($row_count==9){
             $row_count=0;
