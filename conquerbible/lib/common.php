@@ -103,16 +103,21 @@ function convertStrType($strs, $types = 'wf_to_nf'){ //全形半形轉換
 }
 function getEncodeStr($str){
     $hashKey4encode = '758614';
-    $str = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, oaksPadKeyLength($hashKey4encode), $str, MCRYPT_MODE_CBC, md5($hashKey4encode)));
+    $str=openssl_encrypt($str,'des-ede3',oaksPadKeyLength($hashKey4encode),0);
+    //$str = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, oaksPadKeyLength($hashKey4encode), $str, MCRYPT_MODE_CBC, md5($hashKey4encode)));
+    $str = base64_encode($str);
     $str = str_replace(array('+', '/', '='), array('-', '_', ''), $str);
     return $str;
 }
 function getDecodeStr($str){
     $hashKey4encode = '758614';
     $str = str_replace(array('-', '_'), array('+', '/'), $str);
-    $str = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, oaksPadKeyLength($hashKey4encode), base64_decode($str), MCRYPT_MODE_CBC, md5($hashKey4encode));
+    $str = base64_decode($str);
+    //$str = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, oaksPadKeyLength($hashKey4encode), base64_decode($str), MCRYPT_MODE_CBC, md5($hashKey4encode));
+    $str=openssl_decrypt($str,'des-ede3',oaksPadKeyLength($hashKey4encode),0);
     return trim($str);
 }
+
 function oaksPadKeyLength($key){
     if(strlen($key) > 32) {
         return false;
