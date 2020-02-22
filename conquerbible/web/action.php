@@ -9,8 +9,7 @@ $result = array(
 );
 session_start();
 $user_id = isset($_SESSION['player_id'])?$_SESSION['player_id']:'';
-pr($_SESSION);
-exit;
+
 $db = new db_lib;
 $action = isset($_GET['action'])?$_GET['action']:'';
 switch ($action) {
