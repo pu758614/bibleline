@@ -22,17 +22,9 @@
 					<li><a href="?user_set">設定</a></li>
 				</ul>
 			</nav>
-			<!-- START BLOCK : book_block -->
-			<strong>{book_name}</strong>
-			<table border="1" style="word-wrap:break-word;table-layout:fixed;">
-				<tr>
-					<td width='20px'>123</td>
-				</tr>
-			</table>
-			<!-- END BLOCK : book_block -->
 
 			<!-- INCLUDE BLOCK : content -->
-
+			
 		<!-- Contact -->
 			<article id="contact" class="wrapper style4" style="display:none">
 				<div class="container medium">
@@ -76,7 +68,7 @@
 								<li><a href="#" class="icon brands fa-tumblr"><span class="label">Tumblr</span></a></li>
 								<li><a href="#" class="icon brands fa-google-plus"><span class="label">Google+</span></a></li>
 								<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-
+								
 							</ul>
 							<hr />
 						</div>

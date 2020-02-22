@@ -26,19 +26,19 @@
             <p>可點選下圖選擇顯示範圍</p>
         </header>
         <div class="row aln-cent">
-            <div class="col-4 col-6-medium col-4-small">
+            <div class="col-4 col-6-medium col-4-small" onclick="show_book('1')">
                 <section class="box style1">
                     <span class="icon solid featured fa-bible" style='color:#EA8A95;'></span>
                     <h3>新約</h3>
                 </section>
             </div>
-            <div class="col-4 col-6-medium col-4-small">
+            <div class="col-4 col-6-medium col-4-small" onclick="show_book('all')">
                 <section class="box style1">
                     <span class="icon solid featured fa-bible" style='color:#60b5d5;'></span>
-                    <h3>全部</h3>
+                    <h3 >全部</h3>
                 </section>
             </div>
-            <div class="col-4 col-6-medium col-4-small">
+            <div class="col-4 col-6-medium col-4-small" onclick="show_book('0')">
                 <section class="box style1">
                     <span class="icon solid featured fa-bible" style='color:#8ee9ae;'></span>
                     <h3>舊約</h3>
@@ -48,16 +48,33 @@
         <footer>
             <div  style='text-align:left;margin-left:0%;'>
                 <!-- START BLOCK : book_block -->
-                <strong>{book_name}</strong>
-                <table border="1" style="word-wrap:break-word;table-layout:fixed;">
-                    <tr>
-                        <td width='20px'>123</td>
-                    </tr>
-                </table>
+                <div class="bible_book {testament_type}">
+                    <strong>{book_name}</strong>
+                    <table border="1" style="word-wrap:break-word;table-layout:fixed;" >
+                        <!-- START BLOCK : row -->
+                        <tr>
+                            <!-- START BLOCK : chapter -->
+                            <td width='20px' style="text-align:center;">{chapter_no}</td>
+                            <!-- END BLOCK : chapter -->
+                        </tr>
+                        <!-- END BLOCK : row -->
+                    </table>
+                </div>
                 <!-- END BLOCK : book_block -->
             </div>
-        
-            
         </footer>
     </div>
 </article>
+<script>
+    function show_book(type){
+        if(type=='0'){
+            $(".bible_book").hide();
+            $(".testament_0").show();
+        }else if(type=='1'){
+            $(".bible_book").hide();
+            $(".testament_1").show();
+        }else {
+            $(".bible_book").show();
+        }
+    }
+</script>
