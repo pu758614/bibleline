@@ -68,7 +68,7 @@ switch ($action) {
                 $return_data = array(
                     "type" => $type,
                     "old_percent" => $old_percent,
-                    "new_percent" => $old_percent,
+                    "new_percent" => $new_percent,
                     "all_percen" => $all_percen,
                 );
                 $result = array(
