@@ -27,19 +27,19 @@
         </header>
         <div class="row aln-cent">
             <div class="col-4 col-6-medium col-4-small" onclick="show_book('1')">
-                <section class="box style1">
+                <section class=" style1">
                     <span  class="icon solid featured fa-bible" id='nwe_book' style='color:#EA8A95;'></span>
                     <h3>新約</h3>
                 </section>
             </div>
             <div class="col-4 col-6-medium col-4-small" onclick="show_book('all')">
-                <section class="box style1">
+                <section class=" style1">
                     <span class="icon solid featured fa-book-open" id='all_book' style='color:#60b5d5;'></span>
                     <h3 >全部</h3>
                 </section>
             </div>
             <div class="col-4 col-6-medium col-4-small" onclick="show_book('0')">
-                <section class="box style1">
+                <section class=" style1">
                     <span class="icon solid featured fa-bible" id='old_book' style='color:#8ee9ae;'></span>
                     <h3>舊約</h3>
                 </section>
@@ -66,7 +66,7 @@
                     </table>
                 </div>
                 <!-- END BLOCK : book_block -->
-            </div>    
+            </div>
         </footer>
     </div>
 </article>
