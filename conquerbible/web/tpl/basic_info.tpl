@@ -1,8 +1,9 @@
+
 <article id="top" class="wrapper style1">
     <div class="container">
         <div class="row">
             <div class="col-4 col-5-large col-12-medium">
-                <span class="image fit"><img src="images/1582356312640.jpg" alt="" /></span>
+                <span class="image fit"><img src="images/pic00.jpg" alt="" /></span>
             </div>
             <div class="col-8 col-7-large col-12-medium">
                 <header>
@@ -50,11 +51,16 @@
                 <!-- START BLOCK : book_block -->
                 <div class="bible_book {testament_type}">
                     <strong>{book_name}</strong>
-                    <table border="1" style="word-wrap:break-word;table-layout:fixed;" >
+                    <table border="1" style="width:{table_w}%;"  >
                         <!-- START BLOCK : row -->
                         <tr>
                             <!-- START BLOCK : chapter -->
-                            <td width='20px' style="text-align:center;">{chapter_no}</td>
+                            <td  style="text-align:center;">
+                                {chapter_no}
+                                <font style="color:red;font-weight:bold">
+                                    {check}
+                                </font>
+                            </td>
                             <!-- END BLOCK : chapter -->
                         </tr>
                         <!-- END BLOCK : row -->

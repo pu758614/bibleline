@@ -1,7 +1,7 @@
 <?php
 $player_id = isset($_GET['user_id'])?$_GET['user_id']:'';
 
-$player_info = $db->getPlayerInfo("1");
+$player_info = $db->getPlayerInfo($player_id);
 if(empty($player_info)){
     exit("錯誤的id參數");
 }
@@ -21,12 +21,22 @@ $tpl->assignGlobal(array(
     "all_percen" => $all_percen,
     "page_type"  => $action,
 ));
+$read_data = $db->getReadDate($player_id);
 $book_arr = $db->getBibleBook();
 foreach ($book_arr as $book_name => $book_data) {
     $count = $book_data['count'];
     $testament = $book_data['testament'];
+    $book_id = $book_data['id'];
     $tpl->newBlock("book_block");
-    $tpl->assign( "book_name", $book_name );
+    $table_w = 100;
+    if($count<10){
+        $table_w = $count*10;
+    }
+
+    $tpl->assign(array(
+        "book_name" => $book_name,
+        "table_w"   => $table_w
+    ));
     $tpl->assign(array(
         "book_name" => $book_name,
         "testament_type" => "testament_".$testament
@@ -36,9 +46,14 @@ foreach ($book_arr as $book_name => $book_data) {
         if($row_count==0){
             $tpl->newBlock("row");
         }
+        $check = '';
+        if(isset($read_data[$book_id.'_'.$i])){
+            $check = '✔';
+        }
         $tpl->newBlock("chapter");
         $tpl->assign(array(
             "chapter_no" => $i,
+            "check" => $check,
         ) );
         if($row_count==9){
             $row_count=0;

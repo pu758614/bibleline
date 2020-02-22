@@ -135,7 +135,7 @@ Trait DB_CRUD {
          $sql = "SELECT * FROM $table  $where $order_by";
 
 
-         $result = $this->db->Execute($sql);
+         $result = $this->db->Execute($sql,$arr_prestr);
 
          if($result && $result->RecordCount() > 0){
              return $result->getAll();

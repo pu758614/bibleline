@@ -173,6 +173,17 @@ class db_lib {
         return $result;
     }
 
+    function getReadDate($user_id){
+        $cond = array("player_id" => $user_id);
+        $read_data = $this->getArrayByArray('conquer_bible_enter_msg_log',$cond);
+
+        $sort_data = array();
+        foreach ($read_data as  $data) {
+            $sort_data[$data['book_id']."_".$data['chapter_no']] = '';
+        }
+        return $sort_data;
+    }
+
     //整理個人進度率
     function sortPlayerChapter($player_id){
         $old_count = $new_count = 0;
