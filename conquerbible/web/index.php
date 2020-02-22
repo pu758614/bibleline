@@ -12,8 +12,7 @@ $tpl_path = "tpl/".$action.".tpl";
 
 $tpl->assignInclude( "content", $tpl_path );
 if(is_file($action.".php")){
-	echo "66666";
-	//include($action.".php");
+	include($action.".php");
 }
 $tpl -> prepare ();
 
