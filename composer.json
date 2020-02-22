@@ -10,7 +10,8 @@
     "wikimedia/composer-merge-plugin": "^1.4",
     "adodb/adodb-php": "^5.20",
     "linecorp/line-bot-sdk": "^4.2",
-    "guzzlehttp/guzzle": "^6.5"
+    "guzzlehttp/guzzle": "^6.5",
+    "ext-memcached": "*"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*"
