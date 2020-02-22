@@ -22,14 +22,14 @@
 					<li><a href="?user_set">設定</a></li>
 				</ul>
 			</nav>
-			
+			<!-- START BLOCK : book_block -->
 			<strong>{book_name}</strong>
 			<table border="1" style="word-wrap:break-word;table-layout:fixed;">
 				<tr>
 					<td width='20px'>123</td>
 				</tr>
 			</table>
-
+			<!-- END BLOCK : book_block -->
 
 			<!-- INCLUDE BLOCK : content -->
 

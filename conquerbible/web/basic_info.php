@@ -22,14 +22,14 @@ $tpl->assignGlobal(array(
     "all_percen" => $all_percen,
     "page_type"  => $action,
 ));
-$book_arr = $db->getBibleBook();
-$tpl->gotoBlock( "book_block" );
-foreach ($book_arr as $book_name => $book_data) {
-    $count = $book_data['count'];
-    $testament = $book_data['testament'];
-
-    $tpl->newBlock("book_block");
-    $tpl->assign( "book_name", $book_name );
-}
+// $book_arr = $db->getBibleBook();
+//
+// foreach ($book_arr as $book_name => $book_data) {
+//     $count = $book_data['count'];
+//     $testament = $book_data['testament'];
+//
+//     $tpl->newBlock("book_block");
+//     $tpl->assign( "book_name", $book_name );
+// }
 
 ?>
