@@ -6,6 +6,7 @@ $player_info = $db->getPlayerInfo($player_id);
 if(empty($player_info)){
     exit("錯誤的id參數");
 }
+$_SESSION['player_id'] = $player_id;
 $user_id = isset($player_info['user_id'])?$player_info['user_id']:'';
 $user_info = $db->getUserInfo($user_id);
 $user_name = isset($user_info['name'])?$user_info['name']:'';

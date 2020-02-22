@@ -28,19 +28,19 @@
         <div class="row aln-cent">
             <div class="col-4 col-6-medium col-4-small" onclick="show_book('1')">
                 <section class=" style1">
-                    <span  class="icon solid featured fa-bible" id='nwe_book' style='color:#EA8A95;'></span>
+                    <span  class="icon solid featured fa-bible fa-xs" id='nwe_book' style='color:#EA8A95;'></span>
                     <h3>新約</h3>
                 </section>
             </div>
             <div class="col-4 col-6-medium col-4-small" onclick="show_book('all')">
                 <section class=" style1">
-                    <span class="icon solid featured fa-book-open" id='all_book' style='color:#60b5d5;'></span>
+                    <span class="icon solid featured fa-book-open fa-xs fa-align-left" id='all_book' style='color:#60b5d5;'></span>
                     <h3 >全部</h3>
                 </section>
             </div>
             <div class="col-4 col-6-medium col-4-small" onclick="show_book('0')">
                 <section class=" style1">
-                    <span class="icon solid featured fa-bible" id='old_book' style='color:#8ee9ae;'></span>
+                    <span class="icon solid featured fa-bible fa-xs" id='old_book' style='color:#8ee9ae;'></span>
                     <h3>舊約</h3>
                 </section>
             </div>
@@ -54,9 +54,9 @@
                         <!-- START BLOCK : row -->
                         <tr>
                             <!-- START BLOCK : chapter -->
-                            <td  style="text-align:center;">
+                            <td onclick="read_book('{data}')" style="text-align:center;">
                                 {chapter_no}
-                                <font style="color:red;font-weight:bold">
+                                <font id="data_{data}" style="color:red;font-weight:bold">
                                     {check}
                                 </font>
                             </td>
@@ -71,6 +71,31 @@
     </div>
 </article>
 <script>
+    function read_book(data_str){
+        $.ajax({
+            url: 'action.php?action=read_book',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                data :data_str
+            },
+            success: function(data){
+                if(!data.error){
+                    toastr.success( data.msg );
+                    if(data.data=='add'){
+                        $("#data_"+data_str).html("✔")
+                    }else{
+                        $("#data_"+data_str).html("")
+                    }
+                }else{
+                    toastr.error( data.msg );
+                }
+            },
+            error: function(data){
+                toastr.error( 'error');
+            }
+        });
+    }
     function show_book(type){
         $(".icon").removeClass("fa-bible");
         $(".icon").removeClass("fa-book-open");

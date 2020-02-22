@@ -12,7 +12,7 @@ $result = array(
     "msg"   => '',
 );
 $status = 0;
-
+session_start();
 //$db->record_msg_log("123123",file_get_contents('php://input'));
 foreach ($client->parseEvents() as $event) {
     $uuid = $event['source']['userId'];
