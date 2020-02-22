@@ -97,7 +97,8 @@ foreach ($client->parseEvents() as $event) {
 
                 $msg = "開始日期：$start_date\n\n攻略進度\n  舊約：".$old_percent."%\n  新約：".$new_percent."%\n  整本：".$all_percen."%\n\n現在至少要讀白波的".$days_p."%\n\n完整攻略次數：$done_count";
             }else if($new_msg=='mypage'){
-                $msg = "http://bibleline2.herokuapp.com/conquerbible/web/?player_id=$player_id";
+                $player_id_str = getEncodeStr($player_id);
+                $msg = "http://bibleline2.herokuapp.com/conquerbible/web/?player_id=$player_id_str";
             }
             $result = array(
                 "error" => 0,

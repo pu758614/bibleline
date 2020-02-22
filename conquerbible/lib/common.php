@@ -101,6 +101,30 @@ function convertStrType($strs, $types = 'wf_to_nf'){ //全形半形轉換
         return $strtmp;
     }
 }
+function getEncodeStr($str){
+    $hashKey4encode = '758614';
+    $str = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, oaksPadKeyLength($hashKey4encode), $str, MCRYPT_MODE_CBC, md5($hashKey4encode)));
+    $str = str_replace(array('+', '/', '='), array('-', '_', ''), $str);
+    return $str;
+}
+function getDecodeStr($str){
+    $hashKey4encode = '758614';
+    $str = str_replace(array('-', '_'), array('+', '/'), $str);
+    $str = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, oaksPadKeyLength($hashKey4encode), base64_decode($str), MCRYPT_MODE_CBC, md5($hashKey4encode));
+    return trim($str);
+}
+function oaksPadKeyLength($key){
+    if(strlen($key) > 32) {
+        return false;
+    }
+    $sizes = array(16,24,32);
+
+    foreach($sizes as $s){
+        while(strlen($key) < $s) $key = $key."\0";
+        if(strlen($key) == $s) break; // finish if the key matches a size
+    }
+    return $key;
+}
 
 function pr($str){
     echo "<pre>";
