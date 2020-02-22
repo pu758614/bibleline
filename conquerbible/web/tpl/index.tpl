@@ -20,17 +20,18 @@
 					<li><a href="?action=basic_info&type=schedule">讀經進度</a></li>
 					<li><a href="?read_log">讀經日誌</a></li>
 					<li><a href="?user_set">設定</a></li>
+					<li><a href="?problem_respond">問題回饋</a></li>
 				</ul>
 			</nav>
 
 			<!-- INCLUDE BLOCK : content -->
-			
+
 		<!-- Contact -->
 			<article id="contact" class="wrapper style4" style="display:none">
 				<div class="container medium">
 					<header>
-						<h2>Have me make stuff for you.</h2>
-						<p>Ornare nulla proin odio consequat sapien vestibulum ipsum.</p>
+						<!-- <h2>Have me make stuff for you.</h2>
+						<p>Ornare nulla proin odio consequat sapien vestibulum ipsum.</p> -->
 					</header>
 					<div class="row">
 						<div class="col-12">
@@ -68,7 +69,7 @@
 								<li><a href="#" class="icon brands fa-tumblr"><span class="label">Tumblr</span></a></li>
 								<li><a href="#" class="icon brands fa-google-plus"><span class="label">Google+</span></a></li>
 								<li><a href="#" class="icon brands fa-github"><span class="label">Github</span></a></li>
-								
+
 							</ul>
 							<hr />
 						</div>
