@@ -196,7 +196,6 @@ class db_lib {
         $result = $this->db->Execute($sql,array($player_id));
         if($result && $result->RecordCount() > 0){
             $data =  $result->FetchRow();
-            pr($data);
             $new_count = $data['COUNT(*)'];
         }
         $sql ="SELECT COUNT(*)

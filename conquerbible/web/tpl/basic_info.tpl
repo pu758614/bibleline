@@ -81,6 +81,10 @@
             },
             success: function(data){
                 if(!data.error){
+                    toastr.options = {
+                        positionClass: "toast-bottom-center",
+                        timeOut: '500',
+                    };
                     toastr.success( data.msg );
                     if(data.data=='add'){
                         $("#data_"+data_str).html("✔")
@@ -88,14 +92,21 @@
                         $("#data_"+data_str).html("")
                     }
                 }else{
+                    toastr.options = {
+                        positionClass: "toast-bottom-center",
+                    };
                     toastr.error( data.msg );
                 }
             },
             error: function(data){
+                toastr.options = {
+                    positionClass: "toast-bottom-center",
+                };
                 toastr.error( 'error');
             }
         });
     }
+
     function show_book(type){
         $(".icon").removeClass("fa-bible");
         $(".icon").removeClass("fa-book-open");
