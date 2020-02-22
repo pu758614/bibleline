@@ -8,11 +8,12 @@
                 <header>
                     <h1>Hi！<strong>{user_name}</strong></h1>
                 </header>
+
                 <div  style='text-align:left;margin-left:35%;'>
                     <p><strong>開始讀經日期：</strong>{start_date}</p>
-                    <p><strong>舊約進度：</strong>{old_percent}%</p>
-                    <p><strong>新約約進度：</strong>{new_percent}%</p>
-                    <p><strong>全書進度：</strong>{all_percen}%</p>
+                    <p><strong >舊約進度：</strong id="old_percent"><div>{old_percent}</div>%</p>
+                    <p><strong>新約約進度：</strong id="new_percent"><div>{new_percent}</div>%</p>
+                    <p><strong>全書進度：</strong id="all_percen"><div>{all_percen}</div>%</p>
                 </div>
             </div>
         </div>
@@ -86,11 +87,18 @@
                         timeOut: '500',
                     };
                     toastr.success( data.msg );
+                    var type = data.data.type;
+                    var old_percent = data.data.old_percent;
+                    var new_percent = data.data.new_percent;
+                    var all_percen = data.data.all_percen;
                     if(data.data=='add'){
                         $("#data_"+data_str).html("✔")
                     }else{
                         $("#data_"+data_str).html("")
                     }
+                    $("#old_percent").html(old_percent);
+                    $("#new_percent").html(new_percent);
+                    $("#all_percen").html(all_percen);
                 }else{
                     toastr.options = {
                         positionClass: "toast-bottom-center",
