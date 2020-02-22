@@ -1,6 +1,5 @@
-<?php 
+<?php
 $player_id = isset($_GET['user_id'])?$_GET['user_id']:'';
-$player_id = 42;
 
 $player_info = $db->getPlayerInfo("1");
 if(empty($player_info)){
