@@ -18,9 +18,9 @@
 				<ul class="container">
 					<li><a href="?action=basic_info">基本資料</a></li>
 					<li><a href="?action=basic_info&type=schedule">讀經進度</a></li>
-					<li><a href="?read_log">讀經日誌</a></li>
-					<li><a href="?user_set">設定</a></li>
-					<li><a href="?problem_respond">問題回饋</a></li>
+					<li><a href="?action=read_log">讀經日誌</a></li>
+					<li><a href="?action=user_set">設定</a></li>
+					<li><a href="?action=problem_respond">問題回饋</a></li>
 				</ul>
 			</nav>
 
