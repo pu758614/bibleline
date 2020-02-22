@@ -13,7 +13,7 @@ $start_date = isset($player_info['start_date'])?$player_info['start_date']:'';
 $new_percent = isset($player_info['new_percent'])?$player_info['new_percent']:'';
 $old_percent = isset($player_info['old_percent'])?$player_info['old_percent']:'';
 $all_percen = isset($player_info['all_percen'])?$player_info['all_percen']:'';
-$tpl->gotoBlock( "content" );
+
 $tpl->assignGlobal(array(
     "user_name" => $user_name,
     "start_date" => $start_date,
@@ -23,6 +23,7 @@ $tpl->assignGlobal(array(
     "page_type"  => $action,
 ));
 $book_arr = $db->getBibleBook();
+$tpl->gotoBlock( "book_block" );
 foreach ($book_arr as $book_name => $book_data) {
     $count = $book_data['count'];
     $testament = $book_data['testament'];

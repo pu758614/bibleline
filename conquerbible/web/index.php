@@ -1,4 +1,4 @@
-<?php 
+<?php
 include_once("../../lib/TemplatePower/class.TemplatePower.inc.php");
 include_once('../../vendor/autoload.php');
 include_once('../lib/db_lib.php');
@@ -12,7 +12,8 @@ $tpl_path = "tpl/".$action.".tpl";
 
 $tpl->assignInclude( "content", $tpl_path );
 if(is_file($action.".php")){
-	include($action.".php");
+	echo "66666";
+	//include($action.".php");
 }
 $tpl -> prepare ();
 
