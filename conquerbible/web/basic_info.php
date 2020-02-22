@@ -1,5 +1,5 @@
 <?php
-$player_id = isset($_GET['user_id'])?$_GET['user_id']:'';
+$player_id = isset($_GET['player_id'])?$_GET['player_id']:'';
 
 $player_info = $db->getPlayerInfo($player_id);
 if(empty($player_info)){
