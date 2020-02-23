@@ -17,9 +17,10 @@ $all_percen = isset($player_info['all_percen'])?$player_info['all_percen']:'';
 $startdate=strtotime($start_date);
 $enddate=strtotime(date("Y-m-d"));
 $days=ceil(abs($startdate - $enddate)/86400);
+$days= $days+1;
 $days_p = $days/365*100;
 $days_p = round($days_p, 1);
-pr($start_date);
+pr($days_p);
 pr(date("Y-m-d"));
 
 $tpl->gotoBlock( "content" );
