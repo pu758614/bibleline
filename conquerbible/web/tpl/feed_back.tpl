@@ -21,7 +21,7 @@
 						<div class="col-12">
 							<ul class="actions">
 								<li><input type="button" onclick="submit_msg()" value="發送" /></li>
-								<li><input type="reset" value="清空" class="alt" /></li>
+								<li><input type="reset" onclick="clear_msg()" value="清空" class="alt" /></li>
 							</ul>
 						</div>
 					</div>
@@ -29,11 +29,15 @@
 			</div>
         </div>
         <footer>
-        
+
         </footer>
     </div>
 </article>
 <script>
+    function clear_msg(){
+        $("#name").val('');
+        $("#message").val('');
+    }
     function submit_msg(){
         var name = $("#name").val();
         var message = $("#message").val();
@@ -48,16 +52,22 @@
             },
             success: function(data){
                 if(!data.error){
-                    alert("訊息發送成功，感謝您的支持！");
+                    //alert("訊息發送成功，感謝您的支持！");
+                    toastr.options = {
+                        positionClass: "toast-bottom-center",
+                        timeOut: '1000',
+                    };
+                    toastr.success( 訊息發送成功，感謝您的支持！ );
+                    clear_msg()
                 }else{
                     alert(data.msg);
                 }
             },
             error: function(data){
-                // toastr.options = {
-                //     positionClass: "toast-bottom-center",
-                // };
-                // toastr.error( 'error');
+                toastr.options = {
+                    positionClass: "toast-bottom-center",
+                };
+                toastr.error( 'error');
                 alert(data.msg);
             }
         });
