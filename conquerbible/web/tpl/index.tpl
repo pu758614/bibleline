@@ -100,6 +100,7 @@
 						);
 					}else if(action=='basic_info' && type=='basic'){
 						var top = $('#top').offset().top
+						top = top+50;
 						$('html,body').animate(
 							{ scrollTop:top },800
 						);
