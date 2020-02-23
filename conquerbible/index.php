@@ -73,8 +73,8 @@ foreach ($client->parseEvents() as $event) {
             $days_p = $days/365*100;
             $days_p = round($days_p, 1);
 
-
-            $msg .= "\n\n---攻略進度---\n舊約:".$old_percent."%\n新約:".$new_percent."%\n白波:".$all_percen."%\n\n現在至少要讀白波的".$days_p."%";
+            $player_id_str = getEncodeStr($player_id);
+            $msg .= "\n\n---攻略進度---\n舊約:".$old_percent."%\n新約:".$new_percent."%\n白波:".$all_percen."%\n\n現在至少要讀白波的".$days_p."%\n\n\n個人頁面：http://bibleline2.herokuapp.com/conquerbible/web/?player_id=$player_id_str";
             //pr($new_player_info);
             $result = array(
                 "error" => 0,
