@@ -52,12 +52,12 @@
             },
             success: function(data){
                 if(!data.error){
-                    alert("訊息發送成功，感謝您的支持！");
-                    // toastr.options = {
-                    //     positionClass: "toast-bottom-center",
-                    //     timeOut: '1000',
-                    // };
-                    // toastr.success( 訊息發送成功，感謝您的支持！ );
+                    //alert("訊息發送成功，感謝您的支持！");
+                    toastr.options = {
+                        positionClass: "toast-bottom-center",
+                        timeOut: '1000',
+                    };
+                    toastr.success( '訊息發送成功，感謝您的支持！' );
                     clear_msg()
                 }else{
                     alert(data.msg);
