@@ -19,7 +19,7 @@ $enddate=strtotime(date("Y-m-d"));
 $days=ceil(abs($startdate - $enddate)/86400);
 $days_p = $days/365*100;
 $days_p = round($days_p, 1);
-pr($days_p);
+pr($days);
 
 $tpl->gotoBlock( "content" );
 $tpl->assign(array(
