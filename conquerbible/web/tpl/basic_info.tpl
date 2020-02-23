@@ -69,8 +69,8 @@
                         <!-- START BLOCK : row -->
                         <tr>
                             <!-- START BLOCK : chapter -->
-                            <td onclick="read_book('{data}','{book_id}')" style="text-align:center;">
-                                {chapter_no}
+                            <td onclick="read_book('{data}','{book_id}')" style="text-align:center;color:block;font-weight:bold">
+                                {chapter_no}$$player_id_str = getEncodeStr($player_id);player_id_str = getEncodeStr($player_id);
                                 <font id="data_{data}" style="color:red;font-weight:bold">
                                     {check}
                                 </font>
