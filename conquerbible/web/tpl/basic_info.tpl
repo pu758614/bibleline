@@ -23,7 +23,7 @@
 <article id="work" class="wrapper style2">
     <div class="container">
         <header>
-            <h2>讀經進度</h2>
+            <h2>攻略進度</h2>
             <p>可點選下圖選擇顯示範圍</p>
         </header>
         <div class="row aln-cent">
