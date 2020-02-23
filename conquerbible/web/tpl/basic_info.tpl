@@ -46,6 +46,7 @@
                 </section>
             </div>
         </div>
+        <p>點擊章節數可進攻/撤退</p>
         <footer>
             <div  style='text-align:left;margin-left:0%;'>
                 <!-- START BLOCK : book_block -->
