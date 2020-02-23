@@ -14,6 +14,13 @@ $start_date = isset($player_info['start_date'])?$player_info['start_date']:'';
 $new_percent = isset($player_info['new_percent'])?$player_info['new_percent']:'';
 $old_percent = isset($player_info['old_percent'])?$player_info['old_percent']:'';
 $all_percen = isset($player_info['all_percen'])?$player_info['all_percen']:'';
+$startdate=strtotime($start_date);
+$enddate=strtotime(date("Y-m-d"));
+$days=ceil(abs($startdate - $enddate)/86400);
+$days_p = $days/365*100;
+$days_p = round($days_p, 1);
+pr($days_p);
+
 $tpl->gotoBlock( "content" );
 $tpl->assign(array(
     "user_name" => $user_name,
