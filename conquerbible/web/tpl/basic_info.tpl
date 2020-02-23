@@ -74,6 +74,19 @@
     </div>
 </article>
 <script>
+    
+    $( document ).ready(function() {
+        var type = "{type}";
+        
+        if(type=='schedule'){
+            var top = $('#work').offset().top;
+            top = top+20;
+            $('html,body').animate(
+                { scrollTop:top },800
+            );
+        }
+    });
+
     function read_book(data_str){
         $.ajax({
             url: 'action.php?action=read_book',

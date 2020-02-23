@@ -13,6 +13,32 @@ $player_id = isset($_SESSION['player_id'])?$_SESSION['player_id']:'';
 $db = new db_lib;
 $action = isset($_GET['action'])?$_GET['action']:'';
 switch ($action) {
+    
+    case 'feed_back':
+        $name = isset($_POST['name'])?$_POST['name']:'';
+        $message = isset($_POST['message'])?$_POST['message']:'';
+        if($message==''){
+            $result['msg'] = '請輸入訊息';
+            goto end;
+        }
+        if($name==''){
+            $result['msg'] = '請輸入稱呼';
+            goto end;
+        }
+        $data = array(
+            "name" => $name,
+            "message" => $message,
+            "create_time" => date("Y-m-d H:i:s"),
+        );
+        $insert_result = $db->insertData('conquer_bible_feed_back',$data);
+        if($insert_result){
+            $result['error'] = false;
+        }
+        else{
+            $result['msg'] = '訊息發送失敗';
+        }
+        break;
+    
     case 'read_book':
         $data = isset($_POST['data'])?$_POST['data']:'';
         $data_arr = explode('_',$data);

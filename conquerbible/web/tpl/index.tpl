@@ -11,6 +11,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="assets/js/web.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet"  />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 	<body class="is-preload">
 
 		<!-- Nav -->
@@ -18,8 +27,8 @@
 				<ul class="container">
 					<li><a onclick="basic_change('basic')">基本資料</a></li>
 					<li><a onclick="basic_change('schedule')">攻略進度</a></li>
-					<li><a href="?user_set">個人設定</a></li>
-					<li><a href="?read_log">意見反饋</a></li>
+					<li><a href="?action=user_set">個人設定</a></li>
+					<li><a href="?action=feed_back">意見反饋</a></li>
 				</ul>
 			</nav>
 
@@ -71,24 +80,15 @@
 							<hr />
 						</div>
 					</div>
-					<footer>
+					<!-- <footer>
 						<ul id="copyright">
-							<!-- <li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 						</ul>
-					</footer>
+					</footer> -->
 				</div>
-			</article> -->
+			</article>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="assets/js/web.js"></script>
-			<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet"  />
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 			<script>
 				function basic_change(type){
 					var action = '{action}'
@@ -103,6 +103,10 @@
 						$('html,body').animate(
 							{ scrollTop:top },800
 						);
+					}else if(action!='basic_info'&&type=='schedule'){
+						window.location.href = "?action=basic_info&type=schedule";
+					}else if(action!='basic_info' && type=='basic'){
+						window.location.href = "?action=basic_info";
 					}
 				}
 			</script>

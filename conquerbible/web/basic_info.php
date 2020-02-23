@@ -14,6 +14,7 @@ $start_date = isset($player_info['start_date'])?$player_info['start_date']:'';
 $new_percent = isset($player_info['new_percent'])?$player_info['new_percent']:'';
 $old_percent = isset($player_info['old_percent'])?$player_info['old_percent']:'';
 $all_percen = isset($player_info['all_percen'])?$player_info['all_percen']:'';
+$type = isset($_GET['type'])?$_GET['type']:'';
 $startdate=strtotime($start_date);
 $enddate=strtotime(date("Y-m-d"));
 $days=ceil(abs($startdate - $enddate)/86400);
@@ -30,6 +31,7 @@ $tpl->assign(array(
     "new_percent" => $new_percent,
     "all_percen" => $all_percen,
     "page_type"  => $action,
+    "type"       => $type,
 ));
 $read_data = $db->getReadDate($player_id);
 $book_arr = $db->getBibleBook();
