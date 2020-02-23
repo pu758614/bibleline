@@ -77,6 +77,7 @@
             url: 'action.php?action=read_book',
             type: 'post',
             dataType: 'json',
+            async:false,
             data: {
                 data :data_str
             },
