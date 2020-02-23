@@ -50,11 +50,9 @@ foreach ($book_arr as $book_name => $book_data) {
 
     $tpl->assign(array(
         "book_name" => $book_name,
-        "table_w"   => $table_w
-    ));
-    $tpl->assign(array(
-        "book_name" => $book_name,
-        "testament_type" => "testament_".$testament
+        "table_w"   => $table_w,
+        "testament_type" => "testament_".$testament,
+        "book_id" => $book_id,
     ));
     $row_count = 0;
     for ($i=1; $i <=$count ; $i++) {
@@ -69,6 +67,7 @@ foreach ($book_arr as $book_name => $book_data) {
         $tpl->assign(array(
             "chapter_no" => $i,
             "check" => $check,
+            "book_id" => $book_id,
             "data" => $book_id.'_'.$i,
         ) );
         if($row_count==9){

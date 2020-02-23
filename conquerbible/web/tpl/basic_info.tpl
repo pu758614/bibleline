@@ -49,15 +49,27 @@
 
         <footer>
             <div  style='text-align:left;margin-left:0%;'>
-                <p>點擊章節數可進攻/撤退</p>
+                <div style="font-size: 0.5rem;">
+                    <font style="color:#000000" size="3px" >*點</font>
+                    <font style="color:#f33047;" size="3px">鎖<font/>
+                    <font style="color:#000000" size="3px" >
+                            解除鎖定即可點擊進行進攻/撤退
+                    </font>
+                    <p>            
+                </div>
+                <!-- <p>點擊章節數可進攻/撤退</p> -->
                 <!-- START BLOCK : book_block -->
                 <div class="bible_book {testament_type}">
-                    <strong>{book_name}</strong>
+                    <span onclick="unlock('{book_id}')" id='lock_{book_id}' style="font-size: 0.2rem; color:#f33047;" class="icon solid lock_bt featured fa-lock fa-xs fa-align-left">
+                        <font style='color:#000000; font-size:16px;'>  
+                            {book_name}
+                        </font>
+                    </span>    
                     <table border="1" style="width:{table_w}%;"  >
                         <!-- START BLOCK : row -->
                         <tr>
                             <!-- START BLOCK : chapter -->
-                            <td onclick="read_book('{data}')" style="text-align:center;">
+                            <td onclick="read_book('{data}','{book_id}')" style="text-align:center;">
                                 {chapter_no}
                                 <font id="data_{data}" style="color:red;font-weight:bold">
                                     {check}
@@ -77,7 +89,6 @@
     
     $( document ).ready(function() {
         var type = "{type}";
-        
         if(type=='schedule'){
             var top = $('#work').offset().top;
             top = top+20;
@@ -86,8 +97,36 @@
             );
         }
     });
+    var is_lock = '';
+    function unlock(id){
+        var lock = '';
+        is_lock ='';
+        if($("#lock_"+id).hasClass('fa-lock-open')){
+            lock = 1;
+            is_lock = id;
+        }else{
+            is_lock = id;
+        }
+        $(".lock_bt").removeClass('fa-lock-open');
+        $(".lock_bt").addClass('fa-lock').css("color","#f33047" );
+        if(lock!=1){
+            $("#lock_"+id).removeClass('fa-lock');
+            $("#lock_"+id).addClass('fa-lock-open').css("color","#51ee34" );
+        }else{
+            is_lock ='';
+        }
+        
+    }
 
-    function read_book(data_str){
+    function read_book(data_str,book_id){
+        if(is_lock!=book_id){
+            toastr.options = {
+                timeOut: '1300',
+                positionClass: "toast-bottom-center",
+            };
+            toastr.warning( '請先解除鎖定');
+            return;
+        }
         $.ajax({
             url: 'action.php?action=read_book',
             type: 'post',
@@ -100,7 +139,7 @@
                 if(!data.error){
                     toastr.options = {
                         positionClass: "toast-bottom-center",
-                        timeOut: '500',
+                        timeOut: '1000',
                     };
                     toastr.success( data.msg );
                     var type = data.data.type;
