@@ -24,7 +24,7 @@
     <div class="container">
         <header>
             <h2>攻略進度</h2>
-            <p>可點選下圖選擇顯示範圍</p>
+            <p>點選圖示選擇顯示範圍</p>
         </header>
         <div class="row aln-cent">
             <div class="col-4 col-6-medium col-4-small" onclick="show_book('1')">
@@ -55,16 +55,16 @@
                     <font style="color:#000000" size="3px" >
                             解除鎖定即可點擊進行進攻/撤退
                     </font>
-                    <p>            
+                    <p>
                 </div>
                 <!-- <p>點擊章節數可進攻/撤退</p> -->
                 <!-- START BLOCK : book_block -->
                 <div class="bible_book {testament_type}">
                     <span onclick="unlock('{book_id}')" id='lock_{book_id}' style="font-size: 0.2rem; color:#f33047;" class="icon solid lock_bt featured fa-lock fa-xs fa-align-left">
-                        <font style='color:#000000; font-size:16px;'>  
+                        <font style='color:#000000; font-size:16px;'>
                             {book_name}
                         </font>
-                    </span>    
+                    </span>
                     <table border="1" style="width:{table_w}%;"  >
                         <!-- START BLOCK : row -->
                         <tr>
@@ -86,7 +86,7 @@
     </div>
 </article>
 <script>
-    
+
     $( document ).ready(function() {
         var type = "{type}";
         if(type=='schedule'){
@@ -115,7 +115,7 @@
         }else{
             is_lock ='';
         }
-        
+
     }
 
     function read_book(data_str,book_id){
