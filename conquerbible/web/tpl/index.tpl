@@ -92,7 +92,6 @@
 			<script>
 				function basic_change(type){
 					var action = '{action}'
-					console.log(action);
 					if(action=='basic_info' && type=='schedule'){
 						var top = $('#work').offset().top
 						$('html,body').animate(
