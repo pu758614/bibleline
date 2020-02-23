@@ -53,14 +53,14 @@
             success: function(data){
                 if(!data.error){
                     toastr.options = {
-                        positionClass: "toast-bottom-center",
+                        positionClass: "toast-bottom-full-width",
                         timeOut: '1000',
                     };
                     toastr.success( '訊息發送成功，感謝您的支持！' );
                     clear_msg()
                 }else{
                     toastr.options = {
-                        positionClass: "toast-bottom-center",
+                        positionClass: "toast-bottom-full-width",
                         timeOut: '1000',
                     };
                     toastr.error( data.msg );
@@ -68,7 +68,7 @@
             },
             error: function(data){
                 toastr.options = {
-                    positionClass: "toast-bottom-center",
+                    positionClass: "toast-bottom-full-width",
                     timeOut: '1000',
                 };
                 toastr.error( 'error');
