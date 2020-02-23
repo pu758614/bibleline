@@ -46,9 +46,10 @@
                 </section>
             </div>
         </div>
-        <p>點擊章節數可進攻/撤退</p>
+
         <footer>
             <div  style='text-align:left;margin-left:0%;'>
+                <p>點擊章節數可進攻/撤退</p>
                 <!-- START BLOCK : book_block -->
                 <div class="bible_book {testament_type}">
                     <strong>{book_name}</strong>
