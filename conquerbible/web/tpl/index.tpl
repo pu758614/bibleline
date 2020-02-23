@@ -17,9 +17,9 @@
 			<nav id="nav">
 				<ul class="container">
 					<li><a onclick="basic_change('basic')">基本資料</a></li>
-					<li><a onclick="basic_change('schedule')">讀經進度</a></li>
-					<li><a href="?read_log">讀經日誌</a></li>
-					<li><a href="?user_set">設定</a></li>
+					<li><a onclick="basic_change('schedule')">攻略進度</a></li>
+					<li><a href="?user_set">個人設定</a></li>
+					<li><a href="?read_log">意見反饋</a></li>
 				</ul>
 			</nav>
 

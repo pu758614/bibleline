@@ -10,10 +10,10 @@
                 </header>
 
                 <div  style='text-align:left;margin-left:35%;'>
-                    <p><strong>開始讀經日期：</strong>{start_date}</p>
-                    <p><strong >舊約進度：</strong><font  id="old_percent">{old_percent}</font>%</p>
-                    <p><strong>新約約進度：</strong><font id="new_percent">{new_percent}</font>%</p>
-                    <p><strong>全書進度：</strong><font id="all_percen">{all_percen}</font>%</p>
+                    <p><strong>開始攻略日期：</strong>{start_date}</p>
+                    <p><strong >舊約攻略進度：</strong><font  id="old_percent">{old_percent}</font>%</p>
+                    <p><strong>新約攻略進度：</strong><font id="new_percent">{new_percent}</font>%</p>
+                    <p><strong>白波攻略進度：</strong><font id="all_percen">{all_percen}</font>%</p>
                 </div>
             </div>
         </div>
