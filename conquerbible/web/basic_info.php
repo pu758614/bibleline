@@ -1,7 +1,10 @@
 <?php
+
 $player_str = isset($_GET['player_id'])?$_GET['player_id']:'';
 $player_id = getDecodeStr($player_str);
-
+if($player_str==''){
+    $player_id = isset($_SESSION['player_id'])?$_SESSION['player_id']:'';
+}
 $player_info = $db->getPlayerInfo($player_id);
 if(empty($player_info)){
     exit("錯誤的id參數");
