@@ -7,7 +7,7 @@ include_once("lib/db_lib.php");
 $db = new db_lib;
 $data=array(
     "name" => '帖撒羅尼迦前書',
-)
+);
 $db->db->debug = 1;
 $result=$db->updateData('conquer_bible_book',$data,array("id"=>52));
 $db->db->debug = 0;
