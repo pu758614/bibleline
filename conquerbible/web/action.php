@@ -14,6 +14,26 @@ $db = new db_lib;
 $action = isset($_GET['action'])?$_GET['action']:'';
 switch ($action) {
     
+    case 'save_user_set':
+        $year = isset($_POST['year'])?$_POST['year']:'';
+        $month = isset($_POST['month'])?$_POST['month']:'';
+        $done_month_count = $year*12+(int)$month;
+        $start_date = isset($_POST['start_date'])?$_POST['start_date']:'';
+        $start_date = str_replace('/','-',$start_date);
+        $data = array(
+            "start_date" => $start_date,
+            "done_month_count" => $done_month_count,
+            "modify_time" =>  date("Y:m:d H:i:s"),
+        );
+        $insert_result = $db->updateData('conquer_bible_player',$data,array("id"=>$player_id));
+        if($insert_result){
+            $result['error'] = false;
+        }
+        else{
+            $result['msg'] = '儲存失敗';
+        }
+        break;
+    
     case 'feed_back':
         $name = isset($_POST['name'])?$_POST['name']:'';
         $message = isset($_POST['message'])?$_POST['message']:'';
