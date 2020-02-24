@@ -8,11 +8,11 @@ class db_lib {
     function __construct(){
         date_default_timezone_set('asia/taipei');
         header("Content-type: text/html; charset=utf-8");
-        $host = 'us-cdbr-iron-east-04.cleardb.net';
+        $host = '';
         //改成你登入phpmyadmin帳號
-        $user = 'b65f080869b290';
+        $user = '';
         //改成你登入phpmyadmin密碼
-        $passwd = 'afa6a322';
+        $passwd = '';
         //資料庫名稱
         $database = 'heroku_4d9bdcbc4d69fab';
         $this->db = ADONewConnection('mysqli');
