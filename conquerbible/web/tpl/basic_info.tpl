@@ -70,7 +70,7 @@
                         <tr>
                             <!-- START BLOCK : chapter -->
                             <td onclick="read_book('{data}','{book_id}')" style="text-align:center;color:black;">
-                                {chapter_no}
+                                {chapter_no}<p>
                                 <font id="data_{data}" style="color:red;font-weight:bold">
                                     {check}
                                 </font>
