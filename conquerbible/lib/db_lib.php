@@ -92,7 +92,8 @@ class db_lib {
         $data = array(
             "user_id" => $user_id,
             "start_date" => date("Y-m:d"),
-            "modify_time"  => date("Y-m-d")
+            "modify_time"  => date("Y-m-d H:i:s"),
+            "create_time"  => date("Y-m-d H:i:s"),
         );
         $result = $this->insertData("conquer_bible_player",$data);
         return $result;
