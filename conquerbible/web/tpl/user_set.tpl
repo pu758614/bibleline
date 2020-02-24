@@ -10,7 +10,7 @@
 					<div class="row">
 						<div class="col-12">
                             <h4 style="text-align:left">開始攻略日期：</h4>
-							<input type="text" class="use_time" style="width:35%" name="name" id="start_date" value="{start_date}" disabled="disabled">
+							<input type="text" class="use_time" style="width:35%" name="name" id="start_date" value="{start_date}" readonly>
 						</div>
 
                         <div class="col-12" style="text-align:left">
