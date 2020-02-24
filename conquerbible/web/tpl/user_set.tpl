@@ -12,7 +12,7 @@
                             <h4 style="text-align:left">開始攻略日期：</h4>
 							<input type="text" class="use_time" style="width:35%" name="name" id="start_date" value="{start_date}">
 						</div>
-						
+
                         <div class="col-12" style="text-align:left">
                             <h4 style="text-align:left">預計征服一遍使用時間：</h4>
                             <select  class="use_time form-control" style="display:inline;width:20%" id='use_year'>
@@ -42,8 +42,8 @@
                                 <font id='read_count'> </font>
                                 章)
                             </h4>
-                        </div>    
-                        
+                        </div>
+
 						<div class="col-12">
 							<ul class="actions">
 								<li><input type="button" onclick="save()" value="儲存" /></li>
@@ -58,13 +58,13 @@
 <style>
 
 div.ui-datepicker{
- font-size:10px;
+ font-size:18px;
 }
 </style>
 <script>
     change_count()
     set_use_time();
-    
+
     function set_use_time(){
         var month = '{month}';
         var year = '{year}';
@@ -82,9 +82,9 @@ div.ui-datepicker{
      };
      //將預設語系設定為中文
      $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
-     
+
      function save(){
-         
+
         var year = $("#use_year").val();
         var month = $("#use_month").val();start_date
         var start_date = $("#start_date").val();
@@ -126,19 +126,19 @@ div.ui-datepicker{
              }
          });
      }
-     
+
      $( "#start_date" ).datepicker({
          showMonthAfterYear : true,
          dateFormat : "yy/mm/dd",
          maxDate : "+0d"
      });
-     
-     
+
+
      function change_count(){
          var start_time = $("#start_date").val();
          date = new Date(start_time);
          var year = $("#use_year").val();
-         
+
          year = parseInt(year);
          var month = $("#use_month").val();
          if(year==0 && month==0){
@@ -154,7 +154,7 @@ div.ui-datepicker{
          total_m = year_m+month;
          date.setMonth(date.getMonth() + total_m);
          new_month = date.getMonth()+1;
-         
+
          end_date = date.getFullYear()+"/"+new_month+"/"+date.getDate();
          var startdate=new Date(start_time);
          var enddate=new Date(end_date);
@@ -164,7 +164,7 @@ div.ui-datepicker{
          count = Math.ceil(count);
          $("#read_count").html(count);
      }
-     
+
      $(".use_time").change(function(){
         change_count()
      });
