@@ -214,9 +214,10 @@ class db_lib {
         $total_p = ($new_count+$old_count)/1189*100;
         $total_p = round($total_p, 1);
         $data = array(
-            "new_percent"=> $new_p,
-            "old_percent"=> $old_p,
-            "all_percen" => $total_p,
+            "new_percent" => $new_p,
+            "old_percent" => $old_p,
+            "all_percen"  => $total_p,
+            "modify_time" =>date("Y:m:d H:i:s"),
         );
 
         $this->updateData('conquer_bible_player',$data,array("id"=>$player_id));
