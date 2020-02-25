@@ -13,7 +13,7 @@ $player_id = isset($_SESSION['player_id'])?$_SESSION['player_id']:'';
 $db = new db_lib;
 $action = isset($_GET['action'])?$_GET['action']:'';
 switch ($action) {
-    
+
     case 'save_user_set':
         $year = isset($_POST['year'])?$_POST['year']:'';
         $month = isset($_POST['month'])?$_POST['month']:'';
@@ -33,7 +33,7 @@ switch ($action) {
             $result['msg'] = '儲存失敗';
         }
         break;
-    
+
     case 'feed_back':
         $name = isset($_POST['name'])?$_POST['name']:'';
         $message = isset($_POST['message'])?$_POST['message']:'';
@@ -58,7 +58,7 @@ switch ($action) {
             $result['msg'] = '訊息發送失敗';
         }
         break;
-    
+
     case 'read_book':
         $data = isset($_POST['data'])?$_POST['data']:'';
         $data_arr = explode('_',$data);
@@ -85,7 +85,6 @@ switch ($action) {
             "chapter_no" => $chapter_no,
             "type"      => $type,
             "msg_log_id" => 0,
-            "modify_time" => date("Y-m-d H:i:s"),
             "create_time" => date("Y-m-d H:i:s"),
         );
         $resule = $db->insertData('conquer_bible_read_record',$data);
