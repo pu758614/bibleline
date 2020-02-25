@@ -97,7 +97,7 @@ foreach ($client->parseEvents() as $event) {
                     $month_str = $month."月";
                 }
                 $player_id_str = getEncodeStr($player_id);
-                $msg = "開始日期：$start_date\n預計用$year_str".$month_str."征服一次！\n\n攻略進度\n  舊約：".$old_percent."%\n  新約：".$new_percent."%\n  整本：".$all_percen."%\n\n目標白波進度：".$days_p."%\n\n完整攻略次數：$done_count";
+                $msg = "開始日期：$start_date\n\n預計用$year_str".$month_str."征服一次！\n\n攻略進度\n  舊約：".$old_percent."%\n  新約：".$new_percent."%\n  整本：".$all_percen."%\n\n目標白波進度：".$days_p."%\n\n完整攻略次數：$done_count";
             }else if($new_msg=='mypage'){
                 $player_id_str = getEncodeStr($player_id);
                 $msg = "http://bibleline2.herokuapp.com/conquerbible/web/?player_id=$player_id_str";
