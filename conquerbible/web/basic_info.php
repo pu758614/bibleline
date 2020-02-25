@@ -1,9 +1,6 @@
 <?php
-$player_info = $db->getPlayerInfo($player_id);
-if(empty($player_info)){
-    exit("缺少參數或超過登入時間，請重新由LINE連結登入");
-}
-$_SESSION['player_id'] = $player_id;
+
+$type = isset($_GET['type'])?$_GET['type']:'';
 $user_id = isset($player_info['user_id'])?$player_info['user_id']:'';
 $user_info = $db->getUserInfo($user_id);
 $user_name = isset($user_info['name'])?$user_info['name']:'';
@@ -11,14 +8,8 @@ $start_date = isset($player_info['start_date'])?$player_info['start_date']:'';
 $new_percent = isset($player_info['new_percent'])?$player_info['new_percent']:'';
 $old_percent = isset($player_info['old_percent'])?$player_info['old_percent']:'';
 $all_percen = isset($player_info['all_percen'])?$player_info['all_percen']:'';
-$type = isset($_GET['type'])?$_GET['type']:'';
-$startdate=strtotime($start_date);
-$enddate=strtotime(date("Y-m-d"));
-$days=ceil(abs($startdate - $enddate)/86400);
-$days= $days+1;
-$days_p = $days/300*100;
-$days_p = round($days_p, 1);
-
+$done_month_count = isset($player_info['done_month_count'])?$player_info['done_month_count']:12;
+$days_percen = dxpected_done_percent($start_date,$done_month_count);
 
 $tpl->gotoBlock( "content" );
 $tpl->assign(array(
@@ -27,6 +18,7 @@ $tpl->assign(array(
     "old_percent" => $old_percent,
     "new_percent" => $new_percent,
     "all_percen" => $all_percen,
+    "days_percen" => $days_percen,
     "page_type"  => $action,
     "type"       => $type,
 ));

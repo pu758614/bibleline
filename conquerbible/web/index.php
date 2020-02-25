@@ -17,6 +17,7 @@ $player_info = $db->getPlayerInfo($player_id);
 if(empty($player_info)){
     exit("缺少參數或超過登入時間，請重新由LINE連結登入");
 }
+$_SESSION['player_id'] = $player_id;
 $tpl->assignGlobal(array(
     "action" => $action,
 ));

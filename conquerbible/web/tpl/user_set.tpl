@@ -88,17 +88,14 @@ div.ui-datepicker{
         var year = $("#use_year").val();
         var month = $("#use_month").val();start_date
         var start_date = $("#start_date").val();
+        toastr.options = {
+            positionClass: "toast-bottom-center",
+        };
         if(year=='' || month=='' || start_date==''){
-            toastr.options = {
-                positionClass: "toast-bottom-center",
-            };
             toastr.error('資料不能為空');
            return
         }
         if(year==0 && month==0 ){
-            toastr.options = {
-                positionClass: "toast-bottom-center",
-            };
             toastr.error('使用時間不能都為0');
            return
         }
@@ -113,16 +110,13 @@ div.ui-datepicker{
                 start_date : start_date
              },
              success: function(data){
+                 toastr.options = {
+                     positionClass: "toast-bottom-center",
+                 };
                  if(!data.error){
-                    toastr.options = {
-                        positionClass: "toast-bottom-center",
-                    };
                     toastr.success('儲存成功');
                  }else{
-                     toastr.options = {
-                         positionClass: "toast-bottom-center",
-                     };
-                     toastr.error( data.msg );
+                    toastr.error( data.msg );
                  }
              },
              error: function(data){
