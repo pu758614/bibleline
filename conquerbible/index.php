@@ -62,16 +62,19 @@ foreach ($client->parseEvents() as $event) {
             $msg = '你已'.$action_str.'了'.$analy_result['data']['book'].$chapter_str."章";
             $db->sortPlayerChapter($player_id);
             $new_player_info = $db->getPlayerInfo($player_id);
-            $new_percent =isset($new_player_info['new_percent'])?$new_player_info['new_percent']:0;
-            $old_percent =isset($new_player_info['old_percent'])?$new_player_info['old_percent']:0;
-            $all_percen =isset($new_player_info['all_percen'])?$new_player_info['all_percen']:0;
+            $new_percent = isset($new_player_info['new_percent'])?$new_player_info['new_percent']:0;
+            $old_percent = isset($new_player_info['old_percent'])?$new_player_info['old_percent']:0;
+            $all_percen = isset($new_player_info['all_percen'])?$new_player_info['all_percen']:0;
             $start_date = isset($new_player_info['start_date'])?$new_player_info['start_date']:0;
-            $startdate=strtotime($start_date);
-            $enddate=strtotime(date("Y-m-d"));
-            $days=ceil(abs($startdate - $enddate)/86400);
-            $days = $days+1;
-            $days_p = $days/365*100;
-            $days_p = round($days_p, 1);
+            $done_month_count  = isset($new_player_info['done_month_count'])?$new_player_info['done_month_count']:12;
+            $days_p = dxpected_done_percent($start_date,$done_month_count);
+
+            // $startdate=strtotime($start_date);
+            // $enddate=strtotime(date("Y-m-d"));
+            // $days=ceil(abs($startdate - $enddate)/86400);
+            // $days = $days+1;
+            // $days_p = $days/365*100;
+            // $days_p = round($days_p, 1);
             $msg .= "\n\n---攻略進度---\n舊約:".$old_percent."%\n新約:".$new_percent."%\n白波:".$all_percen."%\n\n現在至少要讀白波的".$days_p."%";
             //pr($new_player_info);
             $result = array(
