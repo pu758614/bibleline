@@ -95,11 +95,11 @@ div.ui-datepicker{
             toastr.error('資料不能為空');
            return
         }
-        if(year==0 || month==0 ){
+        if(year==0 && month==0 ){
             toastr.options = {
                 positionClass: "toast-bottom-center",
             };
-            toastr.error('設定時間不能為0');
+            toastr.error('設定時間不能都為0');
            return
         }
          $.ajax({
