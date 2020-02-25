@@ -75,7 +75,7 @@ foreach ($client->parseEvents() as $event) {
             // $days = $days+1;
             // $days_p = $days/365*100;
             // $days_p = round($days_p, 1);
-            $msg .= "\n\n---攻略進度---\n舊約:".$old_percent."%\n新約:".$new_percent."%\n白波:".$all_percen."%\n\n現在至少要讀白波的".$days_p."%";
+            $msg .= "\n\n---攻略進度---\n舊約:".$old_percent."%\n新約:".$new_percent."%\n白波:".$all_percen."%\n\n目標白波進度：".$days_p."%";
             //pr($new_player_info);
             $result = array(
                 "error" => 0,
@@ -91,13 +91,20 @@ foreach ($client->parseEvents() as $event) {
                 $all_percen = isset($new_player_info['all_percen'])?$new_player_info['all_percen']:0;
                 $done_count = isset($new_player_info['done_count'])?$new_player_info['done_count']:0;
 
-                $startdate=strtotime($start_date);
-                $enddate=strtotime(date("Y-m-d"));
-                $days=ceil(abs($startdate - $enddate)/86400);
-                $days_p = $days/365*100;
-                $days_p = round($days_p, 1);
+                $done_month_count  = isset($new_player_info['done_month_count'])?$new_player_info['done_month_count']:12;
+                $days_p = dxpected_done_percent($start_date,$done_month_count);
+
+                $year = floor($done_month_count/12);
+                $month = $done_month_count%12;
+                $month_str = $year_str = '';
+                if($year!=0){
+                    $year_str = $year."年";
+                }
+                if($month!=0){
+                    $month_str = $month."月";
+                }
                 $player_id_str = getEncodeStr($player_id);
-                $msg = "開始日期：$start_date\n\n攻略進度\n  舊約：".$old_percent."%\n  新約：".$new_percent."%\n  整本：".$all_percen."%\n\n現在至少要讀白波的".$days_p."%\n\n完整攻略次數：$done_count\n\n\n個人頁面：http://bibleline2.herokuapp.com/conquerbible/web/?player_id=$player_id_str";
+                $msg = "開始日期：$start_date\n預計用$year_str"."$month_str征服一次\n攻略進度\n  舊約：".$old_percent."%\n  新約：".$new_percent."%\n  整本：".$all_percen."%\n\n目標白波進度：".$days_p."%\n\n完整攻略次數：$done_count\n\n\n個人頁面：http://bibleline2.herokuapp.com/conquerbible/web/?player_id=$player_id_str";
             }else if($new_msg=='mypage'){
                 $player_id_str = getEncodeStr($player_id);
                 $msg = "http://bibleline2.herokuapp.com/conquerbible/web/?player_id=$player_id_str";
