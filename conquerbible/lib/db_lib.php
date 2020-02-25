@@ -143,7 +143,6 @@ class db_lib {
                 "chapter_no" => $chapter,
                 "type"      => $type,
                 "msg_log_id" => $msg_log_id,
-                "modify_time" =>date("Y:m:d H:i:s"),
                 "create_time" =>date("Y:m:d H:i:s"),
             );
             $record_result = $this->insertData("conquer_bible_read_record",$record_data);
@@ -154,7 +153,6 @@ class db_lib {
                         "book_id"   => $book_id,
                         "chapter_no" => $chapter,
                         "read_record_id" => $record_result,
-                        "modify_time" =>date("Y:m:d H:i:s"),
                         "create_time" =>date("Y:m:d H:i:s"),
                     );
                     $result = $this->insertData("conquer_bible_enter_msg_log",$add_data);
@@ -224,6 +222,4 @@ class db_lib {
     }
 
 }
-
-
  ?>
