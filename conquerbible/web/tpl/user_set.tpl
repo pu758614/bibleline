@@ -99,7 +99,7 @@ div.ui-datepicker{
             toastr.options = {
                 positionClass: "toast-bottom-center",
             };
-            toastr.error('設定時間不能都為0');
+            toastr.error('使用時間不能都為0');
            return
         }
          $.ajax({
