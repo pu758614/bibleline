@@ -306,9 +306,6 @@ if ($_SERVER["argv"][1] == "editor") {
 }
 
 $driver = "";
-echo '<pre>';
-print_r($_SERVER);
-echo '</pre>';
 if (file_exists(dirname(__FILE__) . "/adminer/drivers/" . $_SERVER["argv"][1] . ".inc.php")) {
 	$driver = $_SERVER["argv"][1];
 	array_shift($_SERVER["argv"]);
