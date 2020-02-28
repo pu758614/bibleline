@@ -286,7 +286,7 @@ if (!$columns && support("table")) {
 			}
 			$rows[] = $row;
 		}
-
+		print_r($row);
 		// use count($rows) without LIMIT, COUNT(*) without grouping, FOUND_ROWS otherwise (slowest)
 		if ($_GET["page"] != "last" && +$limit && $group && $is_group && $jush == "sql") {
 			$found_rows = $connection->result(" SELECT FOUND_ROWS()"); // space to allow mysql.trace_mode
@@ -303,7 +303,6 @@ if (!$columns && support("table")) {
 			$functions = array();
 			reset($select);
 			$rank = 1;
-			print_r($rows);
 			foreach ($rows[0] as $key => $val) {
 				if ($key != $oid) {
 					$val = $_GET["columns"][key($select)];
