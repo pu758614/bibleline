@@ -307,10 +307,10 @@ if (!defined("DRIVER")) {
 		if ($connection->connect($credentials[0], $credentials[1], $credentials[2])) {
 			//$connection->set_charset(charset($connection)); // available in MySQLi since PHP 5.0.5
 			$connection->set_charset('utf8');
-			echo '<pre>';
-			print_r(charset($connection));
-			echo '</pre>';
 			$connection->query("SET sql_quote_show_create = 1, autocommit = 1");
+			echo '<pre>';
+			print_r($connection);
+			echo '</pre>';
 			return $connection;
 		}
 		$return = $connection->error;
