@@ -62,6 +62,15 @@ foreach ($client->parseEvents() as $event) {
             if($re_resule){
                 $add_resut = $db->addDoneCount($player_id);
                 if($add_resut){
+                    $data = array(
+                        "book_id"   => 0,
+                        "player_id" => $player_id,
+                        "chapter_no" => $add_resut,
+                        "type"      => 'reset',
+                        "msg_log_id" => 0,
+                        "create_time" => date("Y-m-d H:i:s"),
+                    );
+                    $db->insertData('conquer_bible_read_record',$data);
                     $result['error'] = 0;
                     $result['msg'] = '已重置進度，完成次數：'.$add_resut;
                 }else{
