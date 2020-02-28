@@ -88,17 +88,13 @@ if (!defined("DRIVER")) {
 			* @return bool
 			*/
 			function set_charset($charset) {
-				// if (function_exists('mysql_set_charset')) {
-				// 	if (mysqli_set_charset($charset, $this->_link)) {
-				// 		return true;
-				// 	}
-				// 	// the client library may not support utf8mb4
-				// 	mysqli_set_charset('utf8', $this->_link);
-				// }
-				echo '<pre>';
-				print_r($charset);
-				echo '</pre>';
-				mysqli_set_charset('utf8', $this->_link);
+				if (function_exists('mysql_set_charset')) {
+					if (mysql_set_charset($charset, $this->_link)) {
+						return true;
+					}
+					// the client library may not support utf8mb4
+					mysql_set_charset('utf8', $this->_link);
+				}
 				return $this->query("SET NAMES $charset");
 			}
 
@@ -308,9 +304,11 @@ if (!defined("DRIVER")) {
 		global $adminer;
 		$connection = new Min_DB;
 		$credentials = $adminer->credentials();
-
 		if ($connection->connect($credentials[0], $credentials[1], $credentials[2])) {
 			$connection->set_charset(charset($connection)); // available in MySQLi since PHP 5.0.5
+			echo '<pre>';
+			print_r(charset($connection));
+			echo '</pre>';
 			$connection->query("SET sql_quote_show_create = 1, autocommit = 1");
 			return $connection;
 		}
