@@ -253,7 +253,7 @@ class db_lib {
         );
         $cond = array("id"=>$player_id);
         $up_result = $this->updateData('conquer_bible_player',$data,$cond);
-        return $up_result;
+        return $done_count;
     }
 }
  ?>
