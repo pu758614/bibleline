@@ -9,7 +9,7 @@
                     <h1>Hi！<strong>{user_name}</strong></h1>
                 </header>
 
-                <div  style='text-align:left;margin-left:35%;'>
+                <div  style='text-align:left;margin-left:30%;'>
                     <h2>
                         <p><strong>開始攻略日期：</strong>{start_date}</p>
                         <p><strong>舊約攻略進度：</strong><font id="old_percent">{old_percent}</font>%</p>
