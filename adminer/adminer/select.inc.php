@@ -270,7 +270,9 @@ if (!$columns && support("table")) {
 		$select2[] = substr($convert_fields, 2);
 	}
 	$result = $driver->select($TABLE, $select2, $where, $group, $order, $limit, $page, true);
-	print_pre($driver);
+	echo "<pre>";
+	print_r($driver);
+	echo "</pre>";
 	if (!$result) {
 		echo "<p class='error'>" . error() . "\n";
 	} else {
