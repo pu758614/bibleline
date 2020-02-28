@@ -269,10 +269,6 @@ if (!$columns && support("table")) {
 	if ($convert_fields) {
 		$select2[] = substr($convert_fields, 2);
 	}
-	$driver->set_charset('utf8');
-	echo "<pre>";
-	print_r($driver);
-	echo "<pre>";
 	$result = $driver->select($TABLE, $select2, $where, $group, $order, $limit, $page, true);
 	if (!$result) {
 		echo "<p class='error'>" . error() . "\n";
