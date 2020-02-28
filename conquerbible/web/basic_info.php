@@ -13,7 +13,7 @@ $days_percen = dxpected_done_percent($start_date,$done_month_count);
 
 $tpl->gotoBlock( "content" );
 $tpl->assign(array(
-    "user_name" => $user_name,
+    "user_name" => htmlspecialchars($user_name),
     "start_date" => $start_date,
     "old_percent" => $old_percent,
     "new_percent" => $new_percent,

@@ -50,6 +50,13 @@
 
         <footer>
             <div  style='text-align:left;margin-left:0%;'>
+                <div class="col-12" >
+                    <ul class="actions" style='text-align:center;'>
+                        <li id='re_read'>
+                            
+                        </li>
+                    </ul>
+                </div>
                 <div style="font-size: 0.5rem;">
                     <font style="color:#000000" size="3px" >*點</font>
                     <font style="color:#f33047;" size="3px">鎖<font/>
@@ -119,6 +126,43 @@
 
     }
 
+    function re_read(){
+        var msg = "即將要重置攻略，請確認！"; 
+        if (confirm(msg)==true){ 
+            $.ajax({
+            url: 'action.php?action=re_read_book',
+            type: 'post',
+            dataType: 'json',
+            async:false,
+            success: function(data){
+                toastr.options = {
+                        positionClass: "toast-bottom-center",
+                    };
+                if(!data.error){
+                    //toastr.success( '重置成功' );
+                    alert('重置成功');
+                    window.location.reload()
+                }else{
+                    toastr.error( data.msg );
+                }
+            },
+            error: function(data){
+                toastr.options = {
+                    positionClass: "toast-bottom-center",
+                };
+                toastr.error( 'error');
+            }
+        });
+        }else{ 
+            return false; 
+        } 
+
+
+        
+    }
+
+
+
     function read_book(data_str,book_id){
         if(is_lock!=book_id){
             toastr.options = {
@@ -142,11 +186,29 @@
                         positionClass: "toast-bottom-center",
                         timeOut: '1000',
                     };
-                    toastr.success( data.msg );
+                    
                     var type = data.data.type;
                     var old_percent = data.data.old_percent;
                     var new_percent = data.data.new_percent;
                     var all_percen = data.data.all_percen;
+                    var is_done = data.data.is_done;
+                    if(is_done){
+                        var html = "<input type='button' style=background-color:#f33047 onclick='re_read()' value='重 置 攻 略 進 度 ！' /><br><br>";
+                        $("#re_read").append(html);
+                        var top = $('#re_read').offset().top
+                        top = top+-100
+						$('html,body').animate(
+							{ scrollTop:top },800
+						);
+                        toastr.options = {
+                            positionClass: "toast-bottom-center",
+                            timeOut: '2000',
+                        };
+                        toastr.success( '！！恭喜完成攻略！！' );
+                    }else{
+                        $("#re_read").html('');
+                        toastr.success( data.msg );
+                    }
                     if(type=='add'){
                         $("#data_"+data_str).html("✔")
                     }else{

@@ -221,5 +221,39 @@ class db_lib {
         $this->updateData('conquer_bible_player',$data,array("id"=>$player_id));
     }
 
+    function PlayerTotalReadCount($player_id){
+        $sql = "SELECT count(*) 
+                FROM  conquer_bible_enter_msg_log
+                WHERE player_id= ?";
+        $result = $this->db->Execute($sql,array($player_id)); 
+        $count = 0; 
+        if($result && $result->RecordCount() > 0){
+            $data =  $result->FetchRow();
+            $count = isset($data['count(*)'])?$data['count(*)']:0;
+        }  
+        return $count;
+    }
+
+    function reReadSet($player_id){
+        $result = $this->deleteData('conquer_bible_enter_msg_log',array("player_id"=>$player_id));
+        return $result;
+    }
+
+    function addDoneCount($player_id){
+        $player_info = $this->getSingleById('conquer_bible_player','id',$player_id);
+        $done_count = isset($player_info['done_count'])?$player_info['done_count']:0;
+        $done_count = $done_count+1;
+        $data = array(
+            'done_count'  =>$done_count,
+            "start_date" => date("Y-m-d"),
+            "new_percent" => 0,
+            "old_percent" => 0,
+            "all_percen" => 0,
+            "modify_time" => date("Y:m:d H:i:s"),
+        );
+        $cond = array("id"=>$player_id);
+        $up_result = $this->updateData('conquer_bible_player',$data,$cond);
+        return $up_result;
+    }
 }
  ?>

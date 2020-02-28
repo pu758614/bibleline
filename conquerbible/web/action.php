@@ -46,8 +46,8 @@ switch ($action) {
             goto end;
         }
         $data = array(
-            "name" => $name,
-            "message" => $message,
+            "name" => htmlspecialchars($name),
+            "message" => htmlspecialchars($message),
             "create_time" => date("Y-m-d H:i:s"),
         );
         $insert_result = $db->insertData('conquer_bible_feed_back',$data);
@@ -87,6 +87,7 @@ switch ($action) {
             "msg_log_id" => 0,
             "create_time" => date("Y-m-d H:i:s"),
         );
+        $is_done = false;
         $resule = $db->insertData('conquer_bible_read_record',$data);
         if($resule){
             if($type=='add'){
@@ -96,7 +97,12 @@ switch ($action) {
             }else{
                 $res = $db->deleteData('conquer_bible_enter_msg_log',$cond);
             }
-
+            if($type=='add'){
+                $count = $db->PlayerTotalReadCount($player_id);
+                if($boot_total_count==$count){
+                    $is_done = true;
+                }
+            }
 
             if($resule){
                 $type_str = '撤退';
@@ -115,6 +121,7 @@ switch ($action) {
                     "old_percent" => $old_percent,
                     "new_percent" => $new_percent,
                     "all_percen" => $all_percen,
+                    "is_done"       => $is_done,
                 );
                 $result = array(
                     "error" => false,
@@ -128,6 +135,25 @@ switch ($action) {
             $result['msg'] = 'error_103';
         }
         goto end;
+        break;
+    case 're_read_book':
+        $read_count = $db->PlayerTotalReadCount($player_id);
+        if($read_count!=$boot_total_count){
+            $result['msg'] = '你還沒讀完！';
+            goto end;
+        }
+        $re_resule = $db->reReadSet($player_id);
+        if($re_resule){
+            $add_resut = $db->addDoneCount($player_id);
+            if($db->addDoneCount($player_id)){
+                $result['date'] = $add_resut;
+                $result['error'] = false;
+            }else{
+                $result['msg'] = '紀錄清除成功，完成次數更新失敗。';
+            }
+        }else{
+            $result['msg'] = '紀錄清除失敗。';
+        }
         break;
 }
 end:
