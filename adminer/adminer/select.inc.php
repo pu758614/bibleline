@@ -303,6 +303,7 @@ if (!$columns && support("table")) {
 			$functions = array();
 			reset($select);
 			$rank = 1;
+			print_r($rows);
 			foreach ($rows[0] as $key => $val) {
 				if ($key != $oid) {
 					$val = $_GET["columns"][key($select)];
@@ -411,7 +412,6 @@ if (!$columns && support("table")) {
 						$value = $_POST["val"][$unique_idf][bracket_escape($key)];
 						$editable = !is_array($row[$key]) && is_utf8($val) && $rows[$n][$key] == $row[$key] && !$functions[$key];
 						$text = preg_match('~text|lob~', $field["type"]);
-						print_r($text);
 						if (($_GET["modify"] && $editable) || $value !== null) {
 							$h_value = h($value !== null ? $value : $row[$key]);
 							echo "<td>" . ($text ? "<textarea name='$id' cols='30' rows='" . (substr_count($row[$key], "\n") + 1) . "'>$h_value</textarea>" : "<input name='$id' value='$h_value' size='$lengths[$key]'>");
