@@ -270,7 +270,7 @@ if (!$columns && support("table")) {
 		$select2[] = substr($convert_fields, 2);
 	}
 	$result = $driver->select($TABLE, $select2, $where, $group, $order, $limit, $page, true);
-
+	print_pre($driver);
 	if (!$result) {
 		echo "<p class='error'>" . error() . "\n";
 	} else {
@@ -286,7 +286,6 @@ if (!$columns && support("table")) {
 			}
 			$rows[] = $row;
 		}
-		print_r($rows);
 		// use count($rows) without LIMIT, COUNT(*) without grouping, FOUND_ROWS otherwise (slowest)
 		if ($_GET["page"] != "last" && +$limit && $group && $is_group && $jush == "sql") {
 			$found_rows = $connection->result(" SELECT FOUND_ROWS()"); // space to allow mysql.trace_mode
