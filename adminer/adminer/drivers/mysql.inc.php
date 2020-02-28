@@ -88,13 +88,13 @@ if (!defined("DRIVER")) {
 			* @return bool
 			*/
 			function set_charset($charset) {
-				if (function_exists('mysql_set_charset')) {
-					if (mysqli_set_charset($charset, $this->_link)) {
-						return true;
-					}
-					// the client library may not support utf8mb4
-					mysqli_set_charset('utf8', $this->_link);
-				}
+				// if (function_exists('mysql_set_charset')) {
+				// 	if (mysqli_set_charset($charset, $this->_link)) {
+				// 		return true;
+				// 	}
+				// 	// the client library may not support utf8mb4
+				// 	mysqli_set_charset('utf8', $this->_link);
+				// }
 				mysqli_set_charset('utf8', $this->_link);
 				return $this->query("SET NAMES $charset");
 			}
