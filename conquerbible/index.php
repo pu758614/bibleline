@@ -15,8 +15,10 @@ $status = 0;
 session_start();
 //$db->record_msg_log("123123",file_get_contents('php://input'));
 foreach ($client->parseEvents() as $event) {
-    $uuid = $event['source']['userId'];
-    $msg = $event['message']['text'];
+    $source = isset($event['source'])?$event['source']:array();
+    $uuid = isset($source['userId'])?$source['userId']:'';
+    $message = isset($event['message'])?$event['message']:array();
+    $msg = isset($message['text'])?$message['text']:'';
     $msg = trim($msg);
     $msg = convertStrType($msg);
     if(in_array($msg,$default_arr)){
