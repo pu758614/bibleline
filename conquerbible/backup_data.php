@@ -6,7 +6,6 @@
     $DbName             = "heroku_4d9bdcbc4d69fab";
     $backup_name        = date("Y-m-d")."_backup.sql";
     //$tables             = "Your tables";
-
    //or add 5th parameter(array) of specific tables:    array("mytable1","mytable2","mytable3") for multiple tables
 
     Export_Database($mysqlHostName,$mysqlUserName,$mysqlPassword,$DbName,  false, $backup_name=false );
@@ -15,7 +14,7 @@
     {
         $mysqli = new mysqli($host,$user,$pass,$name); 
         $mysqli->select_db($name); 
-        $mysqli->query("SET NAMES 'utf8'");
+        $mysqli->query("SET NAMES 'utf8mb'");
 
         $queryTables    = $mysqli->query('SHOW TABLES'); 
         while($row = $queryTables->fetch_row()) 
