@@ -95,6 +95,9 @@ if (!defined("DRIVER")) {
 				// 	// the client library may not support utf8mb4
 				// 	mysqli_set_charset('utf8', $this->_link);
 				// }
+				echo '<pre>';
+				print_r($charset);
+				echo '</pre>';
 				mysqli_set_charset('utf8', $this->_link);
 				return $this->query("SET NAMES $charset");
 			}
