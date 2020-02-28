@@ -88,7 +88,7 @@ foreach ($client->parseEvents() as $event) {
             $msg = '你已'.$action_str.'了'.$analy_result['data']['book'].$chapter_str."章";
 
             $read_count = $db->PlayerTotalReadCount($player_id);
-            if($read_count!=$boot_total_count){
+            if($read_count==$boot_total_count){
                 $msg .= "\n\n恭喜完成攻略！可以輸入「reset」或「再讀一次」來重置進度！\n\n";
             }
 
