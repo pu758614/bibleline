@@ -9,6 +9,7 @@
                     <h1>Hi！<strong>{user_name}</strong></h1>
                 </header>
 
+<<<<<<< HEAD
                 <div  style='text-align:left;margin-left:30%;'>
                     <h2>
                         <p><strong>開始攻略日期：</strong>{start_date}</p>
@@ -18,8 +19,23 @@
                         <p><strong>現在目標進度：</strong><font id="all_percen">{days_percen}</font>%</p>
                         <p><strong>完整征服次數：</strong><font id="all_percen">{done_count}</font></p>
                     </h2>
+=======
+                <div  style='text-align:left;margin-left:35%;'>
+                    <h3>
+                    <p><strong>開始攻略日期：</strong>{start_date}</p>
+                    <p><strong>舊約攻略進度：</strong><font id="old_percent">{old_percent}</font>%</p>
+                    <p><strong>新約攻略進度：</strong><font id="new_percent">{new_percent}</font>%</p>
+                    <p><strong>白波攻略進度：</strong><font id="all_percen">{all_percen}</font>%</p>
+                    <p><strong>現在目標進度：</strong><font id="all_percen">{days_percen}</font>%</p>
+                    <p><strong>完整征服次數：</strong><font id="all_percen">{done_count}</font></p>
+                    </h3>
+>>>>>>> 0671d508bee7948f6dbfef07860c26678069cc9e
                 </div>
             </div>
+            <font>
+                並且知道你是從小明白聖經，這聖經能使你因信基督耶穌有得救的智慧。聖經都是神所默示的，於教訓、督責、使人歸正、教導人學義，都是有益的。
+                <br>(提摩太後書三章14-16節)
+            </font>
         </div>
     </div>
 </article>
