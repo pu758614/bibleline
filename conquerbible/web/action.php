@@ -145,7 +145,7 @@ switch ($action) {
         $re_resule = $db->reReadSet($player_id);
         if($re_resule){
             $add_resut = $db->addDoneCount($player_id);
-            if($db->addDoneCount($player_id)){
+            if($add_resut){
                 $result['date'] = $add_resut;
                 $result['error'] = false;
             }else{
