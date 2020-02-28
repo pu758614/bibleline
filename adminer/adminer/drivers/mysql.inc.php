@@ -305,7 +305,8 @@ if (!defined("DRIVER")) {
 		$connection = new Min_DB;
 		$credentials = $adminer->credentials();
 		if ($connection->connect($credentials[0], $credentials[1], $credentials[2])) {
-			$connection->set_charset(charset($connection)); // available in MySQLi since PHP 5.0.5
+			//$connection->set_charset(charset($connection)); // available in MySQLi since PHP 5.0.5
+			$connection->set_charset('utf8');
 			echo '<pre>';
 			print_r(charset($connection));
 			echo '</pre>';
