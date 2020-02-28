@@ -8,10 +8,14 @@ $start_date = isset($player_info['start_date'])?$player_info['start_date']:'';
 $new_percent = isset($player_info['new_percent'])?$player_info['new_percent']:'';
 $old_percent = isset($player_info['old_percent'])?$player_info['old_percent']:'';
 $all_percen = isset($player_info['all_percen'])?$player_info['all_percen']:'';
+$done_count = isset($player_info['done_count'])?$player_info['done_count']:'';
 $done_month_count = isset($player_info['done_month_count'])?$player_info['done_month_count']:12;
 $days_percen = dxpected_done_percent($start_date,$done_month_count);
-
-$tpl->gotoBlock( "content" );
+$read_count = $db->PlayerTotalReadCount($player_id);
+if($boot_total_count==$read_count){
+    $tpl->newBlock("reset_bt_block");
+}
+$tpl->gotoBlock("_ROOT");
 $tpl->assign(array(
     "user_name" => htmlspecialchars($user_name),
     "start_date" => $start_date,
@@ -21,6 +25,7 @@ $tpl->assign(array(
     "days_percen" => $days_percen,
     "page_type"  => $action,
     "type"       => $type,
+    "done_count" => $done_count,
 ));
 $read_data = $db->getReadDate($player_id);
 $book_arr = $db->getBibleBook();

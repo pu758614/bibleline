@@ -8,6 +8,7 @@ function dxpected_done_percent($start_date,$done_month_count){
     $done_date = $date->format('Y-m-d');
     $total_days = round((strtotime($done_date)-strtotime($start_date))/3600/24);
     $remain_days = round((strtotime(date("Y-m-d"))-strtotime($start_date))/3600/24);
+    $remain_days = $remain_days-1;
     $days_p = $remain_days/$total_days*100;
     $days_p = round($days_p, 1);
     return $days_p;

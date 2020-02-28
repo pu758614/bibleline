@@ -15,6 +15,7 @@
                     <p><strong>新約攻略進度：</strong><font id="new_percent">{new_percent}</font>%</p>
                     <p><strong>白波攻略進度：</strong><font id="all_percen">{all_percen}</font>%</p>
                     <p><strong>現在目標進度：</strong><font id="all_percen">{days_percen}</font>%</p>
+                    <p><strong>完整征服次數：</strong><font id="all_percen">{done_count}</font></p>
                 </div>
             </div>
         </div>
@@ -53,7 +54,9 @@
                 <div class="col-12" >
                     <ul class="actions" style='text-align:center;'>
                         <li id='re_read'>
-                            
+                            <!-- START BLOCK : reset_bt_block -->
+                            <input type='button' style=background-color:#f33047 onclick='re_read()' value='重 置 攻 略 進 度 ！' /><br><br>
+                            <!-- START BLOCK : reset_bt_block -->
                         </li>
                     </ul>
                 </div>
