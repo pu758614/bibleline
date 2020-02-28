@@ -10,12 +10,14 @@
                 </header>
 
                 <div  style='text-align:left;margin-left:35%;'>
-                    <p><strong>開始攻略日期：</strong>{start_date}</p>
-                    <p><strong>舊約攻略進度：</strong><font id="old_percent">{old_percent}</font>%</p>
-                    <p><strong>新約攻略進度：</strong><font id="new_percent">{new_percent}</font>%</p>
-                    <p><strong>白波攻略進度：</strong><font id="all_percen">{all_percen}</font>%</p>
-                    <p><strong>現在目標進度：</strong><font id="all_percen">{days_percen}</font>%</p>
-                    <p><strong>完整征服次數：</strong><font id="all_percen">{done_count}</font></p>
+                    <h4>
+                        <p><strong>開始攻略日期：</strong>{start_date}</p>
+                        <p><strong>舊約攻略進度：</strong><font id="old_percent">{old_percent}</font>%</p>
+                        <p><strong>新約攻略進度：</strong><font id="new_percent">{new_percent}</font>%</p>
+                        <p><strong>白波攻略進度：</strong><font id="all_percen">{all_percen}</font>%</p>
+                        <p><strong>現在目標進度：</strong><font id="all_percen">{days_percen}</font>%</p>
+                        <p><strong>完整征服次數：</strong><font id="all_percen">{done_count}</font></p>
+                    </h4>
                 </div>
             </div>
         </div>
