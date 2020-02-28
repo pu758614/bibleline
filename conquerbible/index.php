@@ -141,7 +141,7 @@ foreach ($client->parseEvents() as $event) {
 
             break;
         default:
-            $result['msg'] = "不正確的動作";
+            $result['msg'] = $action."不正確的動作$msg";
             $status = 2;
             goto end;
             break;
