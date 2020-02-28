@@ -40,7 +40,7 @@ foreach ($client->parseEvents() as $event) {
         }
     }
     $BibleBook= $db->getBibleBook();
-    if(is_array($msg,$over_sub_arr)){
+    if(!is_array($msg,$over_sub_arr)){
         $action = mb_substr($msg, 0,1);
     }else{
         $action = $msg;
