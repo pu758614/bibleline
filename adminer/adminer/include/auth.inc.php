@@ -164,7 +164,6 @@ if (isset($_GET["username"])) {
 	}
 	$connection = connect();
 }
-print_r($connection);
 $driver = new Min_Driver($connection);
 
 if (!is_object($connection) || !$adminer->login($_GET["username"], get_password())) {
