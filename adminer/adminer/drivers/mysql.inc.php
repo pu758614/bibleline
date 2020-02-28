@@ -16,6 +16,9 @@ if (!defined("DRIVER")) {
 			function connect($server = NULL, $username = NULL, $password = NULL, $database = NULL, $port = NULL, $socket = NULL) {
 				mysqli_report(MYSQLI_REPORT_OFF); // stays between requests, not required since PHP 5.3.4
 				list($host, $port) = explode(":", $server, 2); // part after : is used for port or socket
+				echo "<pre>";
+				print_r($username);
+				echo "</pre>";
 				$return = @$this->real_connect(
 					($server != "" ? $host : ini_get("mysqli.default_host")),
 					($server . $username != "" ? $username : ini_get("mysqli.default_user")),
@@ -308,9 +311,6 @@ if (!defined("DRIVER")) {
 			//$connection->set_charset(charset($connection)); // available in MySQLi since PHP 5.0.5
 			$connection->set_charset('utf8');
 			$connection->query("SET sql_quote_show_create = 1, autocommit = 1");
-			echo '<pre>';
-			print_r($connection);
-			echo '</pre>';
 			return $connection;
 		}
 		$return = $connection->error;
