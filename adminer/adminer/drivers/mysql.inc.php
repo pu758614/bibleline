@@ -32,7 +32,7 @@ if (!defined("DRIVER")) {
 					return true;
 				}
 				// the client library may not support utf8mb4
-				parent::set_charset('utf8');
+				parent::set_charset('utf8mb');
 				return $this->query("SET NAMES $charset");
 			}
 
@@ -93,7 +93,7 @@ if (!defined("DRIVER")) {
 						return true;
 					}
 					// the client library may not support utf8mb4
-					mysql_set_charset('utf8', $this->_link);
+					mysql_set_charset('utf8mb', $this->_link);
 				}
 				return $this->query("SET NAMES $charset");
 			}
@@ -310,7 +310,7 @@ if (!defined("DRIVER")) {
 			// print_r($connection);
 			// echo "</pre>";
 			//$connection->set_charset(charset($connection)); // available in MySQLi since PHP 5.0.5
-			mysqli_set_charset($connection,"utf8");
+			mysqli_set_charset($connection,"utf8mb");
 			$connection->query("SET sql_quote_show_create = 1, autocommit = 1");
 			return $connection;
 		}

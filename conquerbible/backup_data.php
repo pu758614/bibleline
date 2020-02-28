@@ -7,7 +7,7 @@
     $backup_name        = date("Y-m-d")."_backup.sql";
     //$tables             = "Your tables";
    //or add 5th parameter(array) of specific tables:    array("mytable1","mytable2","mytable3") for multiple tables
-
+   /Users/galio/code/bibleline2/conquerbible/backup_data.php
     Export_Database($mysqlHostName,$mysqlUserName,$mysqlPassword,$DbName,  false, $backup_name=false );
 
     function Export_Database($host,$user,$pass,$name,  $tables=false, $backup_name=false )
