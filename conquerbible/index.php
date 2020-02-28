@@ -55,7 +55,7 @@ foreach ($client->parseEvents() as $event) {
         case '再讀一次':
             $read_count = $db->PlayerTotalReadCount($player_id);
             if($read_count!=$boot_total_count){
-                $result['msg'] = '你還沒讀完再繼續努力！！';
+                $result['msg'] = '你還沒讀完呢！再繼續努力！！';
                 goto end;
             }
             $re_resule = $db->reReadSet($player_id);
@@ -86,6 +86,12 @@ foreach ($client->parseEvents() as $event) {
                 $action_str = '撤退';
             }
             $msg = '你已'.$action_str.'了'.$analy_result['data']['book'].$chapter_str."章";
+
+            $read_count = $db->PlayerTotalReadCount($player_id);
+            if($read_count!=$boot_total_count){
+                $msg .= "\n\n恭喜完成攻略！可以輸入「reset」或「再讀一次」來重置進度！\n\n";
+            }
+
             $db->sortPlayerChapter($player_id);
             $new_player_info = $db->getPlayerInfo($player_id);
             $new_percent = isset($new_player_info['new_percent'])?$new_player_info['new_percent']:0;
