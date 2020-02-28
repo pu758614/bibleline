@@ -304,7 +304,7 @@ if (!defined("DRIVER")) {
 		global $adminer;
 		$connection = new Min_DB;
 		$credentials = $adminer->credentials();
-		pr("123456");
+		print_r(charset($connection));
 		if ($connection->connect($credentials[0], $credentials[1], $credentials[2])) {
 			$connection->set_charset(charset($connection)); // available in MySQLi since PHP 5.0.5
 			$connection->query("SET sql_quote_show_create = 1, autocommit = 1");
