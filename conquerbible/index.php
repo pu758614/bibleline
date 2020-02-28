@@ -40,13 +40,37 @@ foreach ($client->parseEvents() as $event) {
         }
     }
     $BibleBook= $db->getBibleBook();
-    $action = mb_substr($msg, 0,1);
+    if(is_array($msg,$over_sub_arr)){
+        $action = mb_substr($msg, 0,1);
+    }else{
+        $action = $msg;
+    }
     $new_msg = mb_substr($msg, 1);
     $player_id = isset($player_info['id'])?$player_info['id']:'';
 
 
 
     switch ($action) {
+        case 'reset':
+        case '再讀一次':
+            $read_count = $db->PlayerTotalReadCount($player_id);
+            if($read_count!=$boot_total_count){
+                $result['msg'] = '你還沒讀完再繼續努力！！';
+                goto end;
+            }
+            $re_resule = $db->reReadSet($player_id);
+            if($re_resule){
+                $add_resut = $db->addDoneCount($player_id);
+                if($add_resut){
+                    $result['error'] = 0;
+                    $result['msg'] = '已重置進度，完成次數：'.$add_resut;
+                }else{
+                    $result['msg'] = '紀錄清除成功，但完成次數更新失敗。';
+                }
+            }else{
+                $result['msg'] = '紀錄清除失敗。';
+            }
+            break;
         case '+':
             $action_str = '攻略';
         case '-':
