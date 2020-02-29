@@ -21,10 +21,10 @@ foreach ($client->parseEvents() as $event) {
     $msg = isset($message['text'])?$message['text']:'';
     $msg = trim($msg);
     $msg = convertStrType($msg);
+    $msg_log_id = $db->record_msg_log($uuid,file_get_contents('php://input'));
     if(in_array($msg,$default_arr)){
         exit;
     }
-    $msg_log_id = $db->record_msg_log($uuid,file_get_contents('php://input'));
     $user_info = $db->getUserInfo($uuid,'uuid');
     if(count($user_info)==0){
         $line_user_result = $db->addLineUser($uuid);
