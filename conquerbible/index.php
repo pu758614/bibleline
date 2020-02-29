@@ -22,24 +22,25 @@ foreach ($client->parseEvents() as $event) {
     $msg_log_id = $db->record_msg_log($uuid,file_get_contents('php://input'),$msg);
     $msg = trim($msg);
     $msg = convertStrType($msg);
-    
-    if(in_array($msg,$default_arr)){
-        exit;
-    }
     $user_info = $db->getUserInfo($uuid,'uuid');
     if(count($user_info)==0){
         $line_user_result = $db->addLineUser($uuid);
         if($line_user_result){
-            $user_info = $db->getUserInfo($line_user_result,'uuid');
+            $user_info = $db->getUserInfo($line_user_result,'id');
         }
     }
-    $player_info = $db->getPlayerInfo($user_info['id'],'user_id');
+    $user_id = isset($user_info['id'])?$user_info['id']:'';
+    $player_info = $db->getPlayerInfo($user_id,'user_id');
     if(count($player_info)==0){
-        $add_plyer_result = $db->addPlyerUser($user_info['id']);
+        $add_plyer_result = $db->addPlyerUser($user_id);
         if($add_plyer_result){
             $player_info = $db->getPlayerInfo($add_plyer_result);
         }
     }
+    if(in_array($msg,$default_arr)){
+        exit;
+    }
+    
     $BibleBook= $db->getBibleBook();
     if(!in_array($msg,$over_sub_arr)){
         $action = mb_substr($msg, 0,1);
