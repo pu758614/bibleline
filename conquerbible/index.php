@@ -19,9 +19,10 @@ foreach ($client->parseEvents() as $event) {
     $uuid = isset($source['userId'])?$source['userId']:'';
     $message = isset($event['message'])?$event['message']:array();
     $msg = isset($message['text'])?$message['text']:'';
+    $msg_log_id = $db->record_msg_log($uuid,file_get_contents('php://input'),$msg);
     $msg = trim($msg);
     $msg = convertStrType($msg);
-    $msg_log_id = $db->record_msg_log($uuid,file_get_contents('php://input'));
+    
     if(in_array($msg,$default_arr)){
         exit;
     }

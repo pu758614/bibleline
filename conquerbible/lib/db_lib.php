@@ -19,10 +19,11 @@ class db_lib {
     }
 
     //記錄所有LINE進來的訊息
-    function record_msg_log($uuid,$msg){
+    function record_msg_log($uuid,$msg,$memo=''){
         $data = array(
             "user_uuid" => $uuid,
             "msg"       => $msg,
+            "memo"      => $memo,
             "modify_time" =>date("Y:m:d H:i:s"),
             "create_time" =>date("Y:m:d H:i:s"),
         );
