@@ -2,6 +2,7 @@
 include_once('../../vendor/autoload.php');
 include_once('../lib/db_lib.php');
 include_once('../lib/common.php');
+include_once('../conf/conf.php');
 $result = array(
     "error" => 1,
     "msg"   => '',
@@ -68,6 +69,7 @@ switch ($action) {
             $result['msg'] = 'error_101';
             goto end;
         }
+        
         $cond = array(
             "book_id"   => $book_id,
             "player_id" => $player_id,
@@ -79,19 +81,20 @@ switch ($action) {
         }else{
             $type = 'minus';
         }
+        $date_time = date("Y-m-d H:i:s");
         $data = array(
             "book_id"   => $book_id,
             "player_id" => $player_id,
             "chapter_no" => $chapter_no,
             "type"      => $type,
             "msg_log_id" => 0,
-            "create_time" => date("Y-m-d H:i:s"),
+            "create_time" => $date_time,
         );
         $is_done = false;
         $resule = $db->insertData('conquer_bible_read_record',$data);
         if($resule){
             if($type=='add'){
-                $cond['create_time'] = date("Y-m-d H:i:s");
+                $cond['create_time'] = $date_time;
                 $cond['read_record_id'] = $resule;
                 $res = $db->insertData('conquer_bible_enter_msg_log',$cond);
             }else{
@@ -102,6 +105,7 @@ switch ($action) {
                 if($boot_total_count==$count){
                     $is_done = true;
                 }
+                
             }
 
             if($resule){
@@ -116,12 +120,20 @@ switch ($action) {
                 $old_percent =isset($new_player_info['old_percent'])?$new_player_info['old_percent']:0;
                 $all_percen =isset($new_player_info['all_percen'])?$new_player_info['all_percen']:0;
                 $start_date = isset($new_player_info['start_date'])?$new_player_info['start_date']:0;
+                $date = date("m/d",strtotime($date_time));
+                $date_arr = explode('/',$date);
+                $day = $date_arr[1];
+                $color_no = $day%10;
+                $color_data = $color_arr[$color_no];
+                $show_date = (date('Y',strtotime($date_time))-1911)."<br>".date('m/d',strtotime($date_time));
                 $return_data = array(
                     "type" => $type,
                     "old_percent" => $old_percent,
                     "new_percent" => $new_percent,
                     "all_percen" => $all_percen,
                     "is_done"       => $is_done,
+                    "date"      => $show_date,
+                    "day_color" => $color_data
                 );
                 $result = array(
                     "error" => false,

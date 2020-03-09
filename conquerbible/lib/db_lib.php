@@ -176,7 +176,10 @@ class db_lib {
 
         $sort_data = array();
         foreach ($read_data as  $data) {
-            $sort_data[$data['book_id']."_".$data['chapter_no']] = '';
+            $time = isset($data['create_time'])?$data['create_time']:'';
+            $time_arr = explode(' ',$time);
+            $date = $time_arr[0];
+            $sort_data[$data['book_id']."_".$data['chapter_no']] = $date;
         }
         return $sort_data;
     }

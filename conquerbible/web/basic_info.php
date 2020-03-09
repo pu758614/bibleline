@@ -27,7 +27,9 @@ $tpl->assign(array(
     "type"       => $type,
     "done_count" => $done_count,
 ));
+
 $read_data = $db->getReadDate($player_id);
+
 $book_arr = $db->getBibleBook();
 foreach ($book_arr as $book_name => $book_data) {
     $count = $book_data['count'];
@@ -51,15 +53,26 @@ foreach ($book_arr as $book_name => $book_data) {
             $tpl->newBlock("row");
         }
         $check = '';
+        $show_date = '';
+        $color_data = "000000";
         if(isset($read_data[$book_id.'_'.$i])){
+            $date = $read_data[$book_id.'_'.$i];
+            $date_arr = explode('-',$date);
+            $day = $date_arr[2];
+            $color_no = $day%10;
+            $color_data = $color_arr[$color_no];
+            $show_date = (date('Y',strtotime($date))-1911)."<br>".date('m/d',strtotime($date));
             $check = '✔';
         }
+        
         $tpl->newBlock("chapter");
         $tpl->assign(array(
             "chapter_no" => $i,
             "check" => $check,
             "book_id" => $book_id,
             "data" => $book_id.'_'.$i,
+            "no_color" => $color_data,
+            "show_date" => $show_date,
         ) );
         if($row_count==9){
             $row_count=0;

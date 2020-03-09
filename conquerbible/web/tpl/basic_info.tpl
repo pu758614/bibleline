@@ -1,3 +1,22 @@
+<style>
+    input[type=checkbox]:not(old){
+        width   : 28px;
+        margin  : 0;
+        padding : 0;
+        opacity : 0;
+    }
+    input[type=checkbox]:not(old) + label{
+  display      : inline-block;
+  margin-left  : -28px;
+  padding-left : 28px;
+  line-height  : 24px;
+  background   : url('images/checks.png') no-repeat 0 -48px;
+}
+
+input[type=checkbox]:not(old):checked + label{
+  background-position : 0 -73px;
+}
+</style>
 <article id="top" class="wrapper style1">
     <div class="container">
         <div class="row">
@@ -55,8 +74,8 @@
         </div>
 
         <footer>
-            <div  style='text-align:left;margin-left:0%;'>
-                <div class="col-12" >
+            <div  style='text-align:left;margin-left:0%;' >
+                <div  >
                     <ul class="actions" style='text-align:center;'>
                         <li id='re_read'>
                             <!-- START BLOCK : reset_bt_block -->
@@ -65,14 +84,19 @@
                         </li>
                     </ul>
                 </div>
-                <div style="font-size: 0.5rem;">
-                    <font style="color:#000000" size="3px" >*點</font>
-                    <font style="color:#f33047;" size="3px">鎖<font/>
-                    <font style="color:#000000" size="3px" >
-                            解除鎖定即可點擊進行進攻/撤退
-                    </font>
-                    <p>
+                
+                <div style="font-size: 0.5rem;" class="row col-8" >
+                    <font style="color:#000000;" size="3px">*點
+                    <font style="color:#f33047;" size="3px">鎖</font>
+                    解除鎖定即可點擊進行進攻/撤退</font>
+                    <br><br>
+                    
                 </div>
+                <div style="text-align: right;">
+                    <input type="checkbox" id="show_date" name="show_date">
+                    <label for="show_date" style="color:#3d2222"> 顯示已讀日期</label><br><br>
+                </div>     
+                
                 <!-- <p>點擊章節數可進攻/撤退</p> -->
                 <!-- START BLOCK : book_block -->
                 <div class="bible_book {testament_type}">
@@ -87,8 +111,12 @@
                             <!-- START BLOCK : chapter -->
                             <td onclick="read_book('{data}','{book_id}')" style="text-align:center;color:black;">
                                 {chapter_no}<br>
-                                <font id="data_{data}" style="color:red;font-weight:bold">
+                                <font id="data_{data}_check" class ="r_check" style="color:#ff0000;font-weight:bold">
                                     {check}
+                                </font>
+
+                                <font id="data_{data}_date" class="r_date" style="color:#{no_color};display:none;font-weight:bold" >
+                                    {show_date}
                                 </font>
                             </td>
                             <!-- END BLOCK : chapter -->
@@ -112,6 +140,15 @@
                 { scrollTop:top },800
             );
         }
+        $("#show_date").click(function(){
+            if($("#show_date").prop("checked")){
+                $(".r_date").show();
+                $(".r_check").hide();
+            }else{
+                $(".r_date").hide();
+                $(".r_check").show();
+            }
+        })
     });
     var is_lock = '';
     function unlock(id){
@@ -218,9 +255,15 @@
                         toastr.success( data.msg );
                     }
                     if(type=='add'){
-                        $("#data_"+data_str).html("✔")
+                        var date = data.data.date;
+                        var day_color = data.data.day_color;
+                        $("#data_"+data_str+"_check").html("✔")
+                        $("#data_"+data_str+"_date").html(date);
+                        $("#data_"+data_str+"_date").css("color","#"+day_color);
                     }else{
-                        $("#data_"+data_str).html("")
+                        $("#data_"+data_str+"_check").html("");
+                        $("#data_"+data_str+"_date").html('');
+                        $("#data_"+data_str+"_date").css("color","");
                     }
                     $("#old_percent").html(old_percent);
                     $("#new_percent").html(new_percent);
