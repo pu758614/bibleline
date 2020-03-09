@@ -84,19 +84,19 @@ input[type=checkbox]:not(old):checked + label{
                         </li>
                     </ul>
                 </div>
-                
+
                 <div style="font-size: 0.5rem;" class="row col-8" >
                     <font style="color:#000000;" size="3px">*點
                     <font style="color:#f33047;" size="3px">鎖</font>
                     解除鎖定即可點擊進行進攻/撤退</font>
-                    <br><br>
-                    
+                    <br><br><br>
+
                 </div>
                 <div style="text-align: right;">
                     <input type="checkbox" id="show_date" name="show_date">
                     <label for="show_date" style="color:#3d2222"> 顯示已讀日期</label><br><br>
-                </div>     
-                
+                </div>
+
                 <!-- <p>點擊章節數可進攻/撤退</p> -->
                 <!-- START BLOCK : book_block -->
                 <div class="bible_book {testament_type}">
@@ -172,8 +172,8 @@ input[type=checkbox]:not(old):checked + label{
     }
 
     function re_read(){
-        var msg = "即將要重置攻略，請確認！"; 
-        if (confirm(msg)==true){ 
+        var msg = "即將要重置攻略，請確認！";
+        if (confirm(msg)==true){
             $.ajax({
             url: 'action.php?action=re_read_book',
             type: 'post',
@@ -198,12 +198,12 @@ input[type=checkbox]:not(old):checked + label{
                 toastr.error( 'error');
             }
         });
-        }else{ 
-            return false; 
-        } 
+        }else{
+            return false;
+        }
 
 
-        
+
     }
 
 
@@ -231,7 +231,7 @@ input[type=checkbox]:not(old):checked + label{
                         positionClass: "toast-bottom-center",
                         timeOut: '1000',
                     };
-                    
+
                     var type = data.data.type;
                     var old_percent = data.data.old_percent;
                     var new_percent = data.data.new_percent;
