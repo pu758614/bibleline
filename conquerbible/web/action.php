@@ -125,7 +125,8 @@ switch ($action) {
                 $day = $date_arr[1];
                 $color_no = $day%10;
                 $color_data = $color_arr[$color_no];
-                $show_date = (date('Y',strtotime($date_time))-1911)."<br>".date('m/d',strtotime($date_time));
+                $new_date = DateClearZeor(date('m/d',strtotime($date_time)));
+                $show_date = (date('Y',strtotime($date_time))-1911)."<br>".$new_date;
                 $return_data = array(
                     "type" => $type,
                     "old_percent" => $old_percent,

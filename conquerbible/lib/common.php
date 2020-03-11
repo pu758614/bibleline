@@ -75,6 +75,14 @@ function analysis_read__str($msg){
     return $retuen;
 }
 
+function DateClearZeor($date){
+    $date_arr = explode('/',$date);
+    $m = (int)$date_arr[0];
+    $d = (int)$date_arr[1];
+    return $m."/".$d;
+}
+
+
 function convertStrType($strs, $types = 'wf_to_nf'){ //全形半形轉換
     $nft = array(
         "(", ")", "[", "]", "{", "}", ".", ",", ";", ":",

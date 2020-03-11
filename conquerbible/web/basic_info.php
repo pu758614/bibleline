@@ -59,9 +59,10 @@ foreach ($book_arr as $book_name => $book_data) {
             $date = $read_data[$book_id.'_'.$i];
             $date_arr = explode('-',$date);
             $day = $date_arr[2];
-            $color_no = $day%10;
+            $color_no = $i%10;
             $color_data = $color_arr[$color_no];
-            $show_date = (date('Y',strtotime($date))-1911)."<br>".date('m/d',strtotime($date));
+            $new_date = DateClearZeor(date('m/d',strtotime($date)));
+            $show_date = (date('Y',strtotime($date))-1911)."<br>".$new_date;
             $check = '✔';
         }
         
