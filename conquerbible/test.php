@@ -5,7 +5,7 @@ include_once("lib/common.php");
 include_once("lib/db_lib.php");
 
 $db = new db_lib;
-
+ 
 $a = getDecodeStr('QnkwLytVaEl2c3M9');
 echo $a;
 $b = getEncodeStr('');
