@@ -149,7 +149,7 @@ input[type=checkbox]:not(old):checked + label{
             }else{
                 $(".r_date").hide();
                 $(".r_check").show();
-                show_date_log(1);
+                show_date_log(0);
             }
         })
     });
