@@ -123,7 +123,7 @@ switch ($action) {
                 $date = date("m/d",strtotime($date_time));
                 $date_arr = explode('/',$date);
                 $day = $date_arr[1];
-                $color_no = $day%10;
+                $color_no = $day%6;
                 $color_data = $color_arr[$color_no];
                 $new_date = DateClearZeor(date('m/d',strtotime($date_time)));
                 $show_date = (date('Y',strtotime($date_time))-1911)."<br>".$new_date;
@@ -176,6 +176,18 @@ switch ($action) {
         }else{
             $result['msg'] = '紀錄清除失敗。';
         }
+        break;
+    case 'show_date_log':
+        $type = isset($_POST['type'])?$_POST['type']:'';
+        $cond = array(
+            "player_id" => $player_id,
+            "book_id"   => $type,
+            "chapter_no" => '',
+            "type"      => 'show_date',
+            "msg_log_id" => 0,
+            "create_time" => date("Y-m-d H:i:s"),
+        );
+        $db->insertData('conquer_bible_read_record',$cond);
         break;
 }
 end:

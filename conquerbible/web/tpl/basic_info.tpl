@@ -145,12 +145,30 @@ input[type=checkbox]:not(old):checked + label{
             if($("#show_date").prop("checked")){
                 $(".r_date").show();
                 $(".r_check").hide();
+                show_date_log(1);
             }else{
                 $(".r_date").hide();
                 $(".r_check").show();
+                show_date_log(1);
             }
         })
     });
+    function show_date_log(type){
+        $.ajax({
+            url: 'action.php?action=show_date_log',
+            type: 'post',
+            dataType: 'json',
+            //async:false,
+            data: {
+                type :type
+            },
+            success: function(data){
+            },
+            error: function(data){
+                
+            }
+        });
+    }
     var is_lock = '';
     function unlock(id){
         var lock = '';
@@ -202,9 +220,6 @@ input[type=checkbox]:not(old):checked + label{
         }else{
             return false;
         }
-
-
-
     }
 
 
