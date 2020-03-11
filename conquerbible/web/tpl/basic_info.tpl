@@ -97,7 +97,7 @@ input[type=checkbox]:not(old):checked + label{
                     <input type="checkbox" id="show_date" name="show_date">
                     <label for="show_date" style="color:#3d2222"> 顯示已讀日期</label><br><br>
                 </div>
-                <!-- START BLOCK : test -->
+                <!-- END BLOCK : test -->
                 <!-- <p>點擊章節數可進攻/撤退</p> -->
                 <!-- START BLOCK : book_block -->
                 <div class="bible_book {testament_type}">
