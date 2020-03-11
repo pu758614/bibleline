@@ -27,7 +27,9 @@ $tpl->assign(array(
     "type"       => $type,
     "done_count" => $done_count,
 ));
-
+if($player_id==1){
+    $tpl->newBlock("test");
+}
 $read_data = $db->getReadDate($player_id);
 
 $book_arr = $db->getBibleBook();
