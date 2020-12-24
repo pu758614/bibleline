@@ -17,7 +17,7 @@ if($boot_total_count==$read_count){
 }
 $img_name = '1582214401170.jpg';
 if($user_id == '42'){
-    $img_name = '12312312';
+    $img_name = 'moomin.png';
 }
 $tpl->gotoBlock("_ROOT");
 $tpl->assign(array(
