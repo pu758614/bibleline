@@ -16,7 +16,7 @@ if($boot_total_count==$read_count){
     $tpl->newBlock("reset_bt_block");
 }
 $img_name = '1582214401170.jpg';
-if($user_id == '42'){
+if($done_count >= 1 && $user_id=='62'){
     $img_name = 'moomin.png';
 }
 $tpl->gotoBlock("_ROOT");
