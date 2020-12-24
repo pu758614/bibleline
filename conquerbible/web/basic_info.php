@@ -15,9 +15,14 @@ $read_count = $db->PlayerTotalReadCount($player_id);
 if($boot_total_count==$read_count){
     $tpl->newBlock("reset_bt_block");
 }
+$img_name = '1582214401170.jpg';
+if($user_id == '1'){
+    $img_name = '12312312';
+}
 $tpl->gotoBlock("_ROOT");
 $tpl->assign(array(
     "user_name" => htmlspecialchars($user_name),
+    "img_name"  => $img_name,
     "start_date" => $start_date,
     "old_percent" => $old_percent,
     "new_percent" => $new_percent,
