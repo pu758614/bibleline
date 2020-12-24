@@ -105,7 +105,9 @@ switch ($action) {
                 if($boot_total_count==$count){
                     $is_done = true;
                 }
-                
+                if($player_id=='1'){
+                    $is_done = true;
+                }
             }
 
             if($resule){
