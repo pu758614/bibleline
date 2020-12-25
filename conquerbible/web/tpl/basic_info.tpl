@@ -22,7 +22,7 @@
 <style>
 			
     .container {
-        background-image: url('images/bg123.png'); 
+        background-image: url('images/bg.png'); 
         background-attachment: fixed;
         background-repeat: no-repeat;
         background-position:  left bottom; ;
