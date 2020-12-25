@@ -22,6 +22,7 @@ if($done_count >= 1 && $user_id=='62'){
 
 if( $user_id=='42'){
     $tpl->newBlock("bk_css");
+    $img_name = 'moomin.png';
 }
 
 $tpl->gotoBlock("_ROOT");
