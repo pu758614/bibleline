@@ -21,7 +21,7 @@ if($done_count >= 1 && $user_id=='62'){
 }
 
 if( $user_id=='42'){
-    $tpl->newBlock("reset_bt_block");
+    $tpl->newBlock("bk_css");
 }
 
 $tpl->gotoBlock("_ROOT");
