@@ -19,6 +19,11 @@ $img_name = '1582214401170.jpg';
 if($done_count >= 1 && $user_id=='62'){
     $img_name = 'moomin.png';
 }
+
+if( $user_id=='42'){
+    $tpl->newBlock("reset_bt_block");
+}
+
 $tpl->gotoBlock("_ROOT");
 $tpl->assign(array(
     "user_name" => htmlspecialchars($user_name),

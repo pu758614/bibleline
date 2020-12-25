@@ -24,7 +24,6 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet"  />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 	<body class="is-preload">
-
 		<!-- Nav -->
 			<nav id="nav">
 				<ul class="container">

@@ -6,17 +6,31 @@
         opacity : 0;
     }
     input[type=checkbox]:not(old) + label{
-  display      : inline-block;
-  margin-left  : -28px;
-  padding-left : 28px;
-  line-height  : 24px;
-  background   : url('images/checks.png') no-repeat 0 -48px;
-}
+        display      : inline-block;
+        margin-left  : -28px;
+        padding-left : 28px;
+        line-height  : 24px;
+        background   : url('images/checks.png') no-repeat 0 -48px;
+    }
 
-input[type=checkbox]:not(old):checked + label{
-  background-position : 0 -73px;
-}
+    input[type=checkbox]:not(old):checked + label{
+    background-position : 0 -73px;
+    }
 </style>
+
+<!-- START BLOCK : bk_css -->
+<style>
+			
+    .container {
+        background-image: url('images/bg123.png'); 
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position:  left bottom; ;
+    }
+</style>
+<!-- END BLOCK : bk_css -->
+
+
 <article id="top" class="wrapper style1">
     <div class="container">
         <div class="row">
