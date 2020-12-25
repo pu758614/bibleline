@@ -22,10 +22,10 @@
 <style>
 			
     .container {
-        background-image: url('images/bg.png'); 
+        background-image: url('images/bg1.png'); 
         background-attachment: fixed;
         background-repeat: no-repeat;
-        background-position:  left bottom; ;
+        background-position:  right bottom; ;
     }
 </style>
 <!-- END BLOCK : bk_css -->
