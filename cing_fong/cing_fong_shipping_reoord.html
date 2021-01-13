@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>慶豐電機</title>
+    <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 10]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Mega Able Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
+    <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
+    <meta name="author" content="codedthemes" />
+    <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap/css/bootstrap.min.css">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="assets/icon/icofont/css/icofont.css">
+    <!-- morris chart -->
+    <link rel="stylesheet" type="text/css" href="assets/css/morris.js/css/morris.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+</head>
+
+<body>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                        <div class="mobile-search waves-effect waves-light">
+                            <div class="header-search">
+                                <div class="main-search morphsearch-search">
+                                    <div class="input-group">
+                                        <span class="input-group-addon search-close"><i class="ti-close"></i></span>
+                                        <input type="text" class="form-control" placeholder="Enter Keyword">
+                                        <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="index.html">
+                            <img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" />
+                        </a>
+                        <a class="mobile-options waves-effect waves-light">
+                            <i class="ti-more"></i>
+                        </a>
+                    </div>
+
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+                            </li>
+                            <li class="header-search">
+                                <div class="main-search morphsearch-search">
+                                    <div class="input-group">
+                                        <span class="input-group-addon search-close"><i class="ti-close"></i></span>
+                                        <input type="text" class="form-control">
+                                        <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="cing_fong_calendar.html" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-calendar"></i></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">行事曆</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="cing_fong_user.html" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-user"></i></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">客戶資料</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="index.html" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-list"></i></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">出貨紀錄</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="index.html" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-save"></i></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">舊資料區</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="index.html" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-settings"></i></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">設定</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="pcoded-content">
+
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <div class="page-body">
+                                        <nav class=" header-navbar " header-theme="theme1" pcoded-header-position="fixed">
+                                            <div class="navbar-wrapper">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class=" mobile-search waves-effect waves-light">
+                                                            <div class="header-search">
+                                                                <div class="main-search morphsearch-search open">
+                                                                    <div class="input-group">
+                                                                        
+                                                                        <input type="text" class="form-control" placeholder="搜尋" style="width: 200px;">
+                                                                        <span class="input-group-addon search-btn"><i class="ti-search"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 ml-auto">
+                                                        <select name="select" class="form-control ">
+                                                            <option value="opt1" >全部</option>
+                                                            <option value="opt2">已出貨</option>
+                                                            <option value="opt3">未出貨</option>
+                                                            <option value="opt4">已交代</option>
+                                                            <option value="opt5">未交代</option>
+                                                        </select>
+                                                    </div>                                   
+                                                </div>     
+                                            </div>
+                                        </nav>
+                                        <div class="card">
+                                            
+                                            
+                                            <div class="card-header">
+                                                <h5>出貨紀錄</h5>
+
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>訂購人</th>
+                                                                <th>電話</th>
+                                                                <th>訂購時間</th>
+                                                                <th>收貨人</th>
+                                                                <th>總金額</th>
+                                                                <th>狀態</th>
+                                                                <th style="text-align:center">檢視</th>
+                                                                <th style="text-align:center">編輯</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td>黃小姐</td>
+                                                                <td>07-3419215</td>
+                                                                <td>2021-01-09 12:30:20</td>
+                                                                <td>甲先生、乙小姐</td>
+                                                                <td>6000</td>
+                                                                <td>
+                                                                    <label class="label label-success">已出貨</label>
+                                                                </td>
+                                                                <td style="text-align:center">
+                                                                    <a onclick="$('#modal_view').modal('show'); ">
+                                                                        <span class="pcoded-micon"><i class="ti-eye"></i></span>
+                                                                    </a>
+                                                                </td>
+                                                                <td  style="text-align:center">
+                                                                    <a onclick="$('#modal_edit').modal('show'); ">
+                                                                        <span class="pcoded-micon"><i class="ti-pencil"></i></span>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">2</th>
+                                                                <td>林小姐</td>
+                                                                <td>07-1234567</td>
+                                                                <td>2021-01-09 12:30:20</td>
+                                                                <td>A先生</td>
+                                                                <td>2000</td>
+                                                                <td>
+                                                                    <label class="label label-danger">未出貨</label>
+                                                                </td>
+                                                                <td style="text-align:center">
+                                                                    <a onclick="$('#modal_view').modal('show'); ">
+                                                                        <span class="pcoded-micon"><i class="ti-eye"></i></span>
+                                                                    </a>
+                                                                </td>
+                                                                <td  style="text-align:center">
+                                                                    <a onclick="$('#modal_edit').modal('show'); ">
+                                                                        <span class="pcoded-micon"><i class="ti-pencil"></i></span>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">3</th>
+                                                                <td>慶豐電機</td>
+                                                                <td>0987654321</td>
+                                                                <td>2021-01-09 12:30:20</td>
+                                                                <td></td>
+                                                                <td>2000</td>
+                                                                <td>
+                                                                    <label class="label label-primary">已交代</label>
+                                                                </td>
+                                                                <td style="text-align:center">
+                                                                    <a onclick="$('#modal_view').modal('show'); ">
+                                                                        <span class="pcoded-micon"><i class="ti-eye"></i></span>
+                                                                    </a>
+                                                                </td>
+                                                                <td  style="text-align:center">
+                                                                    <a onclick="$('#modal_edit').modal('show'); ">
+                                                                        <span class="pcoded-micon"><i class="ti-pencil"></i></span>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">4</th>
+                                                                <td>張先生</td>
+                                                                <td>0987654321</td>
+                                                                <td>2021-01-09 12:30:20</td>
+                                                                <td></td>
+                                                                <td>2000</td>
+                                                                <td>
+                                                                    <label class="label label-default">未交代</label>
+                                                                </td>
+                                                                <td style="text-align:center">
+                                                                    <a onclick="$('#modal_view').modal('show'); ">
+                                                                        <span class="pcoded-micon"><i class="ti-eye"></i></span>
+                                                                    </a>
+                                                                </td>
+                                                                <td  style="text-align:center">
+                                                                    <a onclick="$('#modal_edit').modal('show'); ">
+                                                                        <span class="pcoded-micon"><i class="ti-pencil"></i></span>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="styleSelector">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal-icon show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id='modal_edit' style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">客戶資料編輯</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                序號
+                                <input type="text" class="form-control" placeholder="Disabled text" value="1" disabled="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                姓名
+                                <input class="form-control" type="text" id="name" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                電話
+                                <input class="form-control" type="text" id="name" value="">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                手機
+                                <input class="form-control" type="text" id="name" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                傳真
+                                <input class="form-control" type="text" id="name" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                電子信箱
+                                <input class="form-control" type="text" id="name" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                地址
+                                <input class="form-control" type="text" id="name" value="">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                LINE
+                                <input class="form-control" type="text" id="name" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                統編
+                                <input class="form-control" type="text" id="name" value="">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                備註
+                                <textarea class="form-control" required=""></textarea>
+                                <span class="form-bar"></span>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">儲存</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-icon show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id='modal_view' style="display: none;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">客戶資料</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="d-inline-block">
+                                <h6 style="margin-bottom: 0.1rem;">序號</h6>
+                                <p class="text-muted m-b-0">1</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-inline-block">
+                                <span>
+                                    <h6 style="margin-bottom: 0.1rem;">姓名</h6>
+
+                                    <p class="text-muted m-b-0">黃小姐123</p>
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-inline-block">
+                                <h6 style="margin-bottom: 0.1rem;">電話</h6>
+                                <p class="text-muted m-b-0">07-3419215</p>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-inline-block">
+                                <h6 style="margin-bottom: 0.1rem;">手機</h6>
+                                <p class="text-muted m-b-0">0987654321</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-inline-block">
+                                <h6 style="margin-bottom: 0.1rem;">傳真</h6>
+                                <p class="text-muted m-b-0">1234567</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-inline-block">
+                                <h6 style="margin-bottom: 0.1rem;">電子信箱</h6>
+                                <p class="text-muted m-b-0">abc@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="d-inline-block">
+                                <h6 style="margin-bottom: 0.1rem;">地址</h6>
+                                <p class="text-muted m-b-0">高雄市左營區重立路232巷2號</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="d-inline-block">
+                                <h6 style="margin-bottom: 0.1rem;">LINE</h6>
+                                <p class="text-muted m-b-0">1234567</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-inline-block">
+                                <h6 style="margin-bottom: 0.1rem;">統編</h6>
+                                <p class="text-muted m-b-0">9876543</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="d-inline-block">
+                                <h6 style="margin-bottom: 0.1rem;">備註</h6>
+                                <p class="text-muted m-b-0">aaaabbbbccccc</p>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Warning Section Ends -->
+<!-- Required Jquery -->
+<script type="text/javascript" src="assets/js/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
+<script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap/js/bootstrap.min.js "></script>
+<!-- waves js -->
+<script src="assets/pages/waves/js/waves.min.js"></script>
+<!-- jquery slimscroll js -->
+<script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js "></script>
+<!-- waves js -->
+<script src="assets/pages/waves/js/waves.min.js"></script>
+<!-- modernizr js -->
+<script type="text/javascript" src="assets/js/SmoothScroll.js"></script>
+<script src="assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
+<!-- Morris Chart js -->
+<script src="assets/js/raphael/raphael.min.js"></script>
+<script src="assets/js/morris.js/morris.js"></script>
+<!-- Custom js -->
+<script src="assets/js/morris-custom-chart.js"></script>
+<script src="assets/js/pcoded.min.js"></script>
+<script src="assets/js/vertical-layout.min.js "></script>
+<script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" src="assets/js/script.js"></script>
+</body>
+
+</html>
