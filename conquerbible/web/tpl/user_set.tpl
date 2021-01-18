@@ -47,6 +47,9 @@
 						<div class="col-12">
 							<ul class="actions">
                                 <li><input type="button" onclick="save()" value="儲存" /></li>
+<<<<<<< HEAD
+                                <!-- <li><input type="button" style="background-color:#e0436b;" onclick="user_reset()" value="進度重置" /></li> -->
+=======
                                 
                                 <li>
                                     <span onclick="unlock_rest()" id='lock' style="font-size: 0.2rem; color:#f33047;float:left;" class="icon solid lock_bt featured fa-lock fa-xs fa-align-left">
@@ -54,6 +57,7 @@
                                     <span style='color:#000000;float:left;'> &nbsp;&nbsp;重製前請先解鎖</span>
                                     <input type="button" id="reset_bt" style="background-color:#94898b;" onclick="user_reset()" value="進度重置" disabled="disabled"/>
                                 </li>
+>>>>>>> ffee2b4cc1be1470e4ec8189705d9437f182b1ae
 							</ul>
                         </div>
                         
