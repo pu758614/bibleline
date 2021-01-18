@@ -149,20 +149,28 @@ switch ($action) {
         goto end;
         break;
     case 're_read_book':
-        $read_count = $db->PlayerTotalReadCount($player_id);
-        if($read_count!=$boot_total_count){
-            $result['msg'] = '你還沒讀完！';
-            goto end;
+        $source = isset($_POST['source'])?$_POST['source']:'';
+        if($source!='user_set'){
+            $read_count = $db->PlayerTotalReadCount($player_id);
+            if($read_count!=$boot_total_count){
+                $result['msg'] = '未攻略完畢！';
+                goto end;
+            }
         }
+        
         $re_resule = $db->reReadSet($player_id);
         if($re_resule){
-            $add_resut = $db->addDoneCount($player_id);
+            $type = 'add';
+            if($source=='user_set'){
+                $type = 'reset';
+            }
+            $add_resut = $db->reUserData($player_id,$type);
             if($add_resut){
                 $data = array(
                     "book_id"   => 0,
                     "player_id" => $player_id,
-                    "chapter_no" => $add_resut,
-                    "type"      => 'reset',
+                    "chapter_no" => 0,
+                    "type"      => 'reset_'.$type,
                     "msg_log_id" => 0,
                     "create_time" => date("Y-m-d H:i:s"),
                 );
@@ -170,8 +178,9 @@ switch ($action) {
                 $result['date'] = $add_resut;
                 $result['error'] = false;
             }else{
-                $result['msg'] = '紀錄清除成功，完成次數更新失敗。';
+                $result['msg'] = '紀錄清除成功，但更新個人資料失敗。';
             }
+            
         }else{
             $result['msg'] = '紀錄清除失敗。';
         }

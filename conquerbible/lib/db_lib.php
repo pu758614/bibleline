@@ -243,21 +243,24 @@ class db_lib {
         return $result;
     }
 
-    function addDoneCount($player_id){
+    function reUserData($player_id,$type='add'){
         $player_info = $this->getSingleById('conquer_bible_player','id',$player_id);
-        $done_count = isset($player_info['done_count'])?$player_info['done_count']:0;
-        $done_count = $done_count+1;
         $data = array(
-            'done_count'  =>$done_count,
             "start_date" => date("Y-m-d"),
             "new_percent" => 0,
             "old_percent" => 0,
             "all_percen" => 0,
             "modify_time" => date("Y:m:d H:i:s"),
         );
+        if($type=='add'){
+            $done_count = isset($player_info['done_count'])?$player_info['done_count']:0;
+            $done_count = $done_count+1;
+            $data['done_count'] = $done_count;
+        }
+
         $cond = array("id"=>$player_id);
         $up_result = $this->updateData('conquer_bible_player',$data,$cond);
-        return $done_count;
+        return $up_result;
     }
 }
  ?>
