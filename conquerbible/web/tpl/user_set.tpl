@@ -47,7 +47,7 @@
 						<div class="col-12">
 							<ul class="actions">
                                 <li><input type="button" onclick="save()" value="儲存" /></li>
-                                <li><input type="button" style="background-color:#e0436b;" onclick="user_reset()" value="進度重置" /></li>
+                                <!-- <li><input type="button" style="background-color:#e0436b;" onclick="user_reset()" value="進度重置" /></li> -->
 							</ul>
 						</div>
 					</div>
