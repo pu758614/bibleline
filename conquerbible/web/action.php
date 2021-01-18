@@ -10,7 +10,10 @@ $result = array(
 );
 session_start();
 $player_id = isset($_SESSION['player_id'])?$_SESSION['player_id']:'';
-
+if($player_id=='' && !is_numeric($player_id)){
+    $result['msg'] = '缺少參數或超過登入時間，請重新由LINE連結登入。';
+    goto end;
+}
 $db = new db_lib;
 $action = isset($_GET['action'])?$_GET['action']:'';
 switch ($action) {
