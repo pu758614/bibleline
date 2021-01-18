@@ -46,7 +46,8 @@
 
 						<div class="col-12">
 							<ul class="actions">
-								<li><input type="button" onclick="save()" value="儲存" /></li>
+                                <li><input type="button" onclick="save()" value="儲存" /></li>
+                                <li><input type="button" style="background-color:#e0436b;" onclick="user_reset()" value="進度重置" /></li>
 							</ul>
 						</div>
 					</div>
@@ -127,6 +128,41 @@ div.ui-datepicker{
              }
          });
      }
+
+     function user_reset(){
+        var msg = "即將要重置攻略，目前進度將會清除，請確認!！";
+        if (confirm(msg)==true){
+            $.ajax({
+            url: 'action.php?action=re_read_book',
+            type: 'post',
+            data: {
+                source:'user_set',
+            },
+            dataType: 'json',
+            async:false,
+            success: function(data){
+                toastr.options = {
+                        positionClass: "toast-bottom-center",
+                    };
+                if(!data.error){
+                    //toastr.success( '重置成功' );
+                    alert('重置成功');
+                    window.location.reload()
+                }else{
+                    toastr.error( data.msg );
+                }
+            },
+            error: function(data){
+                toastr.options = {
+                    positionClass: "toast-bottom-center",
+                };
+                toastr.error( 'error');
+            }
+        });
+        }else{
+            return false;
+        }
+    }
 
      $( "#start_date" ).datepicker({
          showMonthAfterYear : true,
