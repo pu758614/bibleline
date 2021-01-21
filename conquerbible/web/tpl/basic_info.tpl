@@ -20,9 +20,8 @@
 
 <!-- START BLOCK : bk_css -->
 <style>
-			
-    .container {
-        background-image: url('images/bg1.png'); 
+    .back_mark {
+        background-image: url('images/bg1.png');
         background-attachment: fixed;
         background-repeat: no-repeat;
         background-position:  right bottom; ;
@@ -31,7 +30,7 @@
 <!-- END BLOCK : bk_css -->
 
 
-<article id="top" class="wrapper style1">
+<article id="top" class="wrapper style1 back_mark">
     <div class="container">
         <div class="row">
             <div class="col-4 col-5-large col-12-medium">
@@ -177,7 +176,7 @@
             success: function(data){
             },
             error: function(data){
-                
+
             }
         });
     }
