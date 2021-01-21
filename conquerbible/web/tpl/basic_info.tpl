@@ -20,30 +20,18 @@
 
 <!-- START BLOCK : bk_css -->
 <style>
-<<<<<<< HEAD
 
-    .container {
-        background-image: url('images/bg1.png');
-=======
-			
     .background_mark  {
-        background-image: url('images/bg1.png'); 
->>>>>>> 5a319a0ab751d67244169f46acfd0815630efc30
+        background-image: url('images/bg1.png');
         background-attachment: fixed;
         background-repeat: no-repeat;
-        background-position:  right bottom; 
+        background-position:  right bottom;
     }
 </style>
 <!-- END BLOCK : bk_css -->
 
-<<<<<<< HEAD
-
-<article id="top" class="wrapper style1 ">
-    <div class="container">
-=======
 <article id="top" class="wrapper background_mark style">
-    <div class="container aaaa">
->>>>>>> 5a319a0ab751d67244169f46acfd0815630efc30
+    <div class="container">
         <div class="row">
             <div class="col-4 col-5-large col-12-medium">
                 <span class="image fit"><img src="images/{img_name}" alt="" /></span>
