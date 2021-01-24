@@ -24,7 +24,7 @@
     .background_mark  {
         background-image: url('images/bg1.png');
         background-attachment: fixed;
-        /* background-repeat: no-repeat; */
+        background-repeat: no-repeat;
         background-position:  right bottom;
         background-attachment: fixed;
         /* -o-background-size: cover;
