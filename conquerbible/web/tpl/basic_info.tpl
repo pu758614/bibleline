@@ -22,7 +22,7 @@
 <style>
 
     .background_mark  {
-        background-image: url('images/bg1.png');
+        background-image: url('images/bg1.gif');
         background-attachment: fixed;
         background-repeat: no-repeat;
         background-position:  right bottom;
