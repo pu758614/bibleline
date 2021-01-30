@@ -26,10 +26,13 @@
         background-attachment: fixed;
         background-repeat: no-repeat;
         background-position:  right bottom;
-        background-attachment: fixed;
         /* -o-background-size: cover;
         -moz-background-size: cover;
         -webkit-background-size: cover; */
+        -o-background-size:cover;
+        -moz-background-size:cover;
+        -webkit-background-size:cover;
+        background-size:cover;
     }
 </style>
 <!-- END BLOCK : bk_css -->
