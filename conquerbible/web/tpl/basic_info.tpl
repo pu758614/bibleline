@@ -30,7 +30,6 @@
         -o-background-size: cover;
         -moz-background-size: cover;
         -webkit-background-size: cover;
-        background-size:cover;
     }
 </style>
 <!-- END BLOCK : bk_css -->
