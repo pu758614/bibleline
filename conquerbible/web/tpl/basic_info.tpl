@@ -18,6 +18,23 @@
     }
 </style>
 
+<!-- START BLOCK : bk_css -->
+<style>
+
+    .background_mark  {
+        background-image: url('images/bg1.png');
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position:  right bottom;
+        background-attachment: fixed;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size:150px;
+    }
+</style>
+<!-- END BLOCK : bk_css -->
+
 <article id="top" class="wrapper background_mark style">
     <div class="container">
         <div class="row">
@@ -154,14 +171,7 @@
                 show_date_log(0);
             }
         })
-        <!-- START BLOCK : bk_css -->
-            $('.background_mark').css('background-image',"url('images/bg1.gif')");
-            $('.background_mark').css('background-attachment',"fixed");
-            $('.background_mark').css('background-repeat',"no-repeat");
-            $('.background_mark').css('background-position',"right bottom");
-        <!-- END BLOCK : bk_css -->
     });
-
     function show_date_log(type){
         $.ajax({
             url: 'action.php?action=show_date_log',
