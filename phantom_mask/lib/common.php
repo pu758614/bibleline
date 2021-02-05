@@ -49,7 +49,7 @@ function getDecodeStr($str){
     if ( version_compare( phpversion() , '7.1.0', '<') ) {
         $str = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, PadKeyLength($hashKey4encode), base64_decode($str), MCRYPT_MODE_CBC, md5($hashKey4encode));
     }else{
-        $str = openssl_decrypt($str,'des-ede3',oaksPadKeyLength($hashKey4encode),0);
+        $str = openssl_decrypt($str,'des-ede3',PadKeyLength($hashKey4encode),0);
     }
     return trim($str);
 }
