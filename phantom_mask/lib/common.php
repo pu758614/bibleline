@@ -33,7 +33,7 @@ function checkToken($token){
 
 function getEncodeStr($str){
     $hashKey4encode = '758614';
-    if ( version_compare( phpversion() , '7.0.0', '>=') ) {
+    if ( version_compare( phpversion() , '7.1.0', '<') ) {
         $str = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, PadKeyLength($hashKey4encode), $str, MCRYPT_MODE_CBC, md5($hashKey4encode)));
     }else{
         $str = openssl_encrypt($str,'des-ede3',PadKeyLength($hashKey4encode),0);
