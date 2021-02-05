@@ -7,6 +7,7 @@ $json_str = file_get_contents('data/pharmacies.json');
 $data_arr = json_decode($json_str, true);
 
 $db = new db_lib();
+$db->db->debug = 1;
 foreach ($data_arr as  $data) {
     $openingHours = $data['openingHours'];
     $masks = $data['masks'];
