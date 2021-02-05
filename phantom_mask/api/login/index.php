@@ -4,6 +4,7 @@
 # 登入取得token
 # Date : 2021-02-02
 #####################################################################
+ini_set('display_errors','1');
 include_once(dirname(__DIR__)."../../lib/common.php");
 include_once("$ROOT_PATH/lib/db_lib.php");
 $request_data = array(

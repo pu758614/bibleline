@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors','1');
 $ini_list = parse_ini_file('conf.ini', true, INI_SCANNER_RAW);
 $data_base = isset($ini_list['system'])?$ini_list['system']:array();
 $ROOT_PATH = isset($data_base['root_path'])?$data_base['root_path']:'';
