@@ -3,6 +3,8 @@ ini_set('display_errors','1');
 include_once("lib/common.php");
 include_once("$ROOT_PATH/lib/db_lib.php");
 
+echo phpversion();
+exit();
 $json_str = file_get_contents('data/pharmacies.json');
 $data_arr = json_decode($json_str, true);
 
