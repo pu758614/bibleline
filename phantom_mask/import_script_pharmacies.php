@@ -4,6 +4,10 @@ include_once("$ROOT_PATH/lib/db_lib.php");
 
 $json_str = file_get_contents('data/pharmacies.json');
 $data_arr = json_decode($json_str, true);
+echo '<pre>';
+print_r($json_str);
+exit();
+echo '</pre>';
 $db = new db_lib();
 foreach ($data_arr as  $data) {
     $openingHours = $data['openingHours'];
