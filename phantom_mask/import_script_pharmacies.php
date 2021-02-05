@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors','1');
 include_once("lib/common.php");
 include_once("$ROOT_PATH/lib/db_lib.php");
 
